@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EDD;
+package Extras;
+
+import EDD.List;
 
 /**
  *
@@ -11,7 +13,7 @@ package EDD;
 public class Persona {
     
     private String fullName;
-    private int numeral;
+    private String numeral;
     private String eyesColor;
     private String hairColor;
     private String father;
@@ -22,8 +24,9 @@ public class Persona {
     private List<String> sons;
     private String notes;
     private String fate;
+    private Persona pNext;
 
-    public Persona(String fullName, int numeral, String eyesColor, String hairColor, String father) {
+    public Persona(String fullName, String numeral, String eyesColor, String hairColor, String father) {
         this.fullName = fullName;
         this.numeral = numeral;
         this.eyesColor = eyesColor;
@@ -36,7 +39,7 @@ public class Persona {
         this.sons = null;
         this.notes = null;
         this.fate = null;
-        
+        this.pNext = null;
     }
 
     public String getFullName() {
@@ -47,11 +50,11 @@ public class Persona {
         this.fullName = fullName;
     }
 
-    public int getNumeral() {
+    public String getNumeral() {
         return numeral;
     }
 
-    public void setNumeral(int numeral) {
+    public void setNumeral(String numeral) {
         this.numeral = numeral;
     }
 
@@ -134,5 +137,15 @@ public class Persona {
     public void setFate(String fate) {
         this.fate = fate;
     }    
+
+    public Persona getpNext() {
+        return pNext;
+    }
+
+    public void setpNext(Persona pNext) {
+        this.pNext = pNext;
+    }
+    
+    
     
 }
