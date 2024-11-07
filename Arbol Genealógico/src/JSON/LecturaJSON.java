@@ -4,11 +4,17 @@
  */
 package JSON;
 
+import EDD.Hashtable;
+import EDD.List;
+import EDD.Tree;
+import EDD.TreeNode;
+import Extras.Persona;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -47,7 +53,92 @@ public class LecturaJSON {
     }
     
     
+    public void dataConstructor(Tree lineageTree){
+        List<TreeNode> monarchy = new List<>();
+        String keyWord = this.getData().keys().next();
+        JSONArray innerData = this.getData().getJSONArray(keyWord);
+        
+        for (int i = 0; i < innerData.length(); i++) {
+            JSONObject personJSON = innerData.getJSONObject(i);
+            String personKey = personJSON.keys().next();
+            JSONArray personData = personJSON.getJSONArray(personKey);
+            Persona person = personBuilder(personData, personKey);
+            TreeNode treeLift = new TreeNode(person);
+            monarchy.add(treeLift);
+            lineageTree.addNode(person);
+            if(person.getKwownAs() == null){
+                lineageTree.getNombres().addPersona(treeLift, false);
+            } else{
+                lineageTree.getNombres().addPersona(TreeLift, true);
+            }
+        }
+    }
     
+    public Persona personBuilder(JSONArray data, String name){
+        String lineagePosition = "";
+        String father = "";
+        String mote;
+        String heldTitle;
+        String eyeColor = "";
+        String hairColor = "";
+        String description;
+        String fate;
+        String wedTo;
+        Persona result = new Persona(name, lineagePosition, eyeColor, hairColor, father);
+        
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject jsonData = data.getJSONObject(i);
+            String key = jsonData.keys().next();
+            switch(key){
+                case "Of his name":
+                    lineagePosition = jsonData.getString(key);
+                    result.setNumeral(lineagePosition);
+                    break;
+                case "Born to":
+                    father = jsonData.getString(key);
+                    if(father.equals("[Unknown]")){
+                        father = null;
+                    }
+                    result.setFather(father);
+                    break;
+                case "Known throughout as":
+                    mote = jsonData.getString(key);
+                    result.setKwownAs(mote);
+                    break;
+                case "Held title":
+                    heldTitle = jsonData.getString(key);
+                    result.setHeldTitle(heldTitle);
+                    break;
+                case "Of eyes":
+                    eyeColor = jsonData.getString(key);
+                    result.setEyesColor(eyeColor);
+                    break;
+                case "Of hair":
+                    hairColor = jsonData.getString(key);
+                    result.setHairColor(hairColor);
+                    break;
+                case "Notes":
+                    description = jsonData.getString(key);
+                    result.setNotes(description);
+                    break;
+                case "Fate":
+                    fate = jsonData.getString(key);
+                    result.setFate(fate);
+                    break;
+                case "Wed to":
+                    wedTo = jsonData.getString(key);
+                    result.setWedTo(wedTo);
+                    break;
+            }
+        }
+        
+        
+        return result;
+    }
+        
+    public void setLineage(Hashtable register, Tree lineage){}
+    
+    /*
     public void updateData(){
         try(FileWriter overwrite = new FileWriter(this.getIneerFilePath())){
             overwrite.write(this.getData().toString(4));
@@ -55,6 +146,7 @@ public class LecturaJSON {
             JOptionPane.showMessageDialog(null, "Error al intentar sobre escribir: " + e.getMessage());
         }
     }
+    */
     
     
     public void changeJSON(File newEndpoint){
