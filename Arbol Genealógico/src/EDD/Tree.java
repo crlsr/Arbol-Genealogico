@@ -15,15 +15,67 @@ public class Tree {
         
     private TreeNode pRoot;
     private Graph graph;
+    private Hashtable nombres;
+    private Hashtable motes;
+    private int size;
 
-    public Tree() {
+    public Tree(int hashtableSize) {
         this.pRoot = null;
         this.graph = new MultiGraph("Árbol Genealógico");
-        System.setProperty("org.graphstream.ui", "swing");
+        this.nombres = new Hashtable(hashtableSize);
+        this.motes = new Hashtable(hashtableSize);
+        this.size = 0;
     }
     
     public void addNode(Persona persona){
-        //llamada a funcion para buscar en el hashtable
+        if(persona!= null){
+            if(graph.getNode(persona.getFullName() + "-" + persona.getNumeral())== null){
+                graph.addNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.label", persona.getFullName()+ "-" + persona.getNumeral());
+                this.graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.style", "fill-color: lightblue; shape: circle; size: 25px;");
+                this.setSize(this.getSize()+1);
+                int generacion = getGeneracion(persona);  
+                int x = (this.getSize() % 10) * 80;  
+                int y = generacion * 100;  
+                graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("xy", x, y);
+            }
+            
+        }
+    }
+    
+    public void connectNodes(Persona hijo, Persona padre){
+        if(hijo!= null && padre!= null){
+            if (graph.getNode(padre.getFullName()+ "-" + padre.getNumeral()) == null) {
+                this.addNode(padre);
+            }
+            if (graph.getNode(hijo.getFullName()+ "-" + hijo.getNumeral()) == null) {
+                this.addNode(hijo);
+            }
+            String edgeId =  padre.getFullName()+ "-" + padre.getNumeral() + "-" + hijo.getFullName()+ "-" + hijo.getNumeral();
+            if (graph.getEdge(edgeId) == null) {
+                graph.addEdge(edgeId, padre.getFullName()+ "-" + padre.getNumeral(), hijo.getFullName()+ "-" + hijo.getNumeral(), true);  
+                graph.getEdge(edgeId).setAttribute("ui.style", "fill-color: black;");  
+            }
+        }
+    }
+    
+    public void mostrarArbol() {
+        System.setProperty("org.graphstream.ui", "swing");
+        Viewer viewer = graph.display();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+    }
+    
+     private int getGeneracion(Persona persona) {
+        
+        int generacion = 0;
+        /*
+        Persona actual = persona;
+        while (actual.getFather() != null) {
+            generacion++;  
+            actual = actual.getFather();  
+        }
+        */
+
+        return generacion; 
     }
 
     public TreeNode getpRoot() {
@@ -33,4 +85,30 @@ public class Tree {
     public void setpRoot(TreeNode pRoot) {
         this.pRoot = pRoot;
     }
+
+    public Hashtable getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(Hashtable nombres) {
+        this.nombres = nombres;
+    }
+
+    public Hashtable getMotes() {
+        return motes;
+    }
+
+    public void setMotes(Hashtable motes) {
+        this.motes = motes;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
+    
 }

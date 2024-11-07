@@ -22,14 +22,21 @@ public class Hashtable {
     public boolean spaceEmpty(int indice){
         return this.getArrayPersonas()[indice] == null;
     }
-    public int funHash(Persona persona) {
-        int indice = persona.getFullName().hashCode() + persona.getNumeral().hashCode();
-        indice = indice % this.getSize();
-        return indice;
+    
+    public int funHash(Persona persona, boolean mote) {
+        if(!mote){
+            int indice = persona.getFullName().hashCode() + persona.getNumeral().hashCode();
+            indice = indice % this.getSize();
+            return indice;
+        }else{
+            int indice = persona.getKwownAs().hashCode();
+            indice = indice % this.getSize();
+            return indice;
+        }
     }
     
-    public void addPersona(Persona nueva){
-        int i = this.funHash(nueva);
+    public void addPersona(Persona nueva, boolean mote){
+        int i = this.funHash(nueva, mote);
         boolean existe = false;
         if (this.spaceEmpty(i)){
             this.getArrayPersonas()[i]= nueva;
@@ -59,8 +66,8 @@ public class Hashtable {
         }
     }
     
-    public void deletePersona(Persona persona) {
-        int i = this.funHash(persona);
+    public void deletePersona(Persona persona, boolean mote) {
+        int i = this.funHash(persona, mote);
         Persona aux = this.getArrayPersonas()[i];
         if ((aux.getFullName().equals(persona.getFullName()) && aux.getNumeral().equals(persona.getNumeral())) && (aux.getpNext() == null)) {
             this.getArrayPersonas()[i] = null;
@@ -84,9 +91,9 @@ public class Hashtable {
 
     }
     
-    public Persona searchPersona(Persona persona) {
-        if (this.getArrayPersonas()[this.funHash(persona)] != null) {
-            Persona aux = this.getArrayPersonas()[this.funHash(persona)];
+    public Persona searchPersona(Persona persona, boolean mote) {
+        if (this.getArrayPersonas()[this.funHash(persona, mote)] != null) {
+            Persona aux = this.getArrayPersonas()[this.funHash(persona, mote)];
             if (aux.getFullName().equals(persona.getFullName()) && aux.getNumeral().equals(persona.getNumeral())) {
                 return aux;
             } else {
