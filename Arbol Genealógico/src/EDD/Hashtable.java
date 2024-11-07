@@ -5,6 +5,7 @@
 package EDD;
 import Extras.Persona;
 import javax.swing.JOptionPane;
+import static java.lang.Math.abs;
 /**
  *
  * @author pseba
@@ -25,11 +26,11 @@ public class Hashtable {
     
     public int funHash(Persona persona, boolean mote) {
         if(!mote){
-            int indice = persona.getFullName().hashCode() + persona.getNumeral().hashCode();
+            int indice = abs(persona.getFullName().hashCode() + persona.getNumeral().hashCode());
             indice = indice % this.getSize();
             return indice;
         }else{
-            int indice = persona.getKwownAs().hashCode();
+            int indice = abs(persona.getKwownAs().hashCode());
             indice = indice % this.getSize();
             return indice;
         }
