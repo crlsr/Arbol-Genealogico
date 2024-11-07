@@ -52,6 +52,9 @@ public class Tree {
             }
             String edgeId =  padre.getFullName()+ "-" + padre.getNumeral() + "-" + hijo.getFullName()+ "-" + hijo.getNumeral();
             if (graph.getEdge(edgeId) == null) {
+                TreeNode padreArbol = this.getNombres().searchPersona(padre, false);
+                padreArbol.getHijos().add(this.getNombres().searchPersona(hijo, false));
+                padreArbol.getTinfo().setSons(hijo.getFullName()+ "-" + hijo.getNumeral());
                 graph.addEdge(edgeId, padre.getFullName()+ "-" + padre.getNumeral(), hijo.getFullName()+ "-" + hijo.getNumeral(), true);  
                 graph.getEdge(edgeId).setAttribute("ui.style", "fill-color: black;");  
             }

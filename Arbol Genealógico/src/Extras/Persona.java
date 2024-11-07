@@ -4,8 +4,6 @@
  */
 package Extras;
 
-import EDD.List;
-
 /**
  *
  * @author pseba
@@ -21,10 +19,9 @@ public class Persona {
     private String kwownAs;
     private String heldTitle;
     private String wedTo;
-    private List<String> sons;
+    private String sons;
     private String notes;
     private String fate;
-    private Persona pNext;
 
     public Persona(String fullName, String numeral, String eyesColor, String hairColor, String father) {
         this.fullName = fullName;
@@ -39,8 +36,50 @@ public class Persona {
         this.sons = null;
         this.notes = null;
         this.fate = null;
-        this.pNext = null;
     }
+
+    public Persona(String fullName, String numeral) {
+        this.fullName = fullName;
+        this.numeral = numeral;
+    }
+    
+    public String generarDescripcion() {
+        String descripcion = "Nombre Completo: " + this.getFullName();
+        descripcion += ", " + this.getNumeral() + " of his name"+ "\n";
+        descripcion += "Color de Ojos: " + this.getEyesColor() + "\n";
+        descripcion += "Color de Cabello: " + this.getHairColor() + "\n";
+    
+    if (this.getFather() != null) {
+        descripcion += "Padre: " + this.getFather() + "\n";
+    }else{
+        descripcion += "Padre desconocido \n";
+    }
+    if (this.getMother()!= null) {
+        descripcion += "Madre: " + this.getMother() + "\n";
+    }
+    if (this.getKwownAs() != null) {
+        descripcion += "También conocido como: " + this.getKwownAs() + "\n";
+    }
+    if (this.getHeldTitle() != null) {
+        descripcion += "Título: " + this.getHeldTitle() + "\n";
+    }
+    if (this.getWedTo() != null) {
+        descripcion += "Casado con: " + this.getWedTo() + "\n";
+    }
+    if (this.getSons() != null) {
+        descripcion += "Hijos: \n" + this.getSons();
+        descripcion = descripcion.substring(0, descripcion.length() - 2); 
+        descripcion += "\n";
+    }
+    if (this.getNotes() != null) {
+        descripcion += "Notas: " + this.getNotes() + "\n";
+    }
+    if (this.getFate()!= null) {
+        descripcion += "Destino: " + this.getFate();
+    }
+    return descripcion;
+}
+
 
     public String getFullName() {
         return fullName;
@@ -114,12 +153,16 @@ public class Persona {
         this.wedTo = wedTo;
     }
 
-    public List getSons() {
+    public String getSons() {
         return sons;
     }
 
-    public void setSons(List sons) {
-        this.sons = sons;
+    public void setSons(String sons) {
+        if(this.getSons()==null){
+            this.sons = sons+ ", ";
+        }else{
+            this.sons += sons + ", ";
+        }
     }
 
     public String getNotes() {
@@ -136,16 +179,6 @@ public class Persona {
 
     public void setFate(String fate) {
         this.fate = fate;
-    }    
-
-    public Persona getpNext() {
-        return pNext;
-    }
-
-    public void setpNext(Persona pNext) {
-        this.pNext = pNext;
-    }
-    
-    
+    }        
     
 }

@@ -13,11 +13,11 @@ import static java.lang.Math.abs;
 public class Hashtable {
     
     private int size;
-    private Persona[] arrayPersonas;
+    private List<TreeNode>[] arrayPersonas;
 
     public Hashtable(int size) {
         this.size = size;
-        this.arrayPersonas = new Persona[size];
+        this.arrayPersonas = new List[size];
     }
     
     public boolean spaceEmpty(int indice){
@@ -39,16 +39,18 @@ public class Hashtable {
     public void addPersona(Persona nueva, boolean mote){
         int i = this.funHash(nueva, mote);
         boolean existe = false;
+        TreeNode newPersona = new TreeNode(nueva);
         if (this.spaceEmpty(i)){
-            this.getArrayPersonas()[i]= nueva;
+            this.getArrayPersonas()[i] = new List<TreeNode>();
+            this.getArrayPersonas()[i].add(newPersona);
         }else{
-            if (this.getArrayPersonas()[i].getFullName().equals(nueva.getFullName()) && this.getArrayPersonas()[i].getNumeral().equals(nueva.getNumeral())) {
+            Node<TreeNode> aux = this.getArrayPersonas()[i].getpFirst();
+            if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
                 JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                 existe = true;
             } else {
-                Persona aux = this.getArrayPersonas()[i];
-                while (aux.getpNext() != null) {
-                    if (this.getArrayPersonas()[i].getFullName().equals(nueva.getFullName()) && this.getArrayPersonas()[i].getNumeral().equals(nueva.getNumeral())) {
+                while (aux.getData() != null) {
+                    if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
                         JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                         existe = true;
                         break;
@@ -58,7 +60,7 @@ public class Hashtable {
 
                 }
                 if (existe == false) {
-                    aux.setpNext(nueva);
+                    this.getArrayPersonas()[i].add(newPersona);
                 }
         }
         if (existe == false) {
@@ -69,15 +71,15 @@ public class Hashtable {
     
     public void deletePersona(Persona persona, boolean mote) {
         int i = this.funHash(persona, mote);
-        Persona aux = this.getArrayPersonas()[i];
-        if ((aux.getFullName().equals(persona.getFullName()) && aux.getNumeral().equals(persona.getNumeral())) && (aux.getpNext() == null)) {
+        Node<TreeNode> aux = this.getArrayPersonas()[i].getpFirst();
+        if ((aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) && (aux.getpNext() == null)) {
             this.getArrayPersonas()[i] = null;
             JOptionPane.showMessageDialog(null, persona.getFullName() +", "+ persona.getNumeral()+ " of his name, ha sido eliminado con exito");  
         } else {
             while (aux.getpNext() != null) {
-                Persona prev = aux;
+                Node<TreeNode> prev = aux;
                 aux = aux.getpNext();
-                if (aux.getFullName().equals(persona.getFullName()) && aux.getNumeral().equals(persona.getNumeral())) {
+                if (aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) {
                     prev.setpNext(aux.getpNext());
                     aux.setpNext(null);
                     JOptionPane.showMessageDialog(null, persona.getFullName() +", "+ persona.getNumeral()+ " of his name, ha sido eliminado con exito");  
@@ -92,16 +94,16 @@ public class Hashtable {
 
     }
     
-    public Persona searchPersona(Persona persona, boolean mote) {
+    public TreeNode searchPersona(Persona persona, boolean mote) {
         if (this.getArrayPersonas()[this.funHash(persona, mote)] != null) {
-            Persona aux = this.getArrayPersonas()[this.funHash(persona, mote)];
-            if (aux.getFullName().equals(persona.getFullName()) && aux.getNumeral().equals(persona.getNumeral())) {
-                return aux;
+            Node<TreeNode> aux = this.getArrayPersonas()[this.funHash(persona, mote)].getpFirst();
+            if (aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) {
+                return aux.getData();
             } else {
                 while (aux.getpNext() != null) {
                     aux = aux.getpNext();
-                    if (aux.getFullName().equals(persona.getFullName()) && aux.getNumeral().equals(persona.getNumeral())) {
-                        return aux;
+                    if (aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) {
+                        return aux.getData();
                     }
                 }
             }
@@ -111,12 +113,14 @@ public class Hashtable {
     }
     
     public void printHashTable() {
+        Node<TreeNode> aux = null;
         for (int i = 0; i < this.getSize(); i++) {
             if (this.getArrayPersonas()[i] != null) {
-                System.out.println(this.getArrayPersonas()[i].getFullName()+" " +this.getArrayPersonas()[i].getNumeral() + i);
-                Persona aux = this.getArrayPersonas()[i].getpNext();
+                aux = this.getArrayPersonas()[i].getpFirst();
+                System.out.println(aux.getData().getTinfo().getFullName() +" " +aux.getData().getTinfo().getNumeral() + i);
+                aux = aux.getpNext();
                 while (aux != null) {
-                    System.out.println(aux.getFullName()+ " "+ aux.getNumeral() + i);
+                    System.out.println(aux.getData().getTinfo().getFullName() +" " +aux.getData().getTinfo().getNumeral() + i);
                     aux = aux.getpNext();
                 }
             }
@@ -132,11 +136,11 @@ public class Hashtable {
         this.size = size;
     }
 
-    public Persona[] getArrayPersonas() {
+    public List[] getArrayPersonas() {
         return arrayPersonas;
     }
 
-    public void setArrayPersonas(Persona[] arrayPersonas) {
+    public void setArrayPersonas(List[] arrayPersonas) {
         this.arrayPersonas = arrayPersonas;
     }
     

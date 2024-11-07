@@ -5,6 +5,7 @@
 package arbol.genealógico;
 import EDD.Tree;
 import Extras.Persona;
+import EDD.TreeNode;
 /**
  *
  * @author carlosrodriguez
@@ -27,18 +28,20 @@ public class ArbolGenealógico {
     arbolGenealogico.getNombres().addPersona(hijo1, false);
     arbolGenealogico.getNombres().addPersona(hijo2, false);
     arbolGenealogico.getNombres().addPersona(nieto, false);
-    Persona p1= arbolGenealogico.getNombres().searchPersona(padreFundador, false);
-    Persona p2= arbolGenealogico.getNombres().searchPersona(hijo1, false);
-    Persona p3= arbolGenealogico.getNombres().searchPersona(hijo2, false);
-    Persona p4= arbolGenealogico.getNombres().searchPersona(nieto, false);
-    arbolGenealogico.addNode(p1);
-    arbolGenealogico.addNode(p2);
-    arbolGenealogico.addNode(p3);
-    arbolGenealogico.addNode(p4);
-    arbolGenealogico.connectNodes(p2, p1);  
-    arbolGenealogico.connectNodes(p3, p2);         
-    arbolGenealogico.connectNodes(p4, p2);   
+    TreeNode p1= arbolGenealogico.getNombres().searchPersona(padreFundador, false);
+    TreeNode p2= arbolGenealogico.getNombres().searchPersona(hijo1, false);
+    TreeNode p3= arbolGenealogico.getNombres().searchPersona(hijo2, false);
+    TreeNode p4= arbolGenealogico.getNombres().searchPersona(nieto, false);
+    arbolGenealogico.addNode(p1.getTinfo());
+    arbolGenealogico.addNode(p2.getTinfo());
+    arbolGenealogico.addNode(p3.getTinfo());
+    arbolGenealogico.addNode(p4.getTinfo());
+    arbolGenealogico.connectNodes(p2.getTinfo(), p1.getTinfo());  
+    arbolGenealogico.connectNodes(p3.getTinfo(), p2.getTinfo());         
+    arbolGenealogico.connectNodes(p4.getTinfo(), p2.getTinfo());   
     arbolGenealogico.mostrarArbol();
+        System.out.println(p2.getTinfo().generarDescripcion());
+    
     }
     
 }
