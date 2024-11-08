@@ -6,6 +6,7 @@ package JSON;
 
 import EDD.Hashtable;
 import EDD.List;
+import EDD.Node;
 import EDD.Tree;
 import EDD.TreeNode;
 import Extras.Persona;
@@ -18,20 +19,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-
 /**
  *
  * @author carlosrodriguez
  */
 public class LecturaJSON {
+
     private JSONObject data;
     private String ineerFilePath;
 
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
-        try(FileReader reader = new FileReader(endpoint)){
+        try (FileReader reader = new FileReader(endpoint)) {
             this.data = new JSONObject(new JSONTokener(reader));
-        } catch(IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al intentar abrir: " + e.getMessage());
         }
     }
@@ -51,30 +52,30 @@ public class LecturaJSON {
     public void setIneerFilePath(String ineerFilePath) {
         this.ineerFilePath = ineerFilePath;
     }
-    
-    
-    public void dataConstructor(Tree lineageTree){
-        List<TreeNode> monarchy = new List<>();
+
+    public void dataConstructor(Tree lineageTree) {
+        List<Persona> monarchy = new List<>();
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
-        
+
         for (int i = 0; i < innerData.length(); i++) {
             JSONObject personJSON = innerData.getJSONObject(i);
             String personKey = personJSON.keys().next();
             JSONArray personData = personJSON.getJSONArray(personKey);
             Persona person = personBuilder(personData, personKey);
-            TreeNode treeLift = new TreeNode(person);
-            monarchy.add(treeLift);
+            monarchy.add(person);
             lineageTree.addNode(person);
-            if(person.getKwownAs() == null){
-                lineageTree.getNombres().addPersona(treeLift, false);
-            } else{
-                lineageTree.getNombres().addPersona(TreeLift, true);
+            if (person.getKwownAs() == null) {
+                lineageTree.getNombres().addPersona(person, false);
+            } else {
+                lineageTree.getNombres().addPersona(person, true);
             }
         }
+
+        setLineage(monarchy, lineageTree);
     }
-    
-    public Persona personBuilder(JSONArray data, String name){
+
+    public Persona personBuilder(JSONArray data, String name) {
         String lineagePosition = "";
         String father = "";
         String mote;
@@ -85,18 +86,18 @@ public class LecturaJSON {
         String fate;
         String wedTo;
         Persona result = new Persona(name, lineagePosition, eyeColor, hairColor, father);
-        
+
         for (int i = 0; i < data.length(); i++) {
             JSONObject jsonData = data.getJSONObject(i);
             String key = jsonData.keys().next();
-            switch(key){
+            switch (key) {
                 case "Of his name":
                     lineagePosition = jsonData.getString(key);
                     result.setNumeral(lineagePosition);
                     break;
                 case "Born to":
                     father = jsonData.getString(key);
-                    if(father.equals("[Unknown]")){
+                    if (father.equals("[Unknown]")) {
                         father = null;
                     }
                     result.setFather(father);
@@ -131,13 +132,19 @@ public class LecturaJSON {
                     break;
             }
         }
-        
-        
+
         return result;
     }
-        
-    public void setLineage(Hashtable register, Tree lineage){}
-    
+
+    public void setLineage(List<Persona> data, Tree lineage) {
+        Node<Persona> aux = data.getpFirst();
+        while (aux != aux) {
+            if (aux.getData().getFather() != null) {
+                //lineage.getNombres().searchPersona();
+            }
+        }
+    }
+
     /*
     public void updateData(){
         try(FileWriter overwrite = new FileWriter(this.getIneerFilePath())){
@@ -146,10 +153,8 @@ public class LecturaJSON {
             JOptionPane.showMessageDialog(null, "Error al intentar sobre escribir: " + e.getMessage());
         }
     }
-    */
-    
-    
-    public void changeJSON(File newEndpoint){
+     */
+    public void changeJSON(File newEndpoint) {
         String newPath = newEndpoint.getAbsolutePath();
         this.setIneerFilePath(newPath);
         try (FileReader reader = new FileReader(newEndpoint)) {
@@ -160,8 +165,4 @@ public class LecturaJSON {
         }
     }
 
-    
-
-       
-    
 }
