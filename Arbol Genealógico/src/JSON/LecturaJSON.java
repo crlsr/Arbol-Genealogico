@@ -168,13 +168,13 @@ public class LecturaJSON {
                 innerData = aux.getData().getFather().split(",");
                 String numeral = innerData[1].split(" ")[0].trim();
                 fatherPersona = new Persona(innerData[0], numeral, null);
-                father = lineageTree.getNombres().searchPersona(fatherPersona, false);
+                father = lineageTree.searchPersonaTree(fatherPersona);
+                lineageTree.connectNodes(fatherPersona, aux.getData());
                 
-                father.getHijos().add(new TreeNode(aux.getData()));
             } else {
                 fatherPersona = new Persona(null, null, aux.getData().getFather().trim());
-                father = lineageTree.getMotes().searchPersona(fatherPersona, true);
-                father.getHijos().add(new TreeNode(aux.getData()));
+                father = lineageTree.searchPersonaTree(fatherPersona);
+                lineageTree.connectNodes(fatherPersona, aux.getData());
             }
         }
     }
