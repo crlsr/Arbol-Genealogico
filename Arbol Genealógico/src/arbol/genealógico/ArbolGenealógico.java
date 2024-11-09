@@ -6,7 +6,7 @@ package arbol.genealógico;
 import EDD.Tree;
 import Extras.Persona;
 import EDD.TreeNode;
-import INTERFACES.MENU;
+import VENTANAS.MENU;
 /**
  *
  * @author carlosrodriguez

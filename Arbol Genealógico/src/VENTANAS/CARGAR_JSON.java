@@ -2,21 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package INTERFACES;
+package VENTANAS;
 
 /**
  *
  * @author marco
  */
-public class MENU extends javax.swing.JFrame {
+public class CARGAR_JSON extends javax.swing.JFrame {
 
     /**
-     * Creates new form MENU
+     * Creates new form CARGAR_JSON
      */
-    public MENU() {
+    public CARGAR_JSON() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
     }
 
     /**
@@ -28,18 +27,21 @@ public class MENU extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         CERRAR = new javax.swing.JButton();
-        TITULO = new javax.swing.JLabel();
-        ARBOL = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         INSTRUCCIONES = new javax.swing.JButton();
-        CARGAR_JSON = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(10, 10));
-        setName("MENÚ PRINCIPAL"); // NOI18N
+        setTitle("CARGAR JSON");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("CARGAR JSON");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, -1));
 
         CERRAR.setBackground(new java.awt.Color(255, 0, 0));
         CERRAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -52,33 +54,17 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(CERRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
 
-        TITULO.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TITULO.setForeground(new java.awt.Color(255, 255, 255));
-        TITULO.setText("MENÚ PRINCIPAL");
-        getContentPane().add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
-
-        ARBOL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/ARBOL.png"))); // NOI18N
-        getContentPane().add(ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/JSON.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
 
         INSTRUCCIONES.setBackground(new java.awt.Color(0, 0, 0));
         INSTRUCCIONES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         INSTRUCCIONES.setForeground(new java.awt.Color(255, 255, 255));
         INSTRUCCIONES.setText("INSTRUCCIONES");
-        getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, -1, -1));
-
-        CARGAR_JSON.setBackground(new java.awt.Color(0, 0, 0));
-        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        CARGAR_JSON.setForeground(new java.awt.Color(255, 255, 255));
-        CARGAR_JSON.setText("CARGAR JSON");
-        CARGAR_JSON.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CARGAR_JSONActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+        getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, -1, -1));
 
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 440));
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -86,12 +72,6 @@ public class MENU extends javax.swing.JFrame {
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
-
-    private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
-        CARGAR_JSON CJ = new CARGAR_JSON(); 
-        CJ.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,30 +90,29 @@ public class MENU extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MENU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CARGAR_JSON.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MENU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CARGAR_JSON.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MENU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CARGAR_JSON.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MENU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CARGAR_JSON.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MENU().setVisible(true);
+                new CARGAR_JSON().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ARBOL;
-    private javax.swing.JButton CARGAR_JSON;
     private javax.swing.JButton CERRAR;
     private javax.swing.JLabel FONDO;
     private javax.swing.JButton INSTRUCCIONES;
-    private javax.swing.JLabel TITULO;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
