@@ -17,7 +17,7 @@ public class ArbolGenealógico {
      */
     public static void main(String[] args) {
 
-        Tree arbolGenealogico = new Tree(10);
+        Tree arbolGenealogico = new Tree(10,10);
 
     Persona padreFundador = new Persona("John Doe", "I", "blue", "brown", null);
     Persona hijo1 = new Persona("John Doe", "II", "green", "black", "John Doe I");

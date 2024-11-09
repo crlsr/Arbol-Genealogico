@@ -19,11 +19,11 @@ public class Tree {
     private Hashtable motes;
     private int size;
 
-    public Tree(int hashtableSize) {
+    public Tree(int hashtableSize1, int hashtableSize2) {
         this.pRoot = null;
         this.graph = new MultiGraph("Árbol Genealógico");
-        this.nombres = new Hashtable(hashtableSize);
-        this.motes = new Hashtable(hashtableSize);
+        this.nombres = new Hashtable(hashtableSize1);
+        this.motes = new Hashtable(hashtableSize2);
         this.size = 0;
     }
     
