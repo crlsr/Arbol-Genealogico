@@ -7,6 +7,7 @@ package JSON;
 import EDD.List;
 import EDD.Node;
 import EDD.Tree;
+import EDD.TreeNode;
 import Extras.Persona;
 import java.io.File;
 import java.io.FileReader;
@@ -51,7 +52,7 @@ public class LecturaJSON {
         this.ineerFilePath = ineerFilePath;
     }
 
-    public void dataConstructor() {
+    public Tree dataConstructor() {
         List<Persona> monarchy = new List<>();
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
@@ -63,13 +64,15 @@ public class LecturaJSON {
             Persona person = personBuilder(personData, personKey, counterMotes);
             monarchy.add(person);
         }
-        
-        Tree lineageTree = new Tree(monarchy.getSize()-1, counterMotes);
+
+        Tree lineageTree = new Tree(monarchy.getSize() - 1, counterMotes);
         treeConstructor(lineageTree, monarchy);
         setLineage(monarchy, lineageTree);
 
+        return lineageTree;
+
     }
-    
+
     public void treeConstructor(Tree lineageTree, List<Persona> monarchy) {
         Node<Persona> aux = monarchy.getpFirst();
         while (aux != null) {
@@ -83,7 +86,7 @@ public class LecturaJSON {
             aux = aux.getpNext();
         }
     }
-    
+
     public Persona personBuilder(JSONArray data, String name, int counter) {
         String lineagePosition = "";
         String father = "";
@@ -112,7 +115,7 @@ public class LecturaJSON {
                     if (father.equals("[Unknown]")) {
                         father = null;
                     }
-                   
+
                     break;
                 case "Known throughout as":
                     mote = jsonData.getString(key);
@@ -149,11 +152,29 @@ public class LecturaJSON {
         return result;
     }
 
-    public void setLineage(List<Persona> data, Tree lineage) {
+    public void setLineage(List<Persona> data, Tree lineageTree) {
         Node<Persona> aux = data.getpFirst();
-        while (aux != aux) {
-            if (aux.getData().getFather() != null) {
-                //lineage.getNombres().searchPersona();
+        String[] innerData;
+        TreeNode father;
+        Persona fatherPersona;
+        
+
+        while (aux != null) {
+            if (aux.getData().getFather() != null) { //fix
+                TreeNode node = lineageTree.searchPersonaTree(aux.getData());
+                lineageTree.setpRoot(node);
+            }
+            if (aux.getData().getFather().contains(",")) {
+                innerData = aux.getData().getFather().split(",");
+                String numeral = innerData[1].split(" ")[0].trim();
+                fatherPersona = new Persona(innerData[0], numeral, null);
+                father = lineageTree.getNombres().searchPersona(fatherPersona, false);
+                
+                father.getHijos().add(new TreeNode(aux.getData()));
+            } else {
+                fatherPersona = new Persona(null, null, aux.getData().getFather().trim());
+                father = lineageTree.getMotes().searchPersona(fatherPersona, true);
+                father.getHijos().add(new TreeNode(aux.getData()));
             }
         }
     }
