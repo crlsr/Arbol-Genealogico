@@ -28,10 +28,10 @@ public class ArbolGenealógico {
     arbolGenealogico.getNombres().addPersona(hijo1, false);
     arbolGenealogico.getNombres().addPersona(hijo2, false);
     arbolGenealogico.getNombres().addPersona(nieto, false);
-    TreeNode p1= arbolGenealogico.getNombres().searchPersona(padreFundador, false);
-    TreeNode p2= arbolGenealogico.getNombres().searchPersona(hijo1, false);
-    TreeNode p3= arbolGenealogico.getNombres().searchPersona(hijo2, false);
-    TreeNode p4= arbolGenealogico.getNombres().searchPersona(nieto, false);
+    TreeNode p1= arbolGenealogico.searchPersonaTree(padreFundador);
+    TreeNode p2= arbolGenealogico.searchPersonaTree(hijo1);
+    TreeNode p3= arbolGenealogico.searchPersonaTree(hijo2);
+    TreeNode p4= arbolGenealogico.searchPersonaTree(nieto);
     arbolGenealogico.addNode(p1.getTinfo());
     arbolGenealogico.addNode(p2.getTinfo());
     arbolGenealogico.addNode(p3.getTinfo());

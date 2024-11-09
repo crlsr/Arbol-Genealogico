@@ -61,6 +61,15 @@ public class Tree {
         }
     }
     
+    public TreeNode searchPersonaTree(Persona buscado){
+        Hashtable hashnames = this.getNombres();
+        TreeNode nodoBuscado=hashnames.searchPersona(buscado, false);
+        if(nodoBuscado == null){
+            Hashtable hashmotes = this.getMotes();
+            nodoBuscado=hashmotes.searchPersona(buscado, true);
+        }
+        return nodoBuscado;
+    }
     public void mostrarArbol() {
         System.setProperty("org.graphstream.ui", "swing");
         Viewer viewer = graph.display();

@@ -38,9 +38,10 @@ public class Persona {
         this.fate = null;
     }
 
-    public Persona(String fullName, String numeral) {
+    public Persona(String fullName, String numeral, String knownAs) {
         this.fullName = fullName;
         this.numeral = numeral;
+        this.kwownAs= knownAs;
     }
     
     public String generarDescripcion() {
@@ -49,36 +50,36 @@ public class Persona {
         descripcion += "Color de Ojos: " + this.getEyesColor() + "\n";
         descripcion += "Color de Cabello: " + this.getHairColor() + "\n";
     
-    if (this.getFather() != null) {
-        descripcion += "Padre: " + this.getFather() + "\n";
-    }else{
-        descripcion += "Padre desconocido \n";
+        if (this.getFather() != null) {
+            descripcion += "Padre: " + this.getFather() + "\n";
+        }else{
+            descripcion += "Padre desconocido \n";
+        }
+        if (this.getMother()!= null) {
+            descripcion += "Madre: " + this.getMother() + "\n";
+        }
+        if (this.getKwownAs() != null) {
+            descripcion += "También conocido como: " + this.getKwownAs() + "\n";
+        }
+        if (this.getHeldTitle() != null) {
+            descripcion += "Título: " + this.getHeldTitle() + "\n";
+        }
+        if (this.getWedTo() != null) {
+            descripcion += "Casado con: " + this.getWedTo() + "\n";
+        }
+        if (this.getSons() != null) {
+            descripcion += "Hijos: \n" + this.getSons();
+            descripcion = descripcion.substring(0, descripcion.length() - 2); 
+            descripcion += "\n";
+        }
+       if (this.getNotes() != null) {
+            descripcion += "Notas: " + this.getNotes() + "\n";
+        }
+        if (this.getFate()!= null) {
+            descripcion += "Destino: " + this.getFate();
+        }
+        return descripcion;
     }
-    if (this.getMother()!= null) {
-        descripcion += "Madre: " + this.getMother() + "\n";
-    }
-    if (this.getKwownAs() != null) {
-        descripcion += "También conocido como: " + this.getKwownAs() + "\n";
-    }
-    if (this.getHeldTitle() != null) {
-        descripcion += "Título: " + this.getHeldTitle() + "\n";
-    }
-    if (this.getWedTo() != null) {
-        descripcion += "Casado con: " + this.getWedTo() + "\n";
-    }
-    if (this.getSons() != null) {
-        descripcion += "Hijos: \n" + this.getSons();
-        descripcion = descripcion.substring(0, descripcion.length() - 2); 
-        descripcion += "\n";
-    }
-    if (this.getNotes() != null) {
-        descripcion += "Notas: " + this.getNotes() + "\n";
-    }
-    if (this.getFate()!= null) {
-        descripcion += "Destino: " + this.getFate();
-    }
-    return descripcion;
-}
 
 
     public String getFullName() {
