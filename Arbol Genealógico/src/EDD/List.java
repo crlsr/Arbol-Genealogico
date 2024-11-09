@@ -16,7 +16,7 @@ package EDD;
  */
 public class List<T> {
 
-    private Node pFirst;
+    private Node<T> pFirst;
     private int size;
 
     public List() {
@@ -24,11 +24,11 @@ public class List<T> {
         this.size = 0;
     }
 
-    public Node getpFirst() {
+    public Node<T> getpFirst() {
         return pFirst;
     }
 
-    public void setpFirst(Node pFirst) {
+    public void setpFirst(Node<T> pFirst) {
         this.pFirst = pFirst;
     }
 
@@ -54,9 +54,9 @@ public class List<T> {
         }
     }
 
-    public Node last() {
+    public Node<T> last() {
         if (!isEmpty()) {
-            Node aux = this.getpFirst();
+            Node<T> aux = this.getpFirst();
             while (aux.getpNext() != null) {
                 aux = aux.getpNext();
             }
@@ -66,9 +66,9 @@ public class List<T> {
     }
 
     public void add(T newData) {
-        Node newNode = new Node(newData);
+        Node<T> newNode = new Node<>(newData);
         if (!isEmpty()) {
-            Node lastNode = last();
+            Node<T> lastNode = last();
             lastNode.setpNext(newNode);
 
         } else {
@@ -78,9 +78,9 @@ public class List<T> {
     }
 
     public void newFirst(T data) {
-        Node newNode = new Node(data);
+        Node<T> newNode = new Node<>(data);
         if (!isEmpty()) {
-            Node currentFirst = this.getpFirst();
+            Node<T> currentFirst = this.getpFirst();
             this.setpFirst(newNode);
             newNode.setpNext(currentFirst);
         } else {
@@ -94,8 +94,8 @@ public class List<T> {
             destructor();
         }
         else if(!isEmpty()){
-            Node last = last();
-            Node aux = this.getpFirst();
+            Node<T> last = last();
+            Node<T> aux = this.getpFirst();
             while (aux.getpNext() != last) {
                 aux = aux.getpNext();
             }
@@ -107,7 +107,7 @@ public class List<T> {
     
     public void deleteFirst(){
         if (!isEmpty()) {
-            Node oldFirst = this.getpFirst();
+            Node<T> oldFirst = this.getpFirst();
             this.setpFirst(oldFirst.getpNext());
             oldFirst.setpNext(null);
             this.setSize(this.getSize() - 1);
@@ -122,11 +122,11 @@ public class List<T> {
         } else if (index == this.getSize()-1) {
             delete();
         } else {
-            Node aux = this.getpFirst();
+            Node<T> aux = this.getpFirst();
             for (int i = 0; i < index-1; i++) {
                 aux = aux.getpNext();
             }
-            Node deleteable = aux.getpNext();
+            Node<T> deleteable = aux.getpNext();
             aux.setpNext(deleteable.getpNext());
             deleteable.setpNext(null);
             this.setSize(this.getSize() - 1);
@@ -139,12 +139,12 @@ public class List<T> {
         } else if (index == 0) {
             newFirst(data);
         } else {
-            Node newNode = new Node(data);
-            Node aux = this.getpFirst();
+            Node<T> newNode = new Node<>(data);
+            Node<T> aux = this.getpFirst();
             for (int i = 0; i < index - 1; i++) {
                 aux = aux.getpNext();
             }
-            Node next = aux.getpNext();
+            Node<T> next = aux.getpNext();
             aux.setpNext(newNode);
             newNode.setpNext(next);
             this.setSize(this.getSize() + 1);
@@ -154,7 +154,7 @@ public class List<T> {
 
     public void show() {
         if (!isEmpty()) {
-            Node aux = this.getpFirst();
+            Node<T> aux = this.getpFirst();
             while (aux != null) {
                 System.out.println(aux.getData());
                 aux = aux.getpNext();
