@@ -97,6 +97,7 @@ public class Hashtable {
     public TreeNode searchPersona(Persona persona, boolean mote) {
         if (this.getArrayPersonas()[this.funHash(persona, mote)] != null) {
             Node<TreeNode> aux = this.getArrayPersonas()[this.funHash(persona, mote)].getpFirst();
+            if(!mote){
             if (aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) {
                 return aux.getData();
             } else {
@@ -106,6 +107,18 @@ public class Hashtable {
                         return aux.getData();
                     }
                 }
+            }
+            }else{
+                  if (aux.getData().getTinfo().getKwownAs().equals(persona.getKwownAs())) {
+                    return aux.getData();
+                } else {
+                while (aux.getpNext() != null) {
+                    aux = aux.getpNext();
+                    if (aux.getData().getTinfo().getKwownAs().equals(persona.getKwownAs())) {
+                        return aux.getData();
+                    }
+                }  
+            }
             }
         }
         System.out.println("Usuario no encontrado");

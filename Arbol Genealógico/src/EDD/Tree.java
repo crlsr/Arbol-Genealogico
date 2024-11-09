@@ -31,7 +31,7 @@ public class Tree {
         if(persona!= null){
             if(graph.getNode(persona.getFullName() + "-" + persona.getNumeral())== null){
                 graph.addNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.label", persona.getFullName()+ "-" + persona.getNumeral());
-                this.graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.style", "fill-color: lightblue; shape: circle; size: 25px;");
+                this.graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.style", "fill-color: lightblue; shape: circle; size: 50px;");
                 this.setSize(this.getSize()+1);
                 int generacion = getGeneracion(persona);  
                 int x = (this.getSize() % 10) * 80;  
@@ -71,9 +71,14 @@ public class Tree {
         return nodoBuscado;
     }
     public void mostrarArbol() {
+        
         System.setProperty("org.graphstream.ui", "swing");
+        /*
         Viewer viewer = graph.display();
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+        viewer.getDefaultView().enableMouseOptions();
+        */
+        Clicks visualizador = new Clicks(graph);
     }
     
      private int getGeneracion(Persona persona) {
