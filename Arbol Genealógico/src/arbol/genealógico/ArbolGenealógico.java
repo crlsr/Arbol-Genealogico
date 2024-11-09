@@ -6,6 +6,7 @@ package arbol.genealógico;
 import EDD.Tree;
 import Extras.Persona;
 import EDD.TreeNode;
+import INTERFACES.MENU;
 /**
  *
  * @author carlosrodriguez
@@ -42,6 +43,10 @@ public class ArbolGenealógico {
     arbolGenealogico.mostrarArbol();
         System.out.println(p2.getTinfo().generarDescripcion());
     
+        
+        
+        MENU main = new MENU();
+        main.setVisible(true);
     }
     
 }
