@@ -4,11 +4,9 @@
  */
 package JSON;
 
-import EDD.Hashtable;
 import EDD.List;
 import EDD.Node;
 import EDD.Tree;
-import EDD.TreeNode;
 import Extras.Persona;
 import java.io.File;
 import java.io.FileReader;
@@ -108,13 +106,13 @@ public class LecturaJSON {
                     break;
                 case "Born to":
                     father = jsonData.getString(key);
-                    if (father.equals("[Unknown]")) {
-                        father = null;
-                    }
                     if (father == null) {
                         result.setFather(father);
                     }
-
+                    if (father.equals("[Unknown]")) {
+                        father = null;
+                    }
+                   
                     break;
                 case "Known throughout as":
                     mote = jsonData.getString(key);
