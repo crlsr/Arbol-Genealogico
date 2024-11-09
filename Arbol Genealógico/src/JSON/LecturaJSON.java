@@ -53,29 +53,40 @@ public class LecturaJSON {
         this.ineerFilePath = ineerFilePath;
     }
 
-    public void dataConstructor(Tree lineageTree) {
+    public void dataConstructor() {
         List<Persona> monarchy = new List<>();
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
-
+        int counterMotes = 0;
         for (int i = 0; i < innerData.length(); i++) {
             JSONObject personJSON = innerData.getJSONObject(i);
             String personKey = personJSON.keys().next();
             JSONArray personData = personJSON.getJSONArray(personKey);
-            Persona person = personBuilder(personData, personKey);
+            Persona person = personBuilder(personData, personKey, counterMotes);
             monarchy.add(person);
-            lineageTree.addNode(person);
-            if (person.getKwownAs() == null) {
-                lineageTree.getNombres().addPersona(person, false);
-            } else {
-                lineageTree.getNombres().addPersona(person, true);
-            }
         }
-
+        
+        Tree lineageTree = new Tree(monarchy.getSize()-1, counterMotes);
+        treeConstructor(lineageTree, monarchy);
         setLineage(monarchy, lineageTree);
-    }
 
-    public Persona personBuilder(JSONArray data, String name) {
+    }
+    
+    public void treeConstructor(Tree lineageTree, List<Persona> monarchy) {
+        Node<Persona> aux = monarchy.getpFirst();
+        while (aux != null) {
+            lineageTree.addNode(aux.getData());
+
+            if (aux.getData().getKwownAs() == null) {
+                lineageTree.getNombres().addPersona(aux.getData(), false);
+            } else {
+                lineageTree.getNombres().addPersona(aux.getData(), true);
+            }
+            aux = aux.getpNext();
+        }
+    }
+    
+    public Persona personBuilder(JSONArray data, String name, int counter) {
         String lineagePosition = "";
         String father = "";
         String mote;
@@ -100,11 +111,15 @@ public class LecturaJSON {
                     if (father.equals("[Unknown]")) {
                         father = null;
                     }
-                    result.setFather(father);
+                    if (father == null) {
+                        result.setFather(father);
+                    }
+
                     break;
                 case "Known throughout as":
                     mote = jsonData.getString(key);
                     result.setKwownAs(mote);
+                    counter++;
                     break;
                 case "Held title":
                     heldTitle = jsonData.getString(key);
