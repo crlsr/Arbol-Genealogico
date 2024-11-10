@@ -5,6 +5,8 @@
 package VENTANAS;
 
 import JSON.LecturaJSON;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +31,11 @@ public class MENU extends javax.swing.JFrame {
         this.json =json;
         this.jsoncargado = true;
     }
+    
+    public Image getIconImage() {
+        Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
+        return icono;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +56,7 @@ public class MENU extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENÚ PRINCIPAL");
+        setIconImage(getIconImage());
         setLocation(new java.awt.Point(0, 0));
         setName(""); // NOI18N
         setUndecorated(true);

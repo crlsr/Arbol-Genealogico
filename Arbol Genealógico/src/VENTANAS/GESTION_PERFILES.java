@@ -4,6 +4,8 @@
  */
 package VENTANAS;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,6 +43,7 @@ public class GESTION_PERFILES extends javax.swing.JFrame {
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -127,6 +130,10 @@ public class GESTION_PERFILES extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    public Image getIconImage() {
+        Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
+        return icono;
+    }
     private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
         MENU M = new MENU();
         M.setVisible(true);

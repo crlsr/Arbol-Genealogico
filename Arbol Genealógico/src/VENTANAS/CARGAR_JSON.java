@@ -5,6 +5,8 @@
 package VENTANAS;
 
 import JSON.LecturaJSON;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -44,6 +46,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CARGAR JSON");
+        setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -109,6 +112,11 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    public Image getIconImage() {
+        Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
+        return icono;
+    }
+    
     private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
         try {
         JFileChooser finder = new JFileChooser();
