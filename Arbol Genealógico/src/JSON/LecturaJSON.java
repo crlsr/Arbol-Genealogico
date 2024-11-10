@@ -80,7 +80,6 @@ public class LecturaJSON {
             
             lineageTree.getNombres().addPersona(aux.getData(), false);
             if (aux.getData().getKwownAs() != null) {
-                lineageTree.getNombres().addPersona(aux.getData(), false);
                 lineageTree.getMotes().addPersona(aux.getData(), true);
             }
             aux = aux.getpNext();
