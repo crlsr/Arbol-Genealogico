@@ -49,7 +49,7 @@ public class Hashtable {
                 JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                 existe = true;
             } else {
-                while (aux.getData() != null) {
+                while (aux != null) {
                     if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
                         JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                         existe = true;

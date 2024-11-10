@@ -57,7 +57,6 @@ public class LecturaJSON {
         List<Persona> monarchy = new List<>();
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
-        int counterMotes = 0;
         for (int i = 0; i < innerData.length(); i++) {
             JSONObject personJSON = innerData.getJSONObject(i);
             String personKey = personJSON.keys().next();
