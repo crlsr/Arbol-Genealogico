@@ -62,11 +62,11 @@ public class LecturaJSON {
             JSONObject personJSON = innerData.getJSONObject(i);
             String personKey = personJSON.keys().next();
             JSONArray personData = personJSON.getJSONArray(personKey);
-            Persona person = personBuilder(personData, personKey, counterMotes);
+            Persona person = personBuilder(personData, personKey, this.counter);
             monarchy.add(person);
         }
 
-        Tree lineageTree = new Tree(monarchy.getSize() - 1, counterMotes);
+        Tree lineageTree = new Tree(monarchy.getSize() - 1, this.counter);
         treeConstructor(lineageTree, monarchy);
         setLineage(monarchy, lineageTree);
         
