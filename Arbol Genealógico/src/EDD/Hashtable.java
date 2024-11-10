@@ -49,7 +49,7 @@ public class Hashtable {
                 JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                 existe = true;
             } else {
-                while (aux.getData() != null) {
+                while (aux != null) {
                     if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
                         JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                         existe = true;
@@ -62,9 +62,6 @@ public class Hashtable {
                 if (existe == false) {
                     this.getArrayPersonas()[i].add(newPersona);
                 }
-        }
-        if (existe == false) {
-            JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ha sido agregado con exito");           
         }
         }
     }
@@ -98,30 +95,31 @@ public class Hashtable {
         if (this.getArrayPersonas()[this.funHash(persona, mote)] != null) {
             Node<TreeNode> aux = this.getArrayPersonas()[this.funHash(persona, mote)].getpFirst();
             if(!mote){
-            if (aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) {
+            if (aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase())
+                    && aux.getData().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase())) {
                 return aux.getData();
             } else {
                 while (aux.getpNext() != null) {
                     aux = aux.getpNext();
-                    if (aux.getData().getTinfo().getFullName().equals(persona.getFullName()) && aux.getData().getTinfo().getNumeral().equals(persona.getNumeral())) {
+                    if (aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase()) 
+                            && aux.getData().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase())) {
                         return aux.getData();
                     }
                 }
             }
             }else{
-                  if (aux.getData().getTinfo().getKwownAs().equals(persona.getKwownAs())) {
+                if (aux.getData().getTinfo().getKwownAs().toLowerCase().equals(persona.getKwownAs().toLowerCase())) {
                     return aux.getData();
                 } else {
                 while (aux.getpNext() != null) {
                     aux = aux.getpNext();
-                    if (aux.getData().getTinfo().getKwownAs().equals(persona.getKwownAs())) {
+                    if (aux.getData().getTinfo().getKwownAs().toLowerCase().equals(persona.getKwownAs().toLowerCase())) {
                         return aux.getData();
                     }
                 }  
             }
             }
         }
-        System.out.println("Usuario no encontrado");
         return null;
     }
     
