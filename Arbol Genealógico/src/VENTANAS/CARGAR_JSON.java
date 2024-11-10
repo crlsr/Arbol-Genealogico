@@ -27,9 +27,9 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         CERRAR = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        ICONO_JSON = new javax.swing.JLabel();
         INSTRUCCIONES = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
@@ -38,10 +38,10 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("CARGAR JSON");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, -1));
+        TITULO.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TITULO.setForeground(new java.awt.Color(255, 255, 255));
+        TITULO.setText("CARGAR JSON");
+        getContentPane().add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, -1));
 
         CERRAR.setBackground(new java.awt.Color(255, 0, 0));
         CERRAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -54,8 +54,8 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         });
         getContentPane().add(CERRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/JSON.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
+        ICONO_JSON.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/JSON.png"))); // NOI18N
+        getContentPane().add(ICONO_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
 
         INSTRUCCIONES.setBackground(new java.awt.Color(0, 0, 0));
         INSTRUCCIONES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -73,6 +73,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -111,8 +112,8 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CERRAR;
     private javax.swing.JLabel FONDO;
+    private javax.swing.JLabel ICONO_JSON;
     private javax.swing.JButton INSTRUCCIONES;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel TITULO;
     // End of variables declaration//GEN-END:variables
 }

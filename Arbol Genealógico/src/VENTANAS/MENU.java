@@ -90,8 +90,8 @@ public class MENU extends javax.swing.JFrame {
 
     private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
         CARGAR_JSON CJ = new CARGAR_JSON(); 
-        CJ.setVisible(true);
         this.setVisible(false);
+        CJ.setVisible(true);
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
     /**
