@@ -59,7 +59,7 @@ public class Persona {
             descripcion += "Madre: " + this.getMother() + "\n";
         }
         if (this.getKwownAs() != null) {
-            descripcion += "También conocido como: " + this.getKwownAs() + "\n";
+            descripcion += "Mote: " + this.getKwownAs() + "\n";
         }
         if (this.getHeldTitle() != null) {
             descripcion += "Título: " + this.getHeldTitle() + "\n";

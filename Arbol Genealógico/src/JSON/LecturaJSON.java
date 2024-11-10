@@ -77,11 +77,12 @@ public class LecturaJSON {
         Node<Persona> aux = monarchy.getpFirst();
         while (aux != null) {
             lineageTree.addNode(aux.getData());
-
-            if (aux.getData().getKwownAs() == null) {
+            
+            lineageTree.getNombres().addPersona(aux.getData(), false);
+            System.out.println("hh");
+            if (aux.getData().getKwownAs() != null) {
+                System.out.println("kakds");
                 lineageTree.getNombres().addPersona(aux.getData(), false);
-            } else {
-                lineageTree.getNombres().addPersona(aux.getData(), true);
             }
             aux = aux.getpNext();
         }
@@ -148,7 +149,8 @@ public class LecturaJSON {
                     break;
             }
         }
-
+        System.out.println(result.getFullName());
+        System.out.println(result.generarDescripcion());
         return result;
     }
 
@@ -157,7 +159,6 @@ public class LecturaJSON {
         String[] innerData;
         TreeNode father;
         Persona fatherPersona;
-        
 
         while (aux != null) {
             if (aux.getData().getFather() != null) { //fix
@@ -169,12 +170,14 @@ public class LecturaJSON {
                 String numeral = innerData[1].split(" ")[0].trim();
                 fatherPersona = new Persona(innerData[0], numeral, null);
                 father = lineageTree.searchPersonaTree(fatherPersona);
-                lineageTree.connectNodes(fatherPersona, aux.getData());
-                
+                lineageTree.connectNodes(father.getTinfo(), aux.getData());
+                lineageTree.setListFather(aux.getData(), father.getTinfo());
+
             } else {
                 fatherPersona = new Persona(null, null, aux.getData().getFather().trim());
                 father = lineageTree.searchPersonaTree(fatherPersona);
-                lineageTree.connectNodes(fatherPersona, aux.getData());
+                lineageTree.connectNodes(aux.getData(), father.getTinfo());
+                lineageTree.setListFather(aux.getData(), father.getTinfo());
             }
         }
     }
