@@ -63,9 +63,6 @@ public class Hashtable {
                     this.getArrayPersonas()[i].add(newPersona);
                 }
         }
-        if (existe == false) {
-            JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ha sido agregado con exito");           
-        }
         }
     }
     
@@ -123,7 +120,6 @@ public class Hashtable {
             }
             }
         }
-        System.out.println("Usuario no encontrado");
         return null;
     }
     

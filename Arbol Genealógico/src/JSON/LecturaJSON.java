@@ -68,7 +68,7 @@ public class LecturaJSON {
         Tree lineageTree = new Tree(monarchy.getSize() - 1, this.counter);
         treeConstructor(lineageTree, monarchy);
         setLineage(monarchy, lineageTree);
-        
+
         return lineageTree;
         
     }
@@ -163,26 +163,29 @@ public class LecturaJSON {
         Persona fatherPersona;
         
         while (aux != null) {
-            if (aux.getData().getFather() != null) { //fix
+            if (aux.getData().getFather() == null) { //fix
                 TreeNode node = lineageTree.searchPersonaTree(aux.getData());
                 lineageTree.setpRoot(node);
-            }
+            }else{
             if (aux.getData().getFather().contains(",")) {
-                innerData = aux.getData().getFather().split(",");
+                innerData = aux.getData().getFather().split(", ");
                 String numeral = innerData[1].split(" ")[0].trim();
-                fatherPersona = new Persona(innerData[0], numeral, null);
+                fatherPersona = new Persona(innerData[0], numeral, "");
                 father = lineageTree.searchPersonaTree(fatherPersona);
                 son = lineageTree.searchPersonaTree(aux.getData());
                 lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
                 lineageTree.setListFather(son.getTinfo(), father.getTinfo());
+                System.out.println(aux.getData().getFullName());
                 
             } else {
-                fatherPersona = new Persona(null, null, aux.getData().getFather().trim());
+                fatherPersona = new Persona("", "", aux.getData().getFather().trim());
                 father = lineageTree.searchPersonaTree(fatherPersona);
                 son = lineageTree.searchPersonaTree(aux.getData());
                 lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
                 lineageTree.setListFather(son.getTinfo(), father.getTinfo());
             }
+            }
+            aux = aux.getpNext();
         }
     }
 

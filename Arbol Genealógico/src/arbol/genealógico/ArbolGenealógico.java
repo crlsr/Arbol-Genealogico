@@ -60,7 +60,7 @@ public class ArbolGenealógico {
             File selected = finder.getSelectedFile();
             object = new LecturaJSON(selected); //Se crea el JSON
             newTree = object.dataConstructor();
-        
+
         }
         
         MENU main = new MENU();
