@@ -4,19 +4,37 @@
  */
 package VENTANAS;
 
+import JSON.LecturaJSON;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author marco
  */
 public class MENU extends javax.swing.JFrame {
-
+    static boolean jsoncargado;
+    static LecturaJSON json;
     /**
      * Creates new form MENU
      */
     public MENU() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        this.jsoncargado = true;
+    }
+    
+    public MENU(LecturaJSON json) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.json =json;
+        this.jsoncargado = true;
+    }
+    
+    public Image getIconImage() {
+        Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
+        return icono;
     }
 
     /**
@@ -33,10 +51,12 @@ public class MENU extends javax.swing.JFrame {
         ARBOL = new javax.swing.JLabel();
         INSTRUCCIONES = new javax.swing.JButton();
         CARGAR_JSON = new javax.swing.JButton();
+        GESTION_PERFILES = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENÚ PRINCIPAL");
+        setIconImage(getIconImage());
         setLocation(new java.awt.Point(0, 0));
         setName(""); // NOI18N
         setUndecorated(true);
@@ -53,10 +73,10 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(CERRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
 
-        TITULO.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TITULO.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         TITULO.setForeground(new java.awt.Color(255, 255, 255));
         TITULO.setText("MENÚ PRINCIPAL");
-        getContentPane().add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
+        getContentPane().add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         ARBOL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/ARBOL.png"))); // NOI18N
         getContentPane().add(ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, -1, -1));
@@ -65,10 +85,15 @@ public class MENU extends javax.swing.JFrame {
         INSTRUCCIONES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         INSTRUCCIONES.setForeground(new java.awt.Color(255, 255, 255));
         INSTRUCCIONES.setText("INSTRUCCIONES");
+        INSTRUCCIONES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INSTRUCCIONESActionPerformed(evt);
+            }
+        });
         getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, -1, -1));
 
         CARGAR_JSON.setBackground(new java.awt.Color(0, 0, 0));
-        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         CARGAR_JSON.setForeground(new java.awt.Color(255, 255, 255));
         CARGAR_JSON.setText("CARGAR JSON");
         CARGAR_JSON.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +101,18 @@ public class MENU extends javax.swing.JFrame {
                 CARGAR_JSONActionPerformed(evt);
             }
         });
-        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
+
+        GESTION_PERFILES.setBackground(new java.awt.Color(0, 0, 0));
+        GESTION_PERFILES.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        GESTION_PERFILES.setForeground(new java.awt.Color(255, 255, 255));
+        GESTION_PERFILES.setText("GESTIÓN DE PERFILES");
+        GESTION_PERFILES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GESTION_PERFILESActionPerformed(evt);
+            }
+        });
+        getContentPane().add(GESTION_PERFILES, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
 
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
         getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 440));
@@ -93,6 +129,21 @@ public class MENU extends javax.swing.JFrame {
         this.setVisible(false);
         CJ.setVisible(true);
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
+
+    private void GESTION_PERFILESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GESTION_PERFILESActionPerformed
+        if(jsoncargado){
+            GESTION_PERFILES GP = new GESTION_PERFILES(); 
+            this.setVisible(false);
+            GP.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe cargar primero un archivo JSON");
+        }
+    }//GEN-LAST:event_GESTION_PERFILESActionPerformed
+
+    private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
+        JOptionPane.showMessageDialog(this, "👤\n️"
+                                        +"👤\n️");
+    }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +185,7 @@ public class MENU extends javax.swing.JFrame {
     private javax.swing.JButton CARGAR_JSON;
     private javax.swing.JButton CERRAR;
     private javax.swing.JLabel FONDO;
+    private javax.swing.JButton GESTION_PERFILES;
     private javax.swing.JButton INSTRUCCIONES;
     private javax.swing.JLabel TITULO;
     // End of variables declaration//GEN-END:variables

@@ -46,7 +46,8 @@ public class ArbolGenealógico {
         arbolGenealogico.connectNodes(p2.getTinfo(), p1.getTinfo());
         arbolGenealogico.connectNodes(p3.getTinfo(), p2.getTinfo());
         arbolGenealogico.connectNodes(p4.getTinfo(), p2.getTinfo());
-
+        arbolGenealogico.mostrarArbol();
+        
         LecturaJSON object;
         Tree newTree;
         JFileChooser finder = new JFileChooser();
@@ -60,7 +61,7 @@ public class ArbolGenealógico {
             File selected = finder.getSelectedFile();
             object = new LecturaJSON(selected); //Se crea el JSON
             newTree = object.dataConstructor();
-
+            newTree.mostrarArbol();
         }
         
         MENU main = new MENU();

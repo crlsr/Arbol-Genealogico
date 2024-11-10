@@ -4,18 +4,27 @@
  */
 package VENTANAS;
 
+import JSON.LecturaJSON;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author marco
  */
 public class CARGAR_JSON extends javax.swing.JFrame {
-
+    static LecturaJSON json;
     /**
      * Creates new form CARGAR_JSON
      */
     public CARGAR_JSON() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.json=json;
     }
 
     /**
@@ -31,10 +40,13 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         CERRAR = new javax.swing.JButton();
         ICONO_JSON = new javax.swing.JLabel();
         INSTRUCCIONES = new javax.swing.JButton();
+        CARGAR_JSON = new javax.swing.JButton();
+        REGRESAR = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CARGAR JSON");
+        setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -61,7 +73,34 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         INSTRUCCIONES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         INSTRUCCIONES.setForeground(new java.awt.Color(255, 255, 255));
         INSTRUCCIONES.setText("INSTRUCCIONES");
+        INSTRUCCIONES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INSTRUCCIONESActionPerformed(evt);
+            }
+        });
         getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, -1, -1));
+
+        CARGAR_JSON.setBackground(new java.awt.Color(0, 0, 0));
+        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CARGAR_JSON.setForeground(new java.awt.Color(255, 255, 255));
+        CARGAR_JSON.setText("CARGAR JSON");
+        CARGAR_JSON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CARGAR_JSONActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
+
+        REGRESAR.setBackground(new java.awt.Color(0, 0, 0));
+        REGRESAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        REGRESAR.setForeground(new java.awt.Color(255, 255, 255));
+        REGRESAR.setText("REGRESAR");
+        REGRESAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REGRESARActionPerformed(evt);
+            }
+        });
+        getContentPane().add(REGRESAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
 
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
         getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 450));
@@ -72,6 +111,50 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
+
+    public Image getIconImage() {
+        Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
+        return icono;
+    }
+    
+    private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
+        try {
+        JFileChooser finder = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
+        finder.setFileFilter(filter);
+        int response = finder.showOpenDialog(null);
+        if(response == JFileChooser.APPROVE_OPTION){
+            File selected = finder.getSelectedFile(); 
+            if (json ==null){
+                json=new LecturaJSON(selected);
+                json.dataConstructor();
+            }else{
+                // this.json.changeJSON(selected, this.grafo);
+            }
+            if(json != null){
+                JOptionPane.showMessageDialog(this, "El JSON se ha cargado correctamente");
+            }
+        }
+        }    
+        catch (Exception e){
+           JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+       }
+    }//GEN-LAST:event_CARGAR_JSONActionPerformed
+
+    private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
+        if(json!=null){
+            MENU M = new MENU();
+            M.setVisible(true);
+            this.setVisible(false);}
+        else{
+            JOptionPane.showMessageDialog(this, "Agregue un JSON");
+        }
+    }//GEN-LAST:event_REGRESARActionPerformed
+
+    private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
+        JOptionPane.showMessageDialog(this, "👤\n️"
+                                        +"👤\n️");
+    }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
     
     /**
@@ -110,10 +193,12 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CARGAR_JSON;
     private javax.swing.JButton CERRAR;
     private javax.swing.JLabel FONDO;
     private javax.swing.JLabel ICONO_JSON;
     private javax.swing.JButton INSTRUCCIONES;
+    private javax.swing.JButton REGRESAR;
     private javax.swing.JLabel TITULO;
     // End of variables declaration//GEN-END:variables
 }
