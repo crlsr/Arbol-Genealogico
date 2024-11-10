@@ -26,6 +26,14 @@ public class Tree {
         this.motes = new Hashtable(hashtableSize2);
         this.size = 0;
     }
+
+    public Tree(TreeNode pRoot) {
+        this.pRoot = pRoot;
+        this.graph = new MultiGraph("Árbol Genealógico");
+        this.size = 0;
+        this.nombres = null;
+        this.motes = null;
+    }
     
     public void addNode(Persona persona){
         if(persona!= null){
@@ -52,12 +60,29 @@ public class Tree {
             }
             String edgeId =  padre.getFullName()+ "-" + padre.getNumeral() + "-" + hijo.getFullName()+ "-" + hijo.getNumeral();
             if (graph.getEdge(edgeId) == null) {
-                TreeNode padreArbol = this.getNombres().searchPersona(padre, false);
-                padreArbol.getHijos().add(this.getNombres().searchPersona(hijo, false));
-                padreArbol.getTinfo().setSons(hijo.getFullName()+ "-" + hijo.getNumeral());
                 graph.addEdge(edgeId, padre.getFullName()+ "-" + padre.getNumeral(), hijo.getFullName()+ "-" + hijo.getNumeral(), true);  
                 graph.getEdge(edgeId).setAttribute("ui.style", "fill-color: black;");  
             }
+        }
+    }
+    
+    public void setListFather(Persona hijo, Persona padre){
+        TreeNode padreArbol = this.getNombres().searchPersona(padre, false);
+        padreArbol.getHijos().add(this.getNombres().searchPersona(hijo, false));
+        padreArbol.getTinfo().setSons(hijo.getFullName()+ "-" + hijo.getNumeral());
+    }
+    
+    public void preOrden(TreeNode node, List<TreeNode> lista, String cadenaBuscar) {
+        if (node == null) {
+            return;
+        }
+        if(node.getTinfo().getFullName().toLowerCase().contains(cadenaBuscar.toLowerCase())){
+            lista.add(node);
+        }
+        Node<TreeNode> aux = node.getHijos().getpFirst();
+        while(aux!= null){
+            preOrden(aux.getData(), lista, cadenaBuscar);
+            aux = aux.getpNext();
         }
     }
     
