@@ -98,6 +98,8 @@ public class LecturaJSON {
         String description;
         String fate;
         String wedTo;
+        String mother;
+        
         Persona result = new Persona(name, lineagePosition, eyeColor, hairColor, father);
 
         for (int i = 0; i < data.length(); i++) {
@@ -110,12 +112,14 @@ public class LecturaJSON {
                     break;
                 case "Born to":
                     father = jsonData.getString(key);
-                    if (father == null) {
+                    if (father == "") {
                         result.setFather(father);
+                    } else{
+                        result.setMother(father);
                     }
                     if (father.equals("[Unknown]")) {
                         father = null;
-                    }
+                    } 
 
                     break;
                 case "Known throughout as":
