@@ -79,10 +79,9 @@ public class LecturaJSON {
             lineageTree.addNode(aux.getData());
             
             lineageTree.getNombres().addPersona(aux.getData(), false);
-            System.out.println("hh");
             if (aux.getData().getKwownAs() != null) {
-                System.out.println("kakds");
                 lineageTree.getNombres().addPersona(aux.getData(), false);
+                lineageTree.getMotes().addPersona(aux.getData(), true);
             }
             aux = aux.getpNext();
         }
@@ -98,7 +97,6 @@ public class LecturaJSON {
         String description;
         String fate;
         String wedTo;
-        String mother;
         
         Persona result = new Persona(name, lineagePosition, eyeColor, hairColor, father);
 
