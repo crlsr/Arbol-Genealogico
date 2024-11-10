@@ -56,6 +56,8 @@ public class ArbolGenealógico {
         finder.setFileFilter(filter);
         int response = finder.showOpenDialog(null);
 
+        
+        
         if (response == JFileChooser.APPROVE_OPTION) {
             File selected = finder.getSelectedFile();
             object = new LecturaJSON(selected); //Se crea el JSON
