@@ -31,6 +31,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         CERRAR = new javax.swing.JButton();
         ICONO_JSON = new javax.swing.JLabel();
         INSTRUCCIONES = new javax.swing.JButton();
+        CARGAR_JSON = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,6 +64,17 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         INSTRUCCIONES.setText("INSTRUCCIONES");
         getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, -1, -1));
 
+        CARGAR_JSON.setBackground(new java.awt.Color(0, 0, 0));
+        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CARGAR_JSON.setForeground(new java.awt.Color(255, 255, 255));
+        CARGAR_JSON.setText("CARGAR JSON");
+        CARGAR_JSON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CARGAR_JSONActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
+
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
         getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 450));
 
@@ -72,6 +84,10 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
+
+    private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
     
     /**
@@ -110,6 +126,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CARGAR_JSON;
     private javax.swing.JButton CERRAR;
     private javax.swing.JLabel FONDO;
     private javax.swing.JLabel ICONO_JSON;

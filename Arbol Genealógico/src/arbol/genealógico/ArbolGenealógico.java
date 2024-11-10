@@ -42,11 +42,6 @@ public class ArbolGenealógico {
     arbolGenealogico.connectNodes(p4.getTinfo(), p2.getTinfo());   
     arbolGenealogico.mostrarArbol();
         System.out.println(p2.getTinfo().generarDescripcion());
-    
-        
-        
-        MENU main = new MENU();
-        main.setVisible(true);
     }
     
 }

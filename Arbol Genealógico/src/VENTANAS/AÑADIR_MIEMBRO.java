@@ -26,11 +26,47 @@ public class AÑADIR_MIEMBRO extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        CERRAR = new javax.swing.JButton();
+        CERRAR1 = new javax.swing.JButton();
+        FONDO = new javax.swing.JLabel();
+
+        CERRAR.setBackground(new java.awt.Color(255, 0, 0));
+        CERRAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CERRAR.setForeground(new java.awt.Color(255, 255, 255));
+        CERRAR.setText("X");
+        CERRAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CERRARActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        CERRAR1.setBackground(new java.awt.Color(255, 0, 0));
+        CERRAR1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CERRAR1.setForeground(new java.awt.Color(255, 255, 255));
+        CERRAR1.setText("X");
+        CERRAR1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CERRAR1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CERRAR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
+
+        FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 440));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_CERRARActionPerformed
+
+    private void CERRAR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRAR1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_CERRAR1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,5 +104,8 @@ public class AÑADIR_MIEMBRO extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CERRAR;
+    private javax.swing.JButton CERRAR1;
+    private javax.swing.JLabel FONDO;
     // End of variables declaration//GEN-END:variables
 }
