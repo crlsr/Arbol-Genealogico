@@ -6,7 +6,6 @@ package EDD;
 import Extras.Persona;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.ui.view.Viewer;
 /**
  *
  * @author pseba
@@ -45,6 +44,12 @@ public class Tree {
                 int x = (this.getSize() % 10) * 80;  
                 int y = generacion * 100;  
                 graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("xy", x, y);
+                String[] name = graph.getNode(persona.getFullName() + "-" + persona.getNumeral()).toString().split(" ");
+                String apellido = name[0];
+                for (String part: name){
+                    apellido = part;
+                }
+                System.out.println(apellido);
             }
             
         }
@@ -95,6 +100,7 @@ public class Tree {
         }
         return nodoBuscado;
     }
+    
     public void mostrarArbol() {
         
         System.setProperty("org.graphstream.ui", "swing");
