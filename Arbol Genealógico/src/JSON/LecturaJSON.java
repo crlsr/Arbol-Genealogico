@@ -160,6 +160,7 @@ public class LecturaJSON {
         Node<Persona> aux = data.getpFirst();
         String[] innerData;
         TreeNode father;
+        TreeNode son;
         Persona fatherPersona;
         
         while (aux != null) {
@@ -172,14 +173,16 @@ public class LecturaJSON {
                 String numeral = innerData[1].split(" ")[0].trim();
                 fatherPersona = new Persona(innerData[0], numeral, null);
                 father = lineageTree.searchPersonaTree(fatherPersona);
-                lineageTree.connectNodes(father.getTinfo(), aux.getData());
-                lineageTree.setListFather(aux.getData(), father.getTinfo());
+                son = lineageTree.searchPersonaTree(aux.getData());
+                lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
+                lineageTree.setListFather(son.getTinfo(), father.getTinfo());
                 
             } else {
                 fatherPersona = new Persona(null, null, aux.getData().getFather().trim());
                 father = lineageTree.searchPersonaTree(fatherPersona);
-                lineageTree.connectNodes(aux.getData(), father.getTinfo());
-                lineageTree.setListFather(aux.getData(), father.getTinfo());
+                son = lineageTree.searchPersonaTree(aux.getData());
+                lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
+                lineageTree.setListFather(son.getTinfo(), father.getTinfo());
             }
         }
     }
