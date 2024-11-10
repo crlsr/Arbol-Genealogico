@@ -26,6 +26,7 @@ public class LecturaJSON {
     
     private JSONObject data;
     private String ineerFilePath;
+    int counter = 0;
     
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
@@ -122,7 +123,7 @@ public class LecturaJSON {
                 case "Known throughout as":
                     mote = jsonData.getString(key);
                     result.setKwownAs(mote);
-                    counter = counter + 1;
+                    this.counter = this.counter + 1;
                     break;
                 case "Held title":
                     heldTitle = jsonData.getString(key);
