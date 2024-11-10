@@ -46,8 +46,6 @@ public class ArbolGenealógico {
         arbolGenealogico.connectNodes(p2.getTinfo(), p1.getTinfo());
         arbolGenealogico.connectNodes(p3.getTinfo(), p2.getTinfo());
         arbolGenealogico.connectNodes(p4.getTinfo(), p2.getTinfo());
-        arbolGenealogico.mostrarArbol();
-        System.out.println(p2.getTinfo().generarDescripcion());
 
         LecturaJSON object;
         Tree newTree;
