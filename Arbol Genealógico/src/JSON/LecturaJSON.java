@@ -23,10 +23,10 @@ import org.json.JSONTokener;
  * @author carlosrodriguez
  */
 public class LecturaJSON {
-
+    
     private JSONObject data;
     private String ineerFilePath;
-
+    
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
         try (FileReader reader = new FileReader(endpoint)) {
@@ -35,23 +35,23 @@ public class LecturaJSON {
             JOptionPane.showMessageDialog(null, "Error al intentar abrir: " + e.getMessage());
         }
     }
-
+    
     public JSONObject getData() {
         return data;
     }
-
+    
     public void setData(JSONObject data) {
         this.data = data;
     }
-
+    
     public String getIneerFilePath() {
         return ineerFilePath;
     }
-
+    
     public void setIneerFilePath(String ineerFilePath) {
         this.ineerFilePath = ineerFilePath;
     }
-
+    
     public Tree dataConstructor() {
         List<Persona> monarchy = new List<>();
         String keyWord = this.getData().keys().next();
@@ -64,15 +64,15 @@ public class LecturaJSON {
             Persona person = personBuilder(personData, personKey, counterMotes);
             monarchy.add(person);
         }
-
+        
         Tree lineageTree = new Tree(monarchy.getSize() - 1, counterMotes);
         treeConstructor(lineageTree, monarchy);
         setLineage(monarchy, lineageTree);
-
+        
         return lineageTree;
-
+        
     }
-
+    
     public void treeConstructor(Tree lineageTree, List<Persona> monarchy) {
         Node<Persona> aux = monarchy.getpFirst();
         while (aux != null) {
@@ -85,7 +85,7 @@ public class LecturaJSON {
             aux = aux.getpNext();
         }
     }
-
+    
     public Persona personBuilder(JSONArray data, String name, int counter) {
         String lineagePosition = "";
         String father = "";
@@ -98,7 +98,7 @@ public class LecturaJSON {
         String wedTo;
         
         Persona result = new Persona(name, lineagePosition, eyeColor, hairColor, father);
-
+        
         for (int i = 0; i < data.length(); i++) {
             JSONObject jsonData = data.getJSONObject(i);
             String key = jsonData.keys().next();
@@ -109,20 +109,20 @@ public class LecturaJSON {
                     break;
                 case "Born to":
                     father = jsonData.getString(key);
-                    if(result.getFather().equals("")){
+                    if (result.getFather().equals("")) {
                         result.setFather(father);
-                    } else{
+                    } else {
                         result.setMother(father);
                     }
-                    if(father.equals("[Unknown]")){
+                    if (father.equals("[Unknown]")) {
                         result.setFather(null);
                     }
-
+                    
                     break;
                 case "Known throughout as":
                     mote = jsonData.getString(key);
                     result.setKwownAs(mote);
-                    counter++;
+                    counter = counter + 1;
                     break;
                 case "Held title":
                     heldTitle = jsonData.getString(key);
@@ -154,13 +154,13 @@ public class LecturaJSON {
         System.out.println(result.generarDescripcion());
         return result;
     }
-
+    
     public void setLineage(List<Persona> data, Tree lineageTree) {
         Node<Persona> aux = data.getpFirst();
         String[] innerData;
         TreeNode father;
         Persona fatherPersona;
-
+        
         while (aux != null) {
             if (aux.getData().getFather() != null) { //fix
                 TreeNode node = lineageTree.searchPersonaTree(aux.getData());
@@ -173,7 +173,7 @@ public class LecturaJSON {
                 father = lineageTree.searchPersonaTree(fatherPersona);
                 lineageTree.connectNodes(father.getTinfo(), aux.getData());
                 lineageTree.setListFather(aux.getData(), father.getTinfo());
-
+                
             } else {
                 fatherPersona = new Persona(null, null, aux.getData().getFather().trim());
                 father = lineageTree.searchPersonaTree(fatherPersona);
@@ -202,5 +202,5 @@ public class LecturaJSON {
             JOptionPane.showMessageDialog(null, "Error al intentar abrir: " + e.getMessage());
         }
     }
-
+    
 }
