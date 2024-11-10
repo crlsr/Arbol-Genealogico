@@ -109,14 +109,14 @@ public class LecturaJSON {
                     break;
                 case "Born to":
                     father = jsonData.getString(key);
-                    if (father == "") {
+                    if(result.getFather().equals("")){
                         result.setFather(father);
                     } else{
                         result.setMother(father);
                     }
-                    if (father.equals("[Unknown]")) {
-                        father = null;
-                    } 
+                    if(father.equals("[Unknown]")){
+                        result.setFather(null);
+                    }
 
                     break;
                 case "Known throughout as":
