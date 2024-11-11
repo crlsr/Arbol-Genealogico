@@ -67,7 +67,7 @@ public class LecturaJSON {
             Persona person = personBuilder(personData, personKey, this.counter);
             monarchy.add(person);
         }
-
+        
         Tree lineageTree = new Tree(this.counter2 + 1, this.counter);
         treeConstructor(lineageTree, monarchy);
         setLineage(monarchy, lineageTree);
