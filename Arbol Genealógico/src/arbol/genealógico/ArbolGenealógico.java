@@ -46,11 +46,24 @@ public class ArbolGenealógico {
         arbolGenealogico.connectNodes(p2.getTinfo(), p1.getTinfo());
         arbolGenealogico.connectNodes(p3.getTinfo(), p2.getTinfo());
         arbolGenealogico.connectNodes(p4.getTinfo(), p2.getTinfo());
-
+        arbolGenealogico.mostrarArbol();//primer arbol
+        
         LecturaJSON object;
         Tree newTree;
         JFileChooser finder = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
         finder.setFileFilter(filter);
         int response = finder.showOpenDialog(null);
-    }} 
+
+        
+        
+        if (response == JFileChooser.APPROVE_OPTION) {
+            File selected = finder.getSelectedFile();
+            object = new LecturaJSON(selected); //Se crea el JSON
+            newTree = object.dataConstructor();
+            newTree.mostrarArbol();//2do arbol
+        }
+        MENU main = new MENU();
+        main.setVisible(true);
+    } 
+}

@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author marco
  */
-public class GESTION_PERFILES extends javax.swing.JFrame {
+public class CONTROL_REGISTROS extends javax.swing.JFrame {
 
     /**
      * Creates new form AÑADIR_MIEMBRO
      */
-    public GESTION_PERFILES() {
+    public CONTROL_REGISTROS() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -49,8 +49,8 @@ public class GESTION_PERFILES extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("GESTIÓN DE PERFILES");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, -1, -1));
+        jLabel1.setText("CONTROL DE REGISTROS");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         REGRESAR.setBackground(new java.awt.Color(0, 0, 0));
         REGRESAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -190,21 +190,23 @@ public class GESTION_PERFILES extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GESTION_PERFILES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CONTROL_REGISTROS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GESTION_PERFILES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CONTROL_REGISTROS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GESTION_PERFILES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CONTROL_REGISTROS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GESTION_PERFILES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CONTROL_REGISTROS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GESTION_PERFILES().setVisible(true);
+                new CONTROL_REGISTROS().setVisible(true);
             }
         });
     }

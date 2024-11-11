@@ -150,8 +150,6 @@ public class LecturaJSON {
                     break;
             }
         }
-        System.out.println(result.getFullName());
-        System.out.println(result.generarDescripcion());
         return result;
     }
     
@@ -175,7 +173,6 @@ public class LecturaJSON {
                 son = lineageTree.searchPersonaTree(aux.getData());
                 lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
                 lineageTree.setListFather(son.getTinfo(), father.getTinfo());
-                System.out.println(aux.getData().getFullName());
                 
             } else {
                 fatherPersona = new Persona("", "", aux.getData().getFather().trim());

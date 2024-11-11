@@ -95,8 +95,8 @@ public class Tree {
         }
         return nodoBuscado;
     }
+    
     public void mostrarArbol() {
-        
         System.setProperty("org.graphstream.ui", "swing");
         /*
         Viewer viewer = graph.display();
@@ -104,6 +104,7 @@ public class Tree {
         viewer.getDefaultView().enableMouseOptions();
         */
         Clicks visualizador = new Clicks(graph);
+        
     }
     
      private int getGeneracion(Persona persona) {

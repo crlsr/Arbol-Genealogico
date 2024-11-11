@@ -17,28 +17,16 @@ public class Clicks implements ViewerListener {
     public Clicks(Graph grafo) {
         Graph graph = grafo;
         Viewer viewer = graph.display();
-        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
-
-        // Activa las opciones de interacción con el mouse
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
         viewer.getDefaultView().enableMouseOptions();
-        
-        // Configura el ViewerPipe
         ViewerPipe fromViewer = viewer.newViewerPipe();
-        fromViewer.addViewerListener(this); // Agrega el listener de clic
+        fromViewer.addViewerListener(this); 
         fromViewer.addSink(graph);
 
-        // Bucle de eventos en hilo separado
-        new Thread(() -> {
             while (loop) {
-                fromViewer.pump();  // Usa pump() en lugar de blockingPump()
-                try {
-                    Thread.sleep(50);  // Añade un pequeño retraso para reducir carga
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
+                fromViewer.pump();
             }
-        }).start();
+
     }
 
     @Override

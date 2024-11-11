@@ -44,39 +44,61 @@ public class Persona {
         this.kwownAs= knownAs;
     }
     
-    public String generarDescripcion() {
-        String descripcion = "Nombre Completo: " + this.getFullName();
-        descripcion += ", " + this.getNumeral() + " of his name"+ "\n";
-        descripcion += "Color de Ojos: " + this.getEyesColor() + "\n";
-        descripcion += "Color de Cabello: " + this.getHairColor() + "\n";
+    public Persona(String fullName, String father){
+        this.fullName = fullName;
+        this.father = father;
+        this.numeral = null;
+        this.eyesColor = null;
+        this.hairColor = null;
+        this.mother = null;
+        this.kwownAs= null;
+        this.heldTitle = null;
+        this.wedTo = null;
+        this.sons = null;
+        this.notes = null;
+        this.fate = null;
+    }
     
-        if (this.getFather() != null) {
-            descripcion += "Padre: " + this.getFather() + "\n";
+    public String generarDescripcion() {
+        String descripcion = "Full Name: " + this.getFullName();
+        if(this.getNumeral() != null){
+            descripcion += ", " + this.getNumeral() + " of his name"+ "\n";
         }else{
-            descripcion += "Padre desconocido \n";
+           descripcion +="\n";
+        }
+        if(this.getEyesColor() != null){
+            descripcion += "Eyes color: " + this.getEyesColor() + "\n";
+        }
+        if(this.getHairColor() != null){
+            descripcion += "Hair color: " + this.getHairColor() + "\n";
+        }
+        if (this.getFather() != null) {
+            descripcion += "Father: " + this.getFather() + "\n";
+        }else{
+            descripcion += "Father: Unknown \n";
         }
         if (this.getMother()!= null) {
-            descripcion += "Madre: " + this.getMother() + "\n";
+            descripcion += "Mother: " + this.getMother() + "\n";
         }
         if (this.getKwownAs() != null) {
-            descripcion += "Mote: " + this.getKwownAs() + "\n";
+            descripcion += "Known throughout as: " + this.getKwownAs() + "\n";
         }
         if (this.getHeldTitle() != null) {
-            descripcion += "Título: " + this.getHeldTitle() + "\n";
+            descripcion += "Held title: " + this.getHeldTitle() + "\n";
         }
         if (this.getWedTo() != null) {
-            descripcion += "Casado con: " + this.getWedTo() + "\n";
+            descripcion += "Wed to: " + this.getWedTo() + "\n";
         }
         if (this.getSons() != null) {
-            descripcion += "Hijos: \n" + this.getSons();
+            descripcion += "Father to: \n" + this.getSons();
             descripcion = descripcion.substring(0, descripcion.length() - 2); 
             descripcion += "\n";
         }
        if (this.getNotes() != null) {
-            descripcion += "Notas: " + this.getNotes() + "\n";
+            descripcion += "Notes: " + this.getNotes() + "\n";
         }
         if (this.getFate()!= null) {
-            descripcion += "Destino: " + this.getFate();
+            descripcion += "Fate: " + this.getFate();
         }
         return descripcion;
     }

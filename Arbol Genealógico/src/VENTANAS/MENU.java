@@ -51,7 +51,7 @@ public class MENU extends javax.swing.JFrame {
         ARBOL = new javax.swing.JLabel();
         INSTRUCCIONES = new javax.swing.JButton();
         CARGAR_JSON = new javax.swing.JButton();
-        GESTION_PERFILES = new javax.swing.JButton();
+        CONTROL_REGISTROS = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,16 +103,16 @@ public class MENU extends javax.swing.JFrame {
         });
         getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
 
-        GESTION_PERFILES.setBackground(new java.awt.Color(0, 0, 0));
-        GESTION_PERFILES.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        GESTION_PERFILES.setForeground(new java.awt.Color(255, 255, 255));
-        GESTION_PERFILES.setText("GESTIÓN DE PERFILES");
-        GESTION_PERFILES.addActionListener(new java.awt.event.ActionListener() {
+        CONTROL_REGISTROS.setBackground(new java.awt.Color(0, 0, 0));
+        CONTROL_REGISTROS.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        CONTROL_REGISTROS.setForeground(new java.awt.Color(255, 255, 255));
+        CONTROL_REGISTROS.setText("CONTROL DE REGISTROS");
+        CONTROL_REGISTROS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GESTION_PERFILESActionPerformed(evt);
+                CONTROL_REGISTROSActionPerformed(evt);
             }
         });
-        getContentPane().add(GESTION_PERFILES, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
+        getContentPane().add(CONTROL_REGISTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
 
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
         getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 440));
@@ -130,15 +130,15 @@ public class MENU extends javax.swing.JFrame {
         CJ.setVisible(true);
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
-    private void GESTION_PERFILESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GESTION_PERFILESActionPerformed
+    private void CONTROL_REGISTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONTROL_REGISTROSActionPerformed
         if(jsoncargado){
-            GESTION_PERFILES GP = new GESTION_PERFILES(); 
+            CONTROL_REGISTROS CR = new CONTROL_REGISTROS(); 
             this.setVisible(false);
-            GP.setVisible(true);
+            CR.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Debe cargar primero un archivo JSON");
         }
-    }//GEN-LAST:event_GESTION_PERFILESActionPerformed
+    }//GEN-LAST:event_CONTROL_REGISTROSActionPerformed
 
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
         JOptionPane.showMessageDialog(this, "👤\n️"
@@ -184,8 +184,8 @@ public class MENU extends javax.swing.JFrame {
     private javax.swing.JLabel ARBOL;
     private javax.swing.JButton CARGAR_JSON;
     private javax.swing.JButton CERRAR;
+    private javax.swing.JButton CONTROL_REGISTROS;
     private javax.swing.JLabel FONDO;
-    private javax.swing.JButton GESTION_PERFILES;
     private javax.swing.JButton INSTRUCCIONES;
     private javax.swing.JLabel TITULO;
     // End of variables declaration//GEN-END:variables
