@@ -26,7 +26,6 @@ public class Clicks implements ViewerListener {
             while (loop) {
                 fromViewer.pump();
             }
-
     }
 
     @Override

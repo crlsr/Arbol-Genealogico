@@ -54,14 +54,17 @@ public class ArbolGenealógico {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
         finder.setFileFilter(filter);
         int response = finder.showOpenDialog(null);
-
-        
         
         if (response == JFileChooser.APPROVE_OPTION) {
             File selected = finder.getSelectedFile();
             object = new LecturaJSON(selected); //Se crea el JSON
             newTree = object.dataConstructor();
-            newTree.mostrarArbol();//2do arbol
+            if (newTree != null) {
+                newTree.mostrarArbol(); // Mostrar el árbol cargado del JSON
+            } else {
+                System.out.println("Error: El árbol no se cargó correctamente desde el archivo JSON.");
+            }
+            //newTree.mostrarArbol();//2do arbol
         }
         MENU main = new MENU();
         main.setVisible(true);
