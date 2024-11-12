@@ -26,8 +26,7 @@ public class MENU extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.newTree = newTree;
         this.jsoncargado = false;
-    }
-    
+    } 
     public MENU(Tree newTree, LecturaJSON json) {
         initComponents();
         this.setLocationRelativeTo(null);
