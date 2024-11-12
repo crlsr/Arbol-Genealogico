@@ -126,12 +126,14 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         JFileChooser finder = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
         finder.setFileFilter(filter);
-        int response = finder.showOpenDialog(null);
-        if(response == JFileChooser.APPROVE_OPTION){
+        int response = finder.showOpenDialog(null);//error
+        if(response == JFileChooser.APPROVE_OPTION){//error
             File selected = finder.getSelectedFile(); 
-            if (json ==null){
+            if (json ==null){//error
                 json=new LecturaJSON(selected);
-                json.dataConstructor(newTree);
+                newTree = json.dataConstructor(newTree);
+                newTree.mostrarArbol();//2do arbol
+                json.eddInsert(newTree);
             }else{
                 this.json.changeJSON(selected, this.newTree);
             }if(json != null){
