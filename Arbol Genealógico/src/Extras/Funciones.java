@@ -27,14 +27,14 @@ public class Funciones {
         }
         String[] name2 = persona.getFullName().split(" ");
         String ultimaCadena= name2[0];
-        for (String part: name){
+        for (String part: name2){
             ultimaCadena = part;
         }
-        if(apellido != ultimaCadena){
+        if(!apellido.equals(ultimaCadena)){
             persona.setFullName(persona.getFullName()+ " " +apellido);
         }
         while(aux!=null){
-            if(aux.getData().getTinfo().getFullName().toLowerCase() == persona.getFullName().toLowerCase()){
+            if(aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase())){
                 encontrado = true;
                 break;
             }

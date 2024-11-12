@@ -17,17 +17,29 @@ public class Clicks implements ViewerListener {
     public Clicks(Graph grafo) {
         Graph graph = grafo;
         Viewer viewer = graph.display();
-        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
         viewer.getDefaultView().enableMouseOptions();
         ViewerPipe fromViewer = viewer.newViewerPipe();
         fromViewer.addViewerListener(this); 
         fromViewer.addSink(graph);
-
+        new Thread(() -> {
             while (loop) {
-                fromViewer.pump();
+                fromViewer.pump();  // Procesa los eventos que ocurren en el viewer
+                try {
+                    Thread.sleep(50);  // Evita el uso excesivo de CPU
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();  // Restaura la interrupción
+                    break;
+                }
             }
-    }
+<<<<<<< HEAD
+=======
+        }).start();
+            
 
+>>>>>>> c6ce27b82d1a17bd73a90f43affccdc93b369d8c
+    }
+    
     @Override
     public void viewClosed(String id) {
         loop = false;
