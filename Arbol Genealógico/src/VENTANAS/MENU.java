@@ -4,6 +4,7 @@
  */
 package VENTANAS;
 
+import EDD.Tree;
 import JSON.LecturaJSON;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,19 +17,22 @@ import javax.swing.JOptionPane;
 public class MENU extends javax.swing.JFrame {
     static boolean jsoncargado;
     static LecturaJSON json;
+    static Tree newTree;
     /**
      * Creates new form MENU
      */
     public MENU() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.jsoncargado = true;
+        this.newTree = newTree;
+        this.jsoncargado = false;
     }
     
-    public MENU(LecturaJSON json) {
+    public MENU(Tree newTree, LecturaJSON json) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.json =json;
+        this.newTree = newTree;
+        this.json = json;
         this.jsoncargado = true;
     }
     
@@ -125,14 +129,14 @@ public class MENU extends javax.swing.JFrame {
     }//GEN-LAST:event_CERRARActionPerformed
 
     private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
-        CARGAR_JSON CJ = new CARGAR_JSON(); 
+        CARGAR_JSON CJ = new CARGAR_JSON(newTree, json); 
         this.setVisible(false);
         CJ.setVisible(true);
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
     private void CONTROL_REGISTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONTROL_REGISTROSActionPerformed
         if(jsoncargado){
-            CONTROL_REGISTROS CR = new CONTROL_REGISTROS(); 
+            CONTROL_REGISTROS CR = new CONTROL_REGISTROS(newTree, json); 
             this.setVisible(false);
             CR.setVisible(true);
         }else{

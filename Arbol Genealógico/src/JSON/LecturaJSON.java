@@ -57,7 +57,7 @@ public class LecturaJSON {
         this.ineerFilePath = ineerFilePath;
     }
 
-    public Tree dataConstructor() {
+    public Tree dataConstructor(Tree newTree) {
         monarchy = new List<>();
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
@@ -274,7 +274,7 @@ public class LecturaJSON {
         }
     }
      */
-    public void changeJSON(File newEndpoint) {
+    public void changeJSON(File newEndpoint, Tree newTree) {
         String newPath = newEndpoint.getAbsolutePath();
         this.setIneerFilePath(newPath);
         try (FileReader reader = new FileReader(newEndpoint)) {

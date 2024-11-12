@@ -19,13 +19,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ArbolGenealógico {
 
+    private static LecturaJSON json;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         LecturaJSON object;
-        Tree newTree;
+        Tree newTree = null;
         JFileChooser finder = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
         finder.setFileFilter(filter);
@@ -34,20 +35,11 @@ public class ArbolGenealógico {
         if (response == JFileChooser.APPROVE_OPTION) {
             File selected = finder.getSelectedFile();
             object = new LecturaJSON(selected); //Se crea el JSON
-            newTree = object.dataConstructor();
-<<<<<<< HEAD
-            if (newTree != null) {
-                newTree.mostrarArbol(); // Mostrar el árbol cargado del JSON
-            } else {
-                System.out.println("Error: El árbol no se cargó correctamente desde el archivo JSON.");
-            }
-            //newTree.mostrarArbol();//2do arbol
-=======
+            newTree = object.dataConstructor(newTree);
             newTree.mostrarArbol();//2do arbol
             object.eddInsert(newTree);
->>>>>>> c6ce27b82d1a17bd73a90f43affccdc93b369d8c
         }
-        MENU main = new MENU();
+        MENU main = new MENU(newTree, json);
         main.setVisible(true);
     } 
 }

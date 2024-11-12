@@ -4,6 +4,7 @@
  */
 package VENTANAS;
 
+import EDD.Tree;
 import JSON.LecturaJSON;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -18,12 +19,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CARGAR_JSON extends javax.swing.JFrame {
     static LecturaJSON json;
+    static Tree newTree;
+
     /**
      * Creates new form CARGAR_JSON
      */
-    public CARGAR_JSON() {
+    public CARGAR_JSON(Tree newTree,LecturaJSON json) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.newTree=newTree;
         this.json=json;
     }
 
@@ -127,15 +131,14 @@ public class CARGAR_JSON extends javax.swing.JFrame {
             File selected = finder.getSelectedFile(); 
             if (json ==null){
                 json=new LecturaJSON(selected);
-                json.dataConstructor();
+                json.dataConstructor(newTree);
             }else{
-                // this.json.changeJSON(selected, this.grafo);
+                this.json.changeJSON(selected, this.newTree);
             }
-            if(json != null){
+            }if(json != null){
                 JOptionPane.showMessageDialog(this, "El JSON se ha cargado correctamente");
             }
-        }
-        }    
+        }  
         catch (Exception e){
            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
        }
@@ -143,7 +146,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
 
     private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
         if(json!=null){
-            MENU M = new MENU();
+            MENU M = new MENU(newTree, json);
             M.setVisible(true);
             this.setVisible(false);}
         else{
@@ -187,7 +190,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CARGAR_JSON().setVisible(true);
+                new CARGAR_JSON(newTree,json).setVisible(true);
             }
         });
     }
