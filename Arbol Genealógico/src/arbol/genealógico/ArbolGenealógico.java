@@ -20,28 +20,27 @@ import Extras.Funciones;
  */
 public class ArbolGenealógico {
 
+    private static LecturaJSON json;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         LecturaJSON object;
-        Tree newTree;
+        Tree newTree = null;
         JFileChooser finder = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
         finder.setFileFilter(filter);
         int response = finder.showOpenDialog(null);
-
-        
         
         if (response == JFileChooser.APPROVE_OPTION) {
             File selected = finder.getSelectedFile();
             object = new LecturaJSON(selected); //Se crea el JSON
-            newTree = object.dataConstructor();
+            newTree = object.dataConstructor(newTree);
             newTree.mostrarArbol();//2do arbol
             object.eddInsert(newTree);
         }
-        MENU main = new MENU();
+        MENU main = new MENU(newTree, json);
         main.setVisible(true);
     } 
 }

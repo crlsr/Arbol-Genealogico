@@ -4,6 +4,8 @@
  */
 package VENTANAS;
 
+import EDD.Tree;
+import JSON.LecturaJSON;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -13,14 +15,18 @@ import javax.swing.JOptionPane;
  * @author marco
  */
 public class CONTROL_REGISTROS extends javax.swing.JFrame {
-
+    static LecturaJSON json;
+    static Tree newTree;
     /**
      * Creates new form AÑADIR_MIEMBRO
      */
-    public CONTROL_REGISTROS() {
+    public CONTROL_REGISTROS(Tree newTree, LecturaJSON json) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.newTree=newTree;
+        this.json=json;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,10 +45,12 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         CERRAR = new javax.swing.JButton();
         BUSCAR_NOMBRE = new javax.swing.JButton();
         BUSCAR_APODO = new javax.swing.JButton();
+        VER_ARBOL = new javax.swing.JButton();
         ICONO = new javax.swing.JLabel();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CONTROL DE REGISTROS");
         setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,11 +125,22 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         });
         getContentPane().add(BUSCAR_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(453, 180, 180, -1));
 
+        VER_ARBOL.setBackground(new java.awt.Color(0, 0, 0));
+        VER_ARBOL.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        VER_ARBOL.setForeground(new java.awt.Color(255, 255, 255));
+        VER_ARBOL.setText("VER ARBOL GENEALÓGICO");
+        VER_ARBOL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VER_ARBOLActionPerformed(evt);
+            }
+        });
+        getContentPane().add(VER_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, -1));
+
         ICONO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PERSONA.png"))); // NOI18N
         getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
 
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 440));
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,7 +154,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         return icono;
     }
     private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
-        MENU M = new MENU();
+        MENU M = new MENU(newTree, json);
         M.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_REGRESARActionPerformed
@@ -173,6 +192,14 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                                         +"👤\n️");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
+    private void VER_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_ARBOLActionPerformed
+        //try {
+            newTree.mostrarArbol();
+        //} catch (Exception e) {
+          //  JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+        //}
+    }//GEN-LAST:event_VER_ARBOLActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,7 +233,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CONTROL_REGISTROS().setVisible(true);
+                new CONTROL_REGISTROS(newTree,json).setVisible(true);
             }
         });
     }
@@ -220,6 +247,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private javax.swing.JTextField INPUT_NAME;
     private javax.swing.JButton INSTRUCCIONES;
     private javax.swing.JButton REGRESAR;
+    private javax.swing.JButton VER_ARBOL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

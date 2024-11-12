@@ -34,7 +34,6 @@ public class Clicks implements ViewerListener {
             }
         }).start();
             
-
     }
     
     @Override
