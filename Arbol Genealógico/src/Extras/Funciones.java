@@ -34,13 +34,31 @@ public class Funciones {
             persona.setFullName(persona.getFullName()+ " " +apellido);
         }
         while(aux!=null){
+            if(aux.getData()!=null){
             if(aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase())){
                 encontrado = true;
                 break;
             }
+            }
             aux = aux.getpNext();
         }
         return encontrado;
+    }
+    
+    public String deleteBlankSpaces(String cadena){
+        if(cadena.contains(" ")){
+            String[] cutted = cadena.split(" ");
+            String newCadena = "";
+            for(String palabra: cutted){
+                if(!palabra.equals("")){
+                newCadena += palabra+" ";
+                }
+            }
+            newCadena = newCadena.trim();
+            return newCadena;
+        }else{
+            return cadena;
+        }
     }
     
     public void searchbyMote(Tree arbol, String cadenaBuscar){

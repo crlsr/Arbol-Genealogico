@@ -140,7 +140,7 @@ public class LecturaJSON {
                         lineageTree.getNombres().addPersona(currentSon, false);
                         lineageTree.addNode(currentSon);
                         lineageTree.connectNodes(currentSon, treeFather.getTinfo());
-                        treeFather.getHijos().add(lineageTree.searchPersonaTree(currentSon));
+                        lineageTree.setListFather(currentSon, treeFather.getTinfo());
                     }
                 }
             }
@@ -171,7 +171,7 @@ public class LecturaJSON {
         String fate;
         String wedTo;
 
-        Persona result = new Persona(name, lineagePosition, eyeColor, hairColor, father);
+        Persona result = new Persona(funGetter.deleteBlankSpaces(name), lineagePosition, eyeColor, hairColor, father);
 
         for (int i = 0; i < data.length(); i++) {
             JSONObject jsonData = data.getJSONObject(i);

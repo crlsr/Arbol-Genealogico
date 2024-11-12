@@ -46,12 +46,10 @@ public class Hashtable {
         }else{
             Node<TreeNode> aux = this.getArrayPersonas()[i].getpFirst();
             if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
-                JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                 existe = true;
             } else {
                 while (aux != null) {
                     if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
-                        JOptionPane.showMessageDialog(null, nueva.getFullName() +", "+ nueva.getNumeral()+ " of his name, ya existe");
                         existe = true;
                         break;
                     } else {
@@ -97,13 +95,25 @@ public class Hashtable {
             if(!mote){
             if (aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase())
                     && aux.getData().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase())) {
-                return aux.getData();
+                if(aux.getData().getTinfo().getFather()!= null && persona.getFather()!=null){
+                    if(aux.getData().getTinfo().getFather().toLowerCase().equals(persona.getFather().toLowerCase())){
+                        return aux.getData();
+                    }
+                }else{
+                    return aux.getData();
+                }
             } else {
                 while (aux.getpNext() != null) {
                     aux = aux.getpNext();
-                    if (aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase()) 
-                            && aux.getData().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase())) {
-                        return aux.getData();
+                    if (aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase())
+                    && aux.getData().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase())) {
+                        if(aux.getData().getTinfo().getFather()!= null && persona.getFather()!=null){
+                            if(aux.getData().getTinfo().getFather().toLowerCase().equals(persona.getFather().toLowerCase())){
+                            return aux.getData();
+                            }
+                        }else{
+                            return aux.getData();
+                        }
                     }
                 }
             }

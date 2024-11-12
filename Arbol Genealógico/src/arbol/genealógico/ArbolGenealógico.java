@@ -12,6 +12,7 @@ import JSON.LecturaJSON;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import Extras.Funciones;
 
 /**
  *
