@@ -25,11 +25,12 @@ import Extras.Funciones;
  */
 public class LecturaJSON {
 
-    Funciones funGetter;
+    Funciones funGetter = new Funciones();
     private JSONObject data;
     private String ineerFilePath;
     int counter = 0;
     int counter2 = 0;
+    List<Persona> monarchy;
 
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
@@ -57,7 +58,7 @@ public class LecturaJSON {
     }
 
     public Tree dataConstructor() {
-        List<Persona> monarchy = new List<>();
+        monarchy = new List<>();
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
         for (int i = 0; i < innerData.length(); i++) {
@@ -69,39 +70,80 @@ public class LecturaJSON {
         }
         
         Tree lineageTree = new Tree(this.counter2 + 1, this.counter);
-        treeConstructor(lineageTree, monarchy);
-        setLineage(monarchy, lineageTree);
+        
 
-        setNullSons(lineageTree);
         return lineageTree;
 
     }
+    
+    public void eddInsert(Tree x){
+        treeConstructor(x, monarchy);
+        setLineage(monarchy, x);
+        setNullSons(x);
+    }
 
     public void setNullSons(Tree lineageTree) {
-        Persona father;
-        TreeNode treeFather;
-        Persona currentSon;
-        boolean state;
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
         for (int i = 0; i < innerData.length(); i++) {
             JSONObject personJSON = innerData.getJSONObject(i);
             String personKey = personJSON.keys().next();
-            JSONArray sonsOf = personJSON.getJSONArray("Father to");
-            for (int j = 0; j < sonsOf.length(); j++) {
-                father = new Persona(personKey, null, null);
-                treeFather = lineageTree.searchPersonaTree(father);
-                currentSon = new Persona(sonsOf.getString(j), personKey);
-                state = this.funGetter.isInTree(treeFather, currentSon);
+            JSONArray personData = personJSON.getJSONArray(personKey);
+            parseSons(personData, lineageTree, personKey);
+            
+            
+            /*
+            try {
+                JSONArray sonsOf = personJSON.getJSONArray("Father to");
+                for (int j = 0; j < sonsOf.length(); j++) {
+                    father = new Persona(personKey, null, null);
+                    treeFather = lineageTree.searchPersonaTree(father);
+                    currentSon = new Persona(sonsOf.getString(j), personKey);
+                    state = this.funGetter.isInTree(treeFather, currentSon);
 
-                if (!state) {
-                    lineageTree.getNombres().addPersona(currentSon, false);
-                    lineageTree.addNode(currentSon);
-                    lineageTree.connectNodes(currentSon, treeFather.getTinfo());
-                    treeFather.getHijos().add(lineageTree.searchPersonaTree(currentSon));
+                    if (!state) {
+                        lineageTree.getNombres().addPersona(currentSon, false);
+                        lineageTree.addNode(currentSon);
+                        lineageTree.connectNodes(currentSon, treeFather.getTinfo());
+                        treeFather.getHijos().add(lineageTree.searchPersonaTree(currentSon));
+                    }
+                }
+            } catch (Exception e) {
+            }
+*/
+        }
+    }
+    
+    public void parseSons(JSONArray person, Tree lineageTree, String personKey){
+        JSONArray sonsOf;
+        Persona father;
+        TreeNode treeFather;
+        Persona currentSon;
+        String numeral = "";
+        boolean state;
+        
+        for (int i = 0; i < person.length(); i++) {
+            JSONObject data = person.getJSONObject(i);
+            String selectedKey = data.keys().next();
+            if(selectedKey.equals("Of his name")){
+                numeral = data.getString(selectedKey);
+            }
+            if(selectedKey.equals("Father to")){
+                sonsOf = data.getJSONArray(selectedKey);
+                for (int j = 0; j < sonsOf.length(); j++) {
+                    father = new Persona(personKey, numeral, "");
+                    treeFather = lineageTree.searchPersonaTree(father);
+                    currentSon = new Persona(sonsOf.getString(j), personKey);
+                    state = this.funGetter.isInTree(treeFather, currentSon);
+
+                    if (!state) {
+                        lineageTree.getNombres().addPersona(currentSon, false);
+                        lineageTree.addNode(currentSon);
+                        lineageTree.connectNodes(currentSon, treeFather.getTinfo());
+                        treeFather.getHijos().add(lineageTree.searchPersonaTree(currentSon));
+                    }
                 }
             }
-
         }
     }
 

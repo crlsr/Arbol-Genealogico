@@ -47,7 +47,7 @@ public class Persona {
     public Persona(String fullName, String father){
         this.fullName = fullName;
         this.father = father;
-        this.numeral = null;
+        this.numeral = "";
         this.eyesColor = null;
         this.hairColor = null;
         this.mother = null;

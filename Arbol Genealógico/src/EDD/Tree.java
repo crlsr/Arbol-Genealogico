@@ -37,14 +37,14 @@ public class Tree {
     
     public void addNode(Persona persona){
         if(persona!= null){
-            if(graph.getNode(persona.getFullName() + "-" + persona.getNumeral())== null){
-                graph.addNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.label", persona.getFullName()+ "-" + persona.getNumeral());
-                this.graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("ui.style", "fill-color: lightblue; shape: circle; size: 50px;");
+            if(graph.getNode(persona.getFullName() + " " + persona.getNumeral())== null){
+                graph.addNode(persona.getFullName()+ " " + persona.getNumeral()).setAttribute("ui.label", persona.getFullName()+ " " + persona.getNumeral());
+                this.graph.getNode(persona.getFullName()+ " " + persona.getNumeral()).setAttribute("ui.style", "fill-color: lightblue; shape: circle; size: 30px;");
                 this.setSize(this.getSize()+1);
                 int generacion = getGeneracion(persona);  
                 int x = (this.getSize() % 10) * 80;  
                 int y = generacion * 100;  
-                graph.getNode(persona.getFullName()+ "-" + persona.getNumeral()).setAttribute("xy", x, y);
+                graph.getNode(persona.getFullName()+ " " + persona.getNumeral()).setAttribute("xy", x, y);
             }
             
         }
@@ -52,15 +52,15 @@ public class Tree {
     
     public void connectNodes(Persona hijo, Persona padre){
         if(hijo!= null && padre!= null){
-            if (graph.getNode(padre.getFullName()+ "-" + padre.getNumeral()) == null) {
+            if (graph.getNode(padre.getFullName()+ " " + padre.getNumeral()) == null) {
                 this.addNode(padre);
             }
-            if (graph.getNode(hijo.getFullName()+ "-" + hijo.getNumeral()) == null) {
+            if (graph.getNode(hijo.getFullName()+ " " + hijo.getNumeral()) == null) {
                 this.addNode(hijo);
             }
-            String edgeId =  padre.getFullName()+ "-" + padre.getNumeral() + "-" + hijo.getFullName()+ "-" + hijo.getNumeral();
+            String edgeId =  padre.getFullName()+ " " + padre.getNumeral() + " " + hijo.getFullName()+ " " + hijo.getNumeral();
             if (graph.getEdge(edgeId) == null) {
-                graph.addEdge(edgeId, padre.getFullName()+ "-" + padre.getNumeral(), hijo.getFullName()+ "-" + hijo.getNumeral(), true);  
+                graph.addEdge(edgeId, padre.getFullName()+ " " + padre.getNumeral(), hijo.getFullName()+ " " + hijo.getNumeral(), true);  
                 graph.getEdge(edgeId).setAttribute("ui.style", "fill-color: black;");  
             }
         }
@@ -69,7 +69,7 @@ public class Tree {
     public void setListFather(Persona hijo, Persona padre){
         TreeNode padreArbol = this.getNombres().searchPersona(padre, false);
         padreArbol.getHijos().add(this.getNombres().searchPersona(hijo, false));
-        padreArbol.getTinfo().setSons(hijo.getFullName()+ "-" + hijo.getNumeral());
+        padreArbol.getTinfo().setSons(hijo.getFullName()+ " " + hijo.getNumeral());
     }
     
     public void preOrden(TreeNode node, List<TreeNode> lista, String cadenaBuscar) {
