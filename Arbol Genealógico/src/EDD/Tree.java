@@ -103,7 +103,7 @@ public class Tree {
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
         viewer.getDefaultView().enableMouseOptions();
         */
-        Clicks visualizador = new Clicks(graph);
+        Clicks visualizador = new Clicks(graph, this);
         
     }
     

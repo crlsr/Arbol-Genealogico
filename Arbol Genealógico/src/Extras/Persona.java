@@ -90,7 +90,7 @@ public class Persona {
             descripcion += "Wed to: " + this.getWedTo() + "\n";
         }
         if (this.getSons() != null) {
-            descripcion += "Father to: \n" + this.getSons();
+            descripcion += "Father to: " + this.getSons();
             descripcion = descripcion.substring(0, descripcion.length() - 2); 
             descripcion += "\n";
         }
@@ -100,6 +100,7 @@ public class Persona {
         if (this.getFate()!= null) {
             descripcion += "Fate: " + this.getFate();
         }
+        descripcion = descripcion.trim();
         return descripcion;
     }
 

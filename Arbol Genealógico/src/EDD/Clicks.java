@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package EDD;
+import Extras.Persona;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.ViewerPipe;
 import org.graphstream.ui.view.Viewer;
@@ -13,8 +14,10 @@ import org.graphstream.ui.view.ViewerListener;
  */
 public class Clicks implements ViewerListener {
     protected boolean loop = true;
+    private Tree arbol;
 
-    public Clicks(Graph grafo) {
+    public Clicks(Graph grafo, Tree arbol) {
+        this.arbol = arbol;
         Graph graph = grafo;
         Viewer viewer = graph.display();
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
@@ -43,7 +46,11 @@ public class Clicks implements ViewerListener {
 
     @Override
     public void buttonPushed(String id) {
-        System.out.println("Button pushed on node " + id);
+        String[] idString = id.split("-");
+        Persona aux = new Persona(idString[0], idString[2]);
+        aux.setNumeral(idString[1]);
+        TreeNode personaBuscada = arbol.getNombres().searchPersona(aux,false);
+        System.out.println(personaBuscada.getTinfo().generarDescripcion());
     }
 
     @Override
@@ -53,7 +60,11 @@ public class Clicks implements ViewerListener {
 
     @Override
     public void mouseOver(String id) {
-        System.out.println("Mouse over node " + id);
+        String[] idString = id.split("-");
+        Persona aux = new Persona(idString[0], idString[2]);
+        aux.setNumeral(idString[1]);
+        TreeNode personaBuscada = arbol.getNombres().searchPersona(aux,false);
+        System.out.println(personaBuscada.getTinfo().generarDescripcion());
     }
 
     @Override
