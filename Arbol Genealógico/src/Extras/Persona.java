@@ -61,7 +61,7 @@ public class Persona {
     
     public String generarDescripcion() {
         String descripcion = "Full Name: " + this.getFullName();
-        if(this.getNumeral() != null){
+        if(this.getNumeral() != null && !this.getNumeral().equals("")){
             descripcion += ", " + this.getNumeral() + " of his name"+ "\n";
         }else{
            descripcion +="\n";

@@ -46,7 +46,7 @@ public class Clicks implements ViewerListener {
 
     @Override
     public void buttonPushed(String id) {
-        String[] idString = id.split("-");
+        String[] idString = id.split("/");
         Persona aux = new Persona(idString[0], idString[2]);
         aux.setNumeral(idString[1]);
         TreeNode personaBuscada = arbol.getNombres().searchPersona(aux,false);
@@ -60,7 +60,7 @@ public class Clicks implements ViewerListener {
 
     @Override
     public void mouseOver(String id) {
-        String[] idString = id.split("-");
+        String[] idString = id.split("/");
         Persona aux = new Persona(idString[0], idString[2]);
         aux.setNumeral(idString[1]);
         TreeNode personaBuscada = arbol.getNombres().searchPersona(aux,false);
