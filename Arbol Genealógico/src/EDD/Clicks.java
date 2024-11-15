@@ -55,21 +55,14 @@ public class Clicks implements ViewerListener {
 
     @Override
     public void buttonReleased(String id) {
-        System.out.println("Button released on node " + id);
     }
 
     @Override
     public void mouseOver(String id) {
-        String[] idString = id.split("/");
-        Persona aux = new Persona(idString[0], idString[2]);
-        aux.setNumeral(idString[1]);
-        TreeNode personaBuscada = arbol.getNombres().searchPersona(aux,false);
-        System.out.println(personaBuscada.getTinfo().generarDescripcion());
     }
 
     @Override
     public void mouseLeft(String id) {
-        System.out.println("Mouse left node " + id);
     }
 }
 

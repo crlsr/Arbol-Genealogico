@@ -38,29 +38,12 @@ public class Hashtable {
     
     public void addPersona(Persona nueva, boolean mote){
         int i = this.funHash(nueva, mote);
-        boolean existe = false;
         TreeNode newPersona = new TreeNode(nueva);
         if (this.spaceEmpty(i)){
             this.getArrayPersonas()[i] = new List<TreeNode>();
             this.getArrayPersonas()[i].add(newPersona);
         }else{
-            Node<TreeNode> aux = this.getArrayPersonas()[i].getpFirst();
-            if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
-                existe = true;
-            } else {
-                while (aux != null) {
-                    if (aux.getData().getTinfo().getFullName().equals(nueva.getFullName()) && aux.getData().getTinfo().getNumeral().equals(nueva.getNumeral())) {
-                        existe = true;
-                        break;
-                    } else {
-                        aux = aux.getpNext();
-                    }
-
-                }
-                if (existe == false) {
-                    this.getArrayPersonas()[i].add(newPersona);
-                }
-        }
+            this.getArrayPersonas()[i].add(newPersona);
         }
     }
     
@@ -102,7 +85,7 @@ public class Hashtable {
                 }else{
                     return aux.getData();
                 }
-            } else {
+            }
                 while (aux.getpNext() != null) {
                     aux = aux.getpNext();
                     if (aux.getData().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase())
@@ -116,7 +99,6 @@ public class Hashtable {
                         }
                     }
                 }
-            }
             }else{
                 if (aux.getData().getTinfo().getKwownAs().toLowerCase().equals(persona.getKwownAs().toLowerCase())) {
                     return aux.getData();

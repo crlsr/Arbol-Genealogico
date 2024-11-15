@@ -133,7 +133,7 @@ public class LecturaJSON {
                 for (int j = 0; j < sonsOf.length(); j++) {
                     father = new Persona(personKey, numeral, "");
                     treeFather = lineageTree.searchPersonaTree(father);
-                    currentSon = new Persona(sonsOf.getString(j), personKey);
+                    currentSon = new Persona(sonsOf.getString(j), personKey + ", "+ numeral + " of his name");
                     state = this.funGetter.isInTree(treeFather, currentSon);
 
                     if (!state) {

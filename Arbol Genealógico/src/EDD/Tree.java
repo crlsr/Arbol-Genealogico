@@ -152,6 +152,12 @@ public class Tree {
     public void setSize(int size) {
         this.size = size;
     }
-    
-    
+
+    public Graph getGraph() {
+        return graph;
+    }
+
+    public void setGraph(Graph graph) {
+        this.graph = graph;
+    }  
 }

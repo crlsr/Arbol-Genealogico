@@ -100,6 +100,61 @@ public class Funciones {
         }
     }
     
+    public Tree constructAncestors(Persona persona, Tree originalTree) {
+        List<Persona> listPersona = new List<Persona>();
+        this.viewAncestors(originalTree, listPersona, persona);
+        Tree ancestorTree = new Tree(listPersona.getSize(),listPersona.getSize());
+        Node<Persona> aux = listPersona.getpFirst();
+        ancestorTree.mostrarArbol();
+        ancestorTree.getNombres().addPersona(aux.getData(), false);
+        if (aux.getData().getKwownAs() != null) {
+            ancestorTree.getMotes().addPersona(aux.getData(), true);
+        }
+        
+        ancestorTree.addNode(aux.getData());
+        TreeNode padre= originalTree.getNombres().searchPersona(aux.getData(), false);
+        if(aux.getData() != persona){
+            insertSonsAncestors(ancestorTree, padre, persona);
+        }else{
+            ancestorTree.getGraph().getNode(persona.getFullName()+ "/" + persona.getNumeral()+ "/" + persona.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+        }
+            
+        return ancestorTree;
+    }
     
+    public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada){
+        Node<TreeNode> aux2 = padre.getHijos().getpFirst();
+            while(aux2!=null){
+                ancestorTree.getNombres().addPersona(aux2.getData().getTinfo(), false);
+                if (aux2.getData().getTinfo().getKwownAs() != null) {
+                    ancestorTree.getMotes().addPersona(aux2.getData().getTinfo(), true);
+                }
+                ancestorTree.addNode(aux2.getData().getTinfo());
+                ancestorTree.connectNodes(aux2.getData().getTinfo(), padre.getTinfo());
+                if(aux2.getData().getTinfo() == buscada){
+                    ancestorTree.getGraph().getNode(buscada.getFullName()+ "/" + buscada.getNumeral()+ "/" + buscada.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+                }
+                if(aux2.getData().getHijos().getpFirst() != null && aux2.getData().getTinfo() != buscada){
+                    this.insertSonsAncestors(ancestorTree, aux2.getData(), buscada);
+                }
+                aux2= aux2.getpNext();
+            }
+    }
+
+    public void viewAncestors(Tree originalTree, List<Persona> ancestros, Persona persona){
+        ancestros.addByIndex(0, persona);
+        if(persona.getFather()!= null){
+            Persona fatherPersona;
+            if(persona.getFather().contains(",")){
+                String[] partesNombre = persona.getFather().split(", ");
+                String numeral = partesNombre[1].split(" ")[0].trim();
+                fatherPersona = new Persona(partesNombre[0], numeral, "");
+            }else{
+                fatherPersona = new Persona("", "", persona.getFather().trim());
+            }
+            TreeNode padre = originalTree.searchPersonaTree(fatherPersona);
+            this.viewAncestors(originalTree, ancestros, padre.getTinfo());
+        }
+    }
 
 }

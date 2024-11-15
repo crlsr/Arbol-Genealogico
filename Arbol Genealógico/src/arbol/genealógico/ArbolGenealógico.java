@@ -39,6 +39,22 @@ public class ArbolGenealógico {
             newTree = object.dataConstructor(newTree);
             newTree.mostrarArbol();//2do arbol
             object.eddInsert(newTree);
+            Funciones func = new Funciones();
+            String nombre= "Aegon Targaryen, Fourth of his name";
+            Persona fatherPersona;
+            if(nombre.contains(",")){
+                String[] partesNombre = nombre.split(", ");
+                String numeral = partesNombre[1].split(" ")[0].trim();
+                fatherPersona = new Persona(partesNombre[0], numeral, "");
+            }else{
+                fatherPersona = new Persona("", "", nombre.trim());
+            }
+            TreeNode persona = newTree.searchPersonaTree(fatherPersona);
+            if (persona!=null){
+            func.constructAncestors(persona.getTinfo(), newTree);
+            }else{
+                System.out.println(nombre + " no ha sido encontrado");
+            }
         }
         MENU main = new MENU(newTree, json);
         main.setVisible(true);
