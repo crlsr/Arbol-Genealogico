@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package VENTANAS;
-
+import javax.swing.*;
 import EDD.Tree;
 import JSON.LecturaJSON;
 import java.awt.Image;
@@ -20,12 +20,23 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     /**
      * Creates new form AÑADIR_MIEMBRO
      */
+
     public CONTROL_REGISTROS(Tree newTree, LecturaJSON json) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.newTree=newTree;
         this.json=json;
-    }
+        llenarDesplegable(); // Llamar al método para poblar el JComboBox
+}
+    
+    private void llenarDesplegable() {
+        DESPLEGABLE.removeAllItems(); // LIMPIA EL DESPLEGABLE
+        DESPLEGABLE.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
+        DESPLEGABLE.addItem("Juan Pérez");
+        DESPLEGABLE.addItem("María López");
+        DESPLEGABLE.addItem("Carlos García");
+        DESPLEGABLE.addItem("Ana Martínez");
+}
 
 
     /**
@@ -47,6 +58,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         BUSCAR_APODO = new javax.swing.JButton();
         VER_ARBOL = new javax.swing.JButton();
         ICONO = new javax.swing.JLabel();
+        DESPLEGABLE = new javax.swing.JComboBox<>();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,6 +151,17 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         ICONO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PERSONA.png"))); // NOI18N
         getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
 
+        DESPLEGABLE.setBackground(new java.awt.Color(0, 0, 0));
+        DESPLEGABLE.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        DESPLEGABLE.setForeground(new java.awt.Color(255, 255, 255));
+        DESPLEGABLE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPCIÓN 1", "OPCIÓN 2", "OPCIÓN 3", "OPCIÓN 4" }));
+        DESPLEGABLE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DESPLEGABLEActionPerformed(evt);
+            }
+        });
+        getContentPane().add(DESPLEGABLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 420, -1));
+
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
         getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 450));
 
@@ -200,6 +223,14 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         //}
     }//GEN-LAST:event_VER_ARBOLActionPerformed
 
+    
+    private void DESPLEGABLEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESPLEGABLEActionPerformed
+        String seleccionado = (String) DESPLEGABLE.getSelectedItem();
+        if (!"Selecciona un familiar".equals(seleccionado)) {
+            JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
+        }
+    }//GEN-LAST:event_DESPLEGABLEActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -242,6 +273,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private javax.swing.JButton BUSCAR_APODO;
     private javax.swing.JButton BUSCAR_NOMBRE;
     private javax.swing.JButton CERRAR;
+    private javax.swing.JComboBox<String> DESPLEGABLE;
     private javax.swing.JLabel FONDO;
     private javax.swing.JLabel ICONO;
     private javax.swing.JTextField INPUT_NAME;
