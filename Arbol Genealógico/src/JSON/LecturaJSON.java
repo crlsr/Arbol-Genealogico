@@ -76,10 +76,11 @@ public class LecturaJSON {
 
     }
     
-    public void eddInsert(Tree x){
-        treeConstructor(x, monarchy);
-        setLineage(monarchy, x);
-        setNullSons(x);
+    public void eddInsert(Tree tree){
+        treeConstructor(tree, monarchy);
+        setLineage(monarchy, tree);
+        setNullSons(tree);
+        funGetter.calculateLevel(1, tree.getpRoot());
     }
 
     public void setNullSons(Tree lineageTree) {
@@ -138,8 +139,6 @@ public class LecturaJSON {
 
                     if (!state) {
                         lineageTree.getNombres().addPersona(currentSon, false);
-                        lineageTree.addNode(currentSon);
-                        lineageTree.connectNodes(currentSon, treeFather.getTinfo());
                         lineageTree.setListFather(currentSon, treeFather.getTinfo());
                     }
                 }
@@ -150,7 +149,6 @@ public class LecturaJSON {
     public void treeConstructor(Tree lineageTree, List<Persona> monarchy) {
         Node<Persona> aux = monarchy.getpFirst();
         while (aux != null) {
-            lineageTree.addNode(aux.getData());
 
             lineageTree.getNombres().addPersona(aux.getData(), false);
             if (aux.getData().getKwownAs() != null) {
@@ -247,17 +245,13 @@ public class LecturaJSON {
                     fatherPersona = new Persona(innerData[0], numeral, "");
                     father = lineageTree.searchPersonaTree(fatherPersona);
                     son = lineageTree.searchPersonaTree(aux.getData());
-                    lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
                     lineageTree.setListFather(son.getTinfo(), father.getTinfo());
-                    father.getHijos().add(son);
 
                 } else {
                     fatherPersona = new Persona("", "", aux.getData().getFather().trim());
                     father = lineageTree.searchPersonaTree(fatherPersona);
                     son = lineageTree.searchPersonaTree(aux.getData());
-                    lineageTree.connectNodes(son.getTinfo(), father.getTinfo());
                     lineageTree.setListFather(son.getTinfo(), father.getTinfo());
-                    father.getHijos().add(son);
 
                 }
             }

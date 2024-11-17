@@ -17,6 +17,33 @@ import javax.swing.JOptionPane;
  */
 public class Funciones {
     
+    public void calculateLevel(int level, TreeNode node){
+        if (node == null) {
+            return;
+        }
+        node.getTinfo().setNivel(level);
+        Node<TreeNode> aux = node.getHijos().getpFirst();
+        while(aux!= null){
+            calculateLevel(level+1, aux.getData());
+            aux = aux.getpNext();
+        }
+    }
+    
+    public void appendGraph(Tree originalTree, TreeNode node, TreeNode padre){
+        if (node == null) {
+            return;
+        }
+        originalTree.addNode(node.getTinfo());
+        if(padre!=null){
+           originalTree.connectNodes(node.getTinfo(), padre.getTinfo()); 
+        }
+        Node<TreeNode> aux = node.getHijos().getpFirst();
+        while(aux!= null){
+            appendGraph(originalTree, aux.getData(), node);
+            aux = aux.getpNext();
+        }
+    }
+    
     public boolean isInTree(TreeNode father, Persona persona){
         boolean encontrado = false;
         Node<TreeNode> aux= father.getHijos().getpFirst();
@@ -156,5 +183,51 @@ public class Funciones {
             this.viewAncestors(originalTree, ancestros, padre.getTinfo());
         }
     }
+    
 
+    public List<Persona> constructListHeldTitle(Tree originalTree, String heldTitle){
+        List<Persona> personasTitulo = new List<Persona>();
+        TreeNode proot = originalTree.getpRoot();
+        searchByHeldTitle(proot, heldTitle, personasTitulo);
+        return personasTitulo;
+    } 
+    
+    public void searchByHeldTitle(TreeNode node, String heldTitle, List<Persona> personasTitulo){
+        if (node == null) {
+            return;
+        }
+        if(node.getTinfo().getHeldTitle()!= null){
+            if(node.getTinfo().getHeldTitle().toLowerCase().equals(heldTitle.toLowerCase().trim())){
+                personasTitulo.add(node.getTinfo());
+            } 
+        }
+        Node<TreeNode> aux = node.getHijos().getpFirst();
+        while(aux!= null){
+            searchByHeldTitle(aux.getData(), heldTitle, personasTitulo);
+            aux = aux.getpNext();
+        }
+    }
+    
+    public List<Persona> constructListGeneration(Tree originalTree, int nGeneration){
+        List<Persona> generacion = new List<Persona>();
+        TreeNode proot = originalTree.getpRoot();
+        getGeneration(proot, nGeneration, generacion);
+        return generacion;
+    } 
+    
+    public void getGeneration(TreeNode node, int nGeneration, List<Persona> generacion){
+        if (node == null) {
+            return;
+        }
+        if(node.getTinfo().getNivel() == nGeneration){
+            generacion.add(node.getTinfo());
+        } 
+        Node<TreeNode> aux = node.getHijos().getpFirst();
+        while(aux!= null){
+            if(aux.getData().getTinfo().getNivel() <= nGeneration){
+                getGeneration(aux.getData(), nGeneration, generacion);
+            }
+            aux = aux.getpNext();
+        }
+    }
 }

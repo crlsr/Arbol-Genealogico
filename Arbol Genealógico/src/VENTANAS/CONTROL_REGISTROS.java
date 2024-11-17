@@ -5,10 +5,12 @@
 package VENTANAS;
 
 import EDD.Tree;
+import Extras.Funciones;
 import JSON.LecturaJSON;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import org.graphstream.graph.implementations.MultiGraph;
 
 /**
  *
@@ -17,6 +19,7 @@ import javax.swing.JOptionPane;
 public class CONTROL_REGISTROS extends javax.swing.JFrame {
     static LecturaJSON json;
     static Tree newTree;
+    static Funciones func = new Funciones();
     /**
      * Creates new form AÑADIR_MIEMBRO
      */
@@ -193,11 +196,13 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
     private void VER_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_ARBOLActionPerformed
-        //try {
+        try {
+            newTree.setGraph(new MultiGraph("Árbol Genealógico"));
             newTree.mostrarArbol();
-        //} catch (Exception e) {
-          //  JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
-        //}
+            func.appendGraph(newTree, newTree.getpRoot(), null);
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+       }
     }//GEN-LAST:event_VER_ARBOLActionPerformed
 
     /**

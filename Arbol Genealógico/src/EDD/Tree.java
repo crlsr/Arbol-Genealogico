@@ -40,10 +40,9 @@ public class Tree {
             if(graph.getNode(persona.getFullName() + "/" + persona.getNumeral()+"/"+persona.getFather())== null){
                 graph.addNode(persona.getFullName()+ "/" + persona.getNumeral()+ "/" + persona.getFather()).setAttribute("ui.label", persona.getFullName()+ " " + persona.getNumeral());
                 this.graph.getNode(persona.getFullName()+ "/" + persona.getNumeral()+ "/" + persona.getFather()).setAttribute("ui.style", "fill-color: lightblue; shape: circle; size: 30px;");
-                this.setSize(this.getSize()+1);
-                int generacion = getGeneracion(persona);  
+                this.setSize(this.getSize()+1); 
                 int x = (this.getSize() % 10) * 80;  
-                int y = generacion * 100;  
+                int y = persona.getNivel()*-100;  
                 graph.getNode(persona.getFullName()+ "/" + persona.getNumeral()+ "/" + persona.getFather()).setAttribute("xy", x, y);
             }
             
@@ -98,27 +97,8 @@ public class Tree {
     
     public void mostrarArbol() {
         System.setProperty("org.graphstream.ui", "swing");
-        /*
-        Viewer viewer = graph.display();
-        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
-        viewer.getDefaultView().enableMouseOptions();
-        */
         Clicks visualizador = new Clicks(graph, this);
         
-    }
-    
-     private int getGeneracion(Persona persona) {
-        
-        int generacion = 0;
-        /*
-        Persona actual = persona;
-        while (actual.getFather() != null) {
-            generacion++;  
-            actual = actual.getFather();  
-        }
-        */
-
-        return generacion; 
     }
 
     public TreeNode getpRoot() {

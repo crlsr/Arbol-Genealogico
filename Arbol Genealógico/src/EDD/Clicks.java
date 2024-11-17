@@ -4,6 +4,7 @@
  */
 package EDD;
 import Extras.Persona;
+import javax.swing.JOptionPane;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.ViewerPipe;
 import org.graphstream.ui.view.Viewer;
@@ -50,7 +51,7 @@ public class Clicks implements ViewerListener {
         Persona aux = new Persona(idString[0], idString[2]);
         aux.setNumeral(idString[1]);
         TreeNode personaBuscada = arbol.getNombres().searchPersona(aux,false);
-        System.out.println(personaBuscada.getTinfo().generarDescripcion());
+        JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());
     }
 
     @Override

@@ -22,6 +22,7 @@ public class Persona {
     private String sons;
     private String notes;
     private String fate;
+    private int nivel;
 
     public Persona(String fullName, String numeral, String eyesColor, String hairColor, String father) {
         this.fullName = fullName;
@@ -36,6 +37,7 @@ public class Persona {
         this.sons = null;
         this.notes = null;
         this.fate = null;
+        this.nivel = 0;
     }
 
     public Persona(String fullName, String numeral, String knownAs) {
@@ -57,6 +59,7 @@ public class Persona {
         this.sons = null;
         this.notes = null;
         this.fate = null;
+        this.nivel = 0;
     }
     
     public String generarDescripcion() {
@@ -204,5 +207,13 @@ public class Persona {
     public void setFate(String fate) {
         this.fate = fate;
     }        
-    
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
 }

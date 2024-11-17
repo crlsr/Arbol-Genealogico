@@ -4,6 +4,7 @@
  */
 package arbol.genealógico;
 
+import EDD.List;
 import EDD.Tree;
 import Extras.Persona;
 import EDD.TreeNode;
@@ -55,6 +56,10 @@ public class ArbolGenealógico {
             }else{
                 System.out.println(nombre + " no ha sido encontrado");
             }
+            List<Persona> listPersonas =func.constructListHeldTitle(newTree, "King of the Andals and the First Men, Lord of the Seven Kingdoms");
+            listPersonas.show();
+            List<Persona> Generacion = func.constructListGeneration(newTree, 3);
+            Generacion.show();
         }
         MENU main = new MENU(newTree, json);
         main.setVisible(true);
