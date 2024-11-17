@@ -221,7 +221,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private void VER_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_ARBOLActionPerformed
         try {
             newTree.setGraph(new MultiGraph("Árbol Genealógico"));
-            newTree.mostrarArbol();
+            newTree.mostrarArbol(newTree);
             func.appendGraph(newTree, newTree.getpRoot(), null);
         } catch (Exception e) {
             //JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");

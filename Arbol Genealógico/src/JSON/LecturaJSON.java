@@ -251,6 +251,17 @@ public class LecturaJSON {
                     fatherPersona = new Persona("", "", aux.getData().getFather().trim());
                     father = lineageTree.searchPersonaTree(fatherPersona);
                     son = lineageTree.searchPersonaTree(aux.getData());
+                    if(father==null){
+                        Node<Persona> aux2= data.getpFirst();
+                        while(aux2!=null){
+                            if(aux2.getData().getFullName().toLowerCase().equals(son.getTinfo().getFather().toLowerCase())){
+                                son.getTinfo().setFather(aux2.getData().getFullName()+", "+ aux2.getData().getNumeral()+" of his name");
+                                father = lineageTree.searchPersonaTree(new Persona(aux2.getData().getFullName(), aux2.getData().getNumeral(), ""));
+                                break;
+                            }
+                            aux2= aux2.getpNext();
+                        }
+                    }
                     lineageTree.setListFather(son.getTinfo(), father.getTinfo());
 
                 }
