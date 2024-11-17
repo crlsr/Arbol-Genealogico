@@ -132,7 +132,6 @@ public class CARGAR_JSON extends javax.swing.JFrame {
             if (json ==null){//error
                 json=new LecturaJSON(selected);
                 newTree = json.dataConstructor(newTree);
-                newTree.mostrarArbol();//2do arbol
                 json.eddInsert(newTree);
             }else{
                 this.json.changeJSON(selected, this.newTree);
@@ -152,7 +151,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
             M.setVisible(true);
             this.setVisible(false);}
         else{
-            JOptionPane.showMessageDialog(this, "Agregue un JSON");
+            JOptionPane.showMessageDialog(this, "Debe cargar un archivo JSON");
         }
     }//GEN-LAST:event_REGRESARActionPerformed
 

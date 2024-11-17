@@ -131,6 +131,7 @@ public class MENU extends javax.swing.JFrame {
         CARGAR_JSON CJ = new CARGAR_JSON(newTree, json); 
         this.setVisible(false);
         CJ.setVisible(true);
+        jsoncargado =true;
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
     private void CONTROL_REGISTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONTROL_REGISTROSActionPerformed

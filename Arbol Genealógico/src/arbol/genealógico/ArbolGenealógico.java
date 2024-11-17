@@ -27,6 +27,7 @@ public class ArbolGenealógico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /*
         LecturaJSON object;
         Tree newTree = null;
         JFileChooser finder = new JFileChooser();
@@ -61,7 +62,8 @@ public class ArbolGenealógico {
             List<Persona> Generacion = func.constructListGeneration(newTree, 3);
             Generacion.show();
         }
-        MENU main = new MENU(newTree, json);
+        */
+        MENU main = new MENU();
         main.setVisible(true);
     } 
 }
