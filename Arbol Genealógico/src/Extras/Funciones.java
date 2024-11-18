@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
  * @author Pedro Sebastiano
  */
 public class Funciones {
+    
+    private String auxiliar;
 
     /**
      * Calcula y establece el nivel de un nodo en el árbol.
@@ -129,22 +131,47 @@ public class Funciones {
         }
     }
     
-    public void searchbyMote(Tree arbol, String cadenaBuscar){
-        TreeNode elemBuscado = arbol.getMotes().searchPersona(new Persona("","",cadenaBuscar), true);
-        if(elemBuscado == null){
-            JOptionPane.showMessageDialog(null, "El mote: " + cadenaBuscar + " no ha sido encontrado");  
-        }else{
-            this.mostrarDescendencia(elemBuscado, arbol);
-        }
-    }
-    //Cambiar a hashtable
-    public List<TreeNode> searchbyName(Tree arbol, String cadenaBuscar){
-       List<TreeNode> encontrados = new List<TreeNode>();
-       arbol.preOrden(arbol.getpRoot(), encontrados, cadenaBuscar);
+    /**
+     * Realiza la busqueda por mote y nombre y anade a una lista de personas
+     * 
+     * @param arbol arbol original del programa.
+     * @param cadenaaBuscar string ingresado por el usuario.
+     * @return Lista de personas que contienen la cadena
+     * @author Pedro Sebastiano
+     */
+    public List<Persona> searchByNameandMote(Tree arbol, String cadenaaBuscar){
+       List<Persona> encontrados = new List<>();
+       this.addNamesandMote(arbol.getpRoot(), cadenaaBuscar, encontrados);
+       if(encontrados.getSize() == 1){
+           mostrarDescendencia(arbol.getNombres().searchPersona(encontrados.getpFirst().getData(), false), arbol);
+       }
        return encontrados;
-       //Hacer funcion con hashtable mejor
-       //Verificar si poner funcion que convierta a str los objetos de la lista, y llamar a la otra funcion para ver la descencencia del seleccionado
-       //Verificar si la lista tiene solo 1 elemento
+        
+    }
+    
+    /**
+     * verifica si una persona tiene la cadena, si la tiene lo anade a la lista
+     * 
+     * @param node nodo en el que se reaaliza la busqueda y se compara si contiene la cadena.
+     * @param cadenaBuscar string ingresado por el usuario.
+     * @param lista lista de personas donde se guardan las que contienen la cadena.
+     * @author Pedro Sebastiano
+     */
+    public void addNamesandMote(TreeNode node, String cadenaBuscar, List<Persona> lista) {
+        if (node.getTinfo().getFullName().toLowerCase().contains(cadenaBuscar.toLowerCase().trim())) {
+            lista.add(node.getTinfo());
+        } else {
+            if (node.getTinfo().getKwownAs() != null && !node.getTinfo().getKwownAs().equals("")) {
+                if (node.getTinfo().getKwownAs().toLowerCase().contains(cadenaBuscar.toLowerCase().trim())) {
+                    lista.add(node.getTinfo());
+                }
+            }
+        }
+        Node<TreeNode> aux = node.getHijos().getpFirst();
+        while (aux != null) {
+            addNamesandMote(aux.getData(), cadenaBuscar, lista);
+            aux = aux.getpNext();
+        }
     }
 
     /**
@@ -189,57 +216,69 @@ public class Funciones {
      * 
      * @param persona Persona cuyas ancestros serán construidos.
      * @param originalTree Árbol original.
-     * @return Árbol de ancestros construido.
      * @author Pedro Sebastiano
      */
     public String constructAncestors(Persona persona, Tree originalTree) {
-        List<Persona> listPersona = new List<Persona>();
+        List<Persona> listPersona = new List<>();
         this.viewAncestors(originalTree, listPersona, persona);
         Tree ancestorTree = new Tree(0, 0);
         Node<Persona> aux = listPersona.getpFirst();
-        if(!(originalTree.getpRoot().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase().trim()) && 
-                originalTree.getpRoot().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase().trim()))){
-            ancestorTree.mostrarArbol(originalTree);
-            ancestorTree.addNode(aux.getData());
-            ancestorTree.setpRoot(originalTree.getpRoot());
-            String text = ancestorTree.getpRoot().getTinfo().getFullName() + ", " + ancestorTree.getpRoot().getTinfo().getNumeral()+ " of his name"+"\n";
-            TreeNode padre = originalTree.getNombres().searchPersona(aux.getData(), false);
-            if (aux.getData() != persona) {
-                insertSonsAncestors(ancestorTree, padre, persona, text);
-            } else {
-                ancestorTree.getGraph().getNode(persona.getFullName() + "/" + persona.getNumeral() + "/" + persona.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
-            }
-            return text;
-        }else{
-            JOptionPane.showMessageDialog(null, originalTree.getpRoot().getTinfo().getFullName() + " no tiene ancestros");
-            return "";
+        ancestorTree.mostrarArbol(originalTree);
+        ancestorTree.addNode(aux.getData());
+        ancestorTree.setpRoot(originalTree.getpRoot());
+        TreeNode padre = originalTree.getNombres().searchPersona(aux.getData(), false);
+        if (aux.getData() != persona) {
+            insertSonsAncestors(ancestorTree, padre, persona);
+        } else {
+            ancestorTree.getGraph().getNode(persona.getFullName() + "/" + persona.getNumeral() + "/" + persona.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
         }
+        auxiliar = ancestorTree.getpRoot().getTinfo().getFullName() + ", " + ancestorTree.getpRoot().getTinfo().getNumeral()+ " of his name"+"\n";
+        this.stringAncestros(ancestorTree.getpRoot(), persona);
+        return auxiliar;
+        
     }
     
+    public void stringAncestros(TreeNode persona,Persona buscada){ 
+        Node<TreeNode> aux = persona.getHijos().getpFirst();
+        while (aux != null) {
+            for (int i = 1; i < aux.getData().getTinfo().getNivel(); i++) {
+                auxiliar += "-";
+            }
+            auxiliar += ">";
+            if(aux.getData().getTinfo().getNumeral().equals("")){
+                 auxiliar += aux.getData().getTinfo().getFullName()+ "\n";
+            }else{
+                auxiliar += aux.getData().getTinfo().getFullName() + ", " + aux.getData().getTinfo().getNumeral() + " of his name" + "\n";
+            }
+            aux = aux.getpNext();
+        }
+        aux = persona.getHijos().getpFirst();
+        while(aux!=null){
+            if (aux.getData().getHijos().getpFirst() != null && aux.getData().getTinfo() != buscada) {
+                this.stringAncestros(aux.getData(), buscada);
+            }
+            aux = aux.getpNext();
+        }
+    }
+
     /**
      * Inserta los hijos de un ancestro en el árbol de ancestros.
      * 
      * @param ancestorTree Árbol de ancestros.
      * @param padre Nodo padre.
      * @param buscada Persona buscada.
-     * @param text Texto para el text Area de la interfaz
      * @author Pedro Sebastiano
      */
-    public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada, String text) {
-        
+    public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada) {
         Node<TreeNode> aux2 = padre.getHijos().getpFirst();
         while (aux2 != null) {
-            for (int i = 1; i < aux2.getData().getTinfo().getNivel(); i++) {
-                text += "  ";
-            }
-            text += aux2.getData().getTinfo().getFullName() + ", " + aux2.getData().getTinfo().getNumeral() + " of his name" + "\n";
             ancestorTree.addNode(aux2.getData().getTinfo());
             ancestorTree.connectNodes(aux2.getData().getTinfo(), padre.getTinfo());
             if (aux2.getData().getTinfo() == buscada) {
                 ancestorTree.getGraph().getNode(buscada.getFullName() + "/" + buscada.getNumeral() + "/" + buscada.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
             }
             if (aux2.getData().getHijos().getpFirst() != null && aux2.getData().getTinfo() != buscada) {
-                this.insertSonsAncestors(ancestorTree, aux2.getData(), buscada, text);
+                this.insertSonsAncestors(ancestorTree, aux2.getData(), buscada);
             }
             aux2 = aux2.getpNext();
         }

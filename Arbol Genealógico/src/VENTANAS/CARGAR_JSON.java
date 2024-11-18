@@ -85,7 +85,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, -1, -1));
 
         CARGAR_JSON.setBackground(new java.awt.Color(0, 0, 0));
-        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CARGAR_JSON.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         CARGAR_JSON.setForeground(new java.awt.Color(255, 255, 255));
         CARGAR_JSON.setText("CARGAR JSON");
         CARGAR_JSON.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +93,7 @@ public class CARGAR_JSON extends javax.swing.JFrame {
                 CARGAR_JSONActionPerformed(evt);
             }
         });
-        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
+        getContentPane().add(CARGAR_JSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, -1, -1));
 
         REGRESAR.setBackground(new java.awt.Color(0, 0, 0));
         REGRESAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -126,15 +126,17 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         JFileChooser finder = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON", "json");
         finder.setFileFilter(filter);
-        int response = finder.showOpenDialog(null);//error
-        if(response == JFileChooser.APPROVE_OPTION){//error
+        int response = finder.showOpenDialog(null);
+        if(response == JFileChooser.APPROVE_OPTION){
             File selected = finder.getSelectedFile(); 
-            if (json ==null){//error
+            if (json ==null){
                 json=new LecturaJSON(selected);
                 newTree = json.dataConstructor(newTree);
                 json.eddInsert(newTree);
             }else{
-                this.json.changeJSON(selected, this.newTree);
+                json=new LecturaJSON(selected);
+                newTree = json.dataConstructor(newTree);
+                json.eddInsert(newTree);
             }if(json != null){
                 JOptionPane.showMessageDialog(this, "El JSON se ha cargado correctamente");
             }

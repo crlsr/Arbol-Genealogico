@@ -43,7 +43,9 @@ public class ArbolGenealógico {
             object.eddInsert(newTree);
             Funciones func = new Funciones();
             
-            
+            List<Persona> nombresymotes= func.searchByNameandMote(newTree, "Viserys");
+            System.out.println(nombresymotes.getSize());
+            /*
             //Aqui comienza lo de crear arbol con ancestros
             String nombre= "Aegon Targaryen, Fourth of his name";
             Persona fatherPersona;
@@ -60,7 +62,7 @@ public class ArbolGenealógico {
             }else{
                 System.out.println(nombre + " no ha sido encontrado");
             }
-            /*
+            
             //Aqui comienza la busqueda por titulo nobiliario
             List<Persona> listPersonas =func.constructListHeldTitle(newTree, "King of the Andals and the First Men, Lord of the Seven Kingdoms");
             listPersonas.show();

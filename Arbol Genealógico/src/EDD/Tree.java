@@ -113,28 +113,6 @@ public class Tree {
         padreArbol.getTinfo().setSons(hijo.getFullName() + " " + hijo.getNumeral());
     }
 
-    /**
-     * Realiza un recorrido en preorden en el árbol y agrega los nodos que
-     * contienen una cadena de búsqueda a una lista.
-     *
-     * @param node Nodo actual del recorrido.
-     * @param lista Lista donde se agregarán los nodos encontrados.
-     * @param cadenaBuscar Cadena a buscar en los nodos.
-     * @author Pedro Sebastiano
-     */
-    public void preOrden(TreeNode node, List<TreeNode> lista, String cadenaBuscar) {
-        if (node == null) {
-            return;
-        }
-        if (node.getTinfo().getFullName().toLowerCase().contains(cadenaBuscar.toLowerCase())) {
-            lista.add(node);
-        }
-        Node<TreeNode> aux = node.getHijos().getpFirst();
-        while (aux != null) {
-            preOrden(aux.getData(), lista, cadenaBuscar);
-            aux = aux.getpNext();
-        }
-    }
 
     /**
      * Busca una persona en el árbol utilizando las tablas hash de nombres y
