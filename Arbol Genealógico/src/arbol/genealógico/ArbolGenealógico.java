@@ -43,7 +43,7 @@ public class ArbolGenealógico {
             object.eddInsert(newTree);
             Funciones func = new Funciones();
             
-            /*
+            
             //Aqui comienza lo de crear arbol con ancestros
             String nombre= "Aegon Targaryen, Fourth of his name";
             Persona fatherPersona;
@@ -56,11 +56,11 @@ public class ArbolGenealógico {
             }
             TreeNode persona = newTree.searchPersonaTree(fatherPersona);
             if (persona!=null){
-            func.constructAncestors(persona.getTinfo(), newTree);
+                System.out.println(func.constructAncestors(persona.getTinfo(), newTree));
             }else{
                 System.out.println(nombre + " no ha sido encontrado");
             }
-            */
+            /*
             //Aqui comienza la busqueda por titulo nobiliario
             List<Persona> listPersonas =func.constructListHeldTitle(newTree, "King of the Andals and the First Men, Lord of the Seven Kingdoms");
             listPersonas.show();
@@ -69,20 +69,21 @@ public class ArbolGenealógico {
             List<Persona> Generacion = func.constructListGeneration(newTree, 7);
             Generacion.show();
             //Aqui comienza la creacion del arbol con la descencencia de una persona
-            String nombre= "Daeron Targaryen, Second of his name";Persona fatherPersona;
-            if(nombre.contains(",")){
-                String[] partesNombre = nombre.split(", ");
+            String nombre1= "Daeron Targaryen, Second of his name";Persona fatherPersona1;
+            if(nombre1.contains(",")){
+                String[] partesNombre = nombre1.split(", ");
                 String numeral = partesNombre[1].split(" ")[0].trim();
-                fatherPersona = new Persona(partesNombre[0], numeral, "");
+                fatherPersona1 = new Persona(partesNombre[0], numeral, "");
             }else{
-                fatherPersona = new Persona("", "", nombre.trim());
+                fatherPersona1 = new Persona("", "", nombre1.trim());
             }
-            TreeNode persona = newTree.searchPersonaTree(fatherPersona);
-            if (persona!=null){
-                func.mostrarDescendencia(persona, newTree);
+            TreeNode persona1 = newTree.searchPersonaTree(fatherPersona1);
+            if (persona1!=null){
+                func.mostrarDescendencia(persona1, newTree);
             }else{
-                System.out.println(nombre + " no ha sido encontrado");
+                System.out.println(nombre1 + " no ha sido encontrado");
             }
+*/
         }
         
         MENU main = new MENU();

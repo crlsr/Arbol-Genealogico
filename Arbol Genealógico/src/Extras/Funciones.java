@@ -192,40 +192,54 @@ public class Funciones {
      * @return Árbol de ancestros construido.
      * @author Pedro Sebastiano
      */
-    public Tree constructAncestors(Persona persona, Tree originalTree) {
+    public String constructAncestors(Persona persona, Tree originalTree) {
         List<Persona> listPersona = new List<Persona>();
         this.viewAncestors(originalTree, listPersona, persona);
         Tree ancestorTree = new Tree(0, 0);
         Node<Persona> aux = listPersona.getpFirst();
-        ancestorTree.mostrarArbol(originalTree);
-        ancestorTree.addNode(aux.getData());
-        TreeNode padre = originalTree.getNombres().searchPersona(aux.getData(), false);
-        if (aux.getData() != persona) {
-            insertSonsAncestors(ancestorTree, padre, persona);
-        } else {
-            ancestorTree.getGraph().getNode(persona.getFullName() + "/" + persona.getNumeral() + "/" + persona.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+        if(!(originalTree.getpRoot().getTinfo().getFullName().toLowerCase().equals(persona.getFullName().toLowerCase().trim()) && 
+                originalTree.getpRoot().getTinfo().getNumeral().toLowerCase().equals(persona.getNumeral().toLowerCase().trim()))){
+            ancestorTree.mostrarArbol(originalTree);
+            ancestorTree.addNode(aux.getData());
+            ancestorTree.setpRoot(originalTree.getpRoot());
+            String text = ancestorTree.getpRoot().getTinfo().getFullName() + ", " + ancestorTree.getpRoot().getTinfo().getNumeral()+ " of his name"+"\n";
+            TreeNode padre = originalTree.getNombres().searchPersona(aux.getData(), false);
+            if (aux.getData() != persona) {
+                insertSonsAncestors(ancestorTree, padre, persona, text);
+            } else {
+                ancestorTree.getGraph().getNode(persona.getFullName() + "/" + persona.getNumeral() + "/" + persona.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+            }
+            return text;
+        }else{
+            JOptionPane.showMessageDialog(null, originalTree.getpRoot().getTinfo().getFullName() + " no tiene ancestros");
+            return "";
         }
-        return ancestorTree;
     }
-
+    
     /**
      * Inserta los hijos de un ancestro en el árbol de ancestros.
      * 
      * @param ancestorTree Árbol de ancestros.
      * @param padre Nodo padre.
      * @param buscada Persona buscada.
+     * @param text Texto para el text Area de la interfaz
      * @author Pedro Sebastiano
      */
-    public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada) {
+    public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada, String text) {
+        
         Node<TreeNode> aux2 = padre.getHijos().getpFirst();
         while (aux2 != null) {
+            for (int i = 1; i < aux2.getData().getTinfo().getNivel(); i++) {
+                text += "  ";
+            }
+            text += aux2.getData().getTinfo().getFullName() + ", " + aux2.getData().getTinfo().getNumeral() + " of his name" + "\n";
             ancestorTree.addNode(aux2.getData().getTinfo());
             ancestorTree.connectNodes(aux2.getData().getTinfo(), padre.getTinfo());
             if (aux2.getData().getTinfo() == buscada) {
                 ancestorTree.getGraph().getNode(buscada.getFullName() + "/" + buscada.getNumeral() + "/" + buscada.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
             }
             if (aux2.getData().getHijos().getpFirst() != null && aux2.getData().getTinfo() != buscada) {
-                this.insertSonsAncestors(ancestorTree, aux2.getData(), buscada);
+                this.insertSonsAncestors(ancestorTree, aux2.getData(), buscada, text);
             }
             aux2 = aux2.getpNext();
         }
