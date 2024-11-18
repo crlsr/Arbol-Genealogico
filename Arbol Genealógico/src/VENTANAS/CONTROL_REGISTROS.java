@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package VENTANAS;
+import EDD.List;
+import EDD.Node;
 import javax.swing.*;
 import EDD.Tree;
 import Extras.Funciones;
+import Extras.Persona;
 import JSON.LecturaJSON;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -35,11 +38,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private void llenarDesplegable() {
         DESPLEGABLE.removeAllItems(); // LIMPIA EL DESPLEGABLE
         DESPLEGABLE.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
-        DESPLEGABLE.addItem("Juan Pérez");
-        DESPLEGABLE.addItem("María López");
-        DESPLEGABLE.addItem("Carlos García");
-        DESPLEGABLE.addItem("Ana Martínez");
-}
+        }
 
 
     /**
@@ -57,11 +56,21 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         INPUT_NAME = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         CERRAR = new javax.swing.JButton();
-        BUSCAR_NOMBRE = new javax.swing.JButton();
-        BUSCAR_APODO = new javax.swing.JButton();
+        BUSCAR_NOMBRE_APODO = new javax.swing.JButton();
         VER_ARBOL = new javax.swing.JButton();
         ICONO = new javax.swing.JLabel();
         DESPLEGABLE = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        INPUT_TITULONB = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        INPUT_GENERACION = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        INFO = new javax.swing.JTextArea();
+        BUSCAR_TITULO = new javax.swing.JButton();
+        BUSCAR_GENERACIÓN = new javax.swing.JButton();
+        INPUT_ANCESTROS = new javax.swing.JTextField();
+        ANCESTROS = new javax.swing.JButton();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,7 +82,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CONTROL DE REGISTROS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
 
         REGRESAR.setBackground(new java.awt.Color(0, 0, 0));
         REGRESAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -84,7 +93,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 REGRESARActionPerformed(evt);
             }
         });
-        getContentPane().add(REGRESAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+        getContentPane().add(REGRESAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
         INSTRUCCIONES.setBackground(new java.awt.Color(0, 0, 0));
         INSTRUCCIONES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -95,17 +104,17 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 INSTRUCCIONESActionPerformed(evt);
             }
         });
-        getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, -1, -1));
+        getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 500, -1, -1));
 
         INPUT_NAME.setBackground(new java.awt.Color(0, 0, 0));
         INPUT_NAME.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         INPUT_NAME.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(INPUT_NAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 420, -1));
+        getContentPane().add(INPUT_NAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 350, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("INGRESA EL NOMBRE O APODO DEL FAMILIAR:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 340, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 340, -1));
 
         CERRAR.setBackground(new java.awt.Color(255, 0, 0));
         CERRAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -116,29 +125,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 CERRARActionPerformed(evt);
             }
         });
-        getContentPane().add(CERRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, -1, -1));
+        getContentPane().add(CERRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
 
-        BUSCAR_NOMBRE.setBackground(new java.awt.Color(0, 0, 0));
-        BUSCAR_NOMBRE.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BUSCAR_NOMBRE.setForeground(new java.awt.Color(255, 255, 255));
-        BUSCAR_NOMBRE.setText("BUSCAR POR NOMBRE");
-        BUSCAR_NOMBRE.addActionListener(new java.awt.event.ActionListener() {
+        BUSCAR_NOMBRE_APODO.setBackground(new java.awt.Color(0, 0, 0));
+        BUSCAR_NOMBRE_APODO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BUSCAR_NOMBRE_APODO.setForeground(new java.awt.Color(255, 255, 255));
+        BUSCAR_NOMBRE_APODO.setText("BUSCAR POR NOMBRE/APODO");
+        BUSCAR_NOMBRE_APODO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BUSCAR_NOMBREActionPerformed(evt);
+                BUSCAR_NOMBRE_APODOActionPerformed(evt);
             }
         });
-        getContentPane().add(BUSCAR_NOMBRE, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, -1, -1));
-
-        BUSCAR_APODO.setBackground(new java.awt.Color(0, 0, 0));
-        BUSCAR_APODO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BUSCAR_APODO.setForeground(new java.awt.Color(255, 255, 255));
-        BUSCAR_APODO.setText("BUSCAR POR APODO");
-        BUSCAR_APODO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BUSCAR_APODOActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BUSCAR_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(453, 180, 180, -1));
+        getContentPane().add(BUSCAR_NOMBRE_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 110, 250, -1));
 
         VER_ARBOL.setBackground(new java.awt.Color(0, 0, 0));
         VER_ARBOL.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -149,10 +147,10 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 VER_ARBOLActionPerformed(evt);
             }
         });
-        getContentPane().add(VER_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, -1));
+        getContentPane().add(VER_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
 
         ICONO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PERSONA.png"))); // NOI18N
-        getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
+        getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, -1, -1));
 
         DESPLEGABLE.setBackground(new java.awt.Color(0, 0, 0));
         DESPLEGABLE.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -163,10 +161,100 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 DESPLEGABLEActionPerformed(evt);
             }
         });
-        getContentPane().add(DESPLEGABLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 420, -1));
+        getContentPane().add(DESPLEGABLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 360, 290, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("INGRESA EL TITULO NOBILIARIO:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+
+        INPUT_TITULONB.setBackground(new java.awt.Color(0, 0, 0));
+        INPUT_TITULONB.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        INPUT_TITULONB.setForeground(new java.awt.Color(255, 255, 255));
+        INPUT_TITULONB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INPUT_TITULONBActionPerformed(evt);
+            }
+        });
+        getContentPane().add(INPUT_TITULONB, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 350, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("INGRESA LA GENERACIÓN:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+
+        INPUT_GENERACION.setBackground(new java.awt.Color(0, 0, 0));
+        INPUT_GENERACION.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        INPUT_GENERACION.setForeground(new java.awt.Color(255, 255, 255));
+        INPUT_GENERACION.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INPUT_GENERACIONActionPerformed(evt);
+            }
+        });
+        getContentPane().add(INPUT_GENERACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 350, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("ANCESTROS:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+
+        INFO.setBackground(new java.awt.Color(0, 0, 0));
+        INFO.setColumns(20);
+        INFO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        INFO.setForeground(new java.awt.Color(255, 255, 255));
+        INFO.setRows(5);
+        jScrollPane1.setViewportView(INFO);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 350, -1));
+
+        BUSCAR_TITULO.setBackground(new java.awt.Color(0, 0, 0));
+        BUSCAR_TITULO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BUSCAR_TITULO.setForeground(new java.awt.Color(255, 255, 255));
+        BUSCAR_TITULO.setText("BUSCAR POR TITULO NOBILIARIO");
+        BUSCAR_TITULO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BUSCAR_TITULOActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BUSCAR_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, -1));
+
+        BUSCAR_GENERACIÓN.setBackground(new java.awt.Color(0, 0, 0));
+        BUSCAR_GENERACIÓN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BUSCAR_GENERACIÓN.setForeground(new java.awt.Color(255, 255, 255));
+        BUSCAR_GENERACIÓN.setText("BUSCAR POR GENERACIÓN");
+        BUSCAR_GENERACIÓN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BUSCAR_GENERACIÓNActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BUSCAR_GENERACIÓN, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
+
+        INPUT_ANCESTROS.setBackground(new java.awt.Color(0, 0, 0));
+        INPUT_ANCESTROS.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        INPUT_ANCESTROS.setForeground(new java.awt.Color(255, 255, 255));
+        INPUT_ANCESTROS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INPUT_ANCESTROSActionPerformed(evt);
+            }
+        });
+        getContentPane().add(INPUT_ANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 350, -1));
+
+        ANCESTROS.setBackground(new java.awt.Color(0, 0, 0));
+        ANCESTROS.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ANCESTROS.setForeground(new java.awt.Color(255, 255, 255));
+        ANCESTROS.setText("BUSCAR ANCESTROS");
+        ANCESTROS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ANCESTROSActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, 30));
+
+        FONDO.setBackground(new java.awt.Color(0, 0, 0));
+        FONDO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        FONDO.setForeground(new java.awt.Color(255, 255, 255));
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 450));
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,7 +273,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_REGRESARActionPerformed
 
-    private void BUSCAR_NOMBREActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_NOMBREActionPerformed
+    private void BUSCAR_NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_NOMBRE_APODOActionPerformed
         try {
             String nombrePersona = INPUT_NAME.getText();
             if (!nombrePersona.isBlank()) {
@@ -197,21 +285,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
         }
-    }//GEN-LAST:event_BUSCAR_NOMBREActionPerformed
-
-    private void BUSCAR_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_APODOActionPerformed
-        try {
-            String nombrePersona = INPUT_NAME.getText();
-            if (!nombrePersona.isBlank()) {
-                }
-            else {
-                JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona que desea buscar 👤️");
-            }
-            INPUT_NAME.setText("");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
-        }
-    }//GEN-LAST:event_BUSCAR_APODOActionPerformed
+    }//GEN-LAST:event_BUSCAR_NOMBRE_APODOActionPerformed
 
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
         JOptionPane.showMessageDialog(this, "👤\n️"
@@ -224,17 +298,65 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             newTree.mostrarArbol(newTree);
             func.appendGraph(newTree, newTree.getpRoot(), null);
         } catch (Exception e) {
-            //JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
        }
     }//GEN-LAST:event_VER_ARBOLActionPerformed
-
-    
+   
     private void DESPLEGABLEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESPLEGABLEActionPerformed
         String seleccionado = (String) DESPLEGABLE.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado)) {
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
         }
     }//GEN-LAST:event_DESPLEGABLEActionPerformed
+
+    private void INPUT_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_TITULONBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_INPUT_TITULONBActionPerformed
+
+    private void BUSCAR_TITULOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_TITULOActionPerformed
+        try {
+            String titulinb = INPUT_TITULONB.getText();
+            if (!titulinb.isBlank()) {
+                List<Persona> listPersonas =func.constructListHeldTitle(newTree, titulinb);
+                if (listPersonas.isEmpty()){
+                    JOptionPane.showMessageDialog(this, "No hay personas con este titulo nobiliario 👤❌️");
+                }else{
+                    Node<Persona> aux =listPersonas.getpFirst();
+                    int num = 0;
+                    String persona = "Titulo Nobiliario: "+INPUT_TITULONB.getText()+ "\n";
+                    while(aux!= null){
+                        num+=1;
+                        persona += num+". " +aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name"+"\n";
+                        DESPLEGABLE.addItem(aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name");
+                        aux = aux.getpNext();
+                }
+                    INFO.setText(persona);
+                }
+                }
+            else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar el titulo nobilario de la persona que desea buscar 👤️");
+            }
+            INPUT_TITULONB.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+        }
+    }//GEN-LAST:event_BUSCAR_TITULOActionPerformed
+
+    private void INPUT_ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_ANCESTROSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_INPUT_ANCESTROSActionPerformed
+
+    private void ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ANCESTROSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ANCESTROSActionPerformed
+
+    private void INPUT_GENERACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_GENERACIONActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_INPUT_GENERACIONActionPerformed
+
+    private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BUSCAR_GENERACIÓNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,17 +397,27 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BUSCAR_APODO;
-    private javax.swing.JButton BUSCAR_NOMBRE;
+    private javax.swing.JButton ANCESTROS;
+    private javax.swing.JButton BUSCAR_GENERACIÓN;
+    private javax.swing.JButton BUSCAR_NOMBRE_APODO;
+    private javax.swing.JButton BUSCAR_TITULO;
     private javax.swing.JButton CERRAR;
     private javax.swing.JComboBox<String> DESPLEGABLE;
     private javax.swing.JLabel FONDO;
     private javax.swing.JLabel ICONO;
+    private javax.swing.JTextArea INFO;
+    private javax.swing.JTextField INPUT_ANCESTROS;
+    private javax.swing.JTextField INPUT_GENERACION;
     private javax.swing.JTextField INPUT_NAME;
+    private javax.swing.JTextField INPUT_TITULONB;
     private javax.swing.JButton INSTRUCCIONES;
     private javax.swing.JButton REGRESAR;
     private javax.swing.JButton VER_ARBOL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
