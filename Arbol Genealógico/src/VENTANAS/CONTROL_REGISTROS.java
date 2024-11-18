@@ -7,6 +7,7 @@ import EDD.List;
 import EDD.Node;
 import javax.swing.*;
 import EDD.Tree;
+import EDD.TreeNode;
 import Extras.Funciones;
 import Extras.Persona;
 import JSON.LecturaJSON;
@@ -36,8 +37,13 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     }
     
     private void llenarDesplegable() {
-        DESPLEGABLE.removeAllItems(); // LIMPIA EL DESPLEGABLE
-        DESPLEGABLE.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
+        DESCENDIENTES_TITULONB.removeAllItems(); // LIMPIA EL DESPLEGABLE
+        DESCENDIENTES_TITULONB.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
+        /*String[] idString = id.split("/");
+        Persona aux = new Persona(idString[0], idString[2]);
+        aux.setNumeral(idString[1]);
+        TreeNode personaBuscada = arbol.getNombres().searchPersona(aux, false);
+        JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());*/
         }
 
 
@@ -59,7 +65,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         BUSCAR_NOMBRE_APODO = new javax.swing.JButton();
         VER_ARBOL = new javax.swing.JButton();
         ICONO = new javax.swing.JLabel();
-        DESPLEGABLE = new javax.swing.JComboBox<>();
+        DESCENDIENTES_TITULONB = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         INPUT_TITULONB = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -71,6 +77,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         BUSCAR_GENERACIÓN = new javax.swing.JButton();
         INPUT_ANCESTROS = new javax.swing.JTextField();
         ANCESTROS = new javax.swing.JButton();
+        MOSTRAR_ARBOL = new javax.swing.JComboBox<>();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -150,18 +157,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         getContentPane().add(VER_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
 
         ICONO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PERSONA.png"))); // NOI18N
-        getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, -1, -1));
+        getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, -1, -1));
 
-        DESPLEGABLE.setBackground(new java.awt.Color(0, 0, 0));
-        DESPLEGABLE.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        DESPLEGABLE.setForeground(new java.awt.Color(255, 255, 255));
-        DESPLEGABLE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPCIÓN 1", "OPCIÓN 2", "OPCIÓN 3", "OPCIÓN 4" }));
-        DESPLEGABLE.addActionListener(new java.awt.event.ActionListener() {
+        DESCENDIENTES_TITULONB.setBackground(new java.awt.Color(0, 0, 0));
+        DESCENDIENTES_TITULONB.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        DESCENDIENTES_TITULONB.setForeground(new java.awt.Color(255, 255, 255));
+        DESCENDIENTES_TITULONB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPCIÓN 1", "OPCIÓN 2", "OPCIÓN 3", "OPCIÓN 4" }));
+        DESCENDIENTES_TITULONB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DESPLEGABLEActionPerformed(evt);
+                DESCENDIENTES_TITULONBActionPerformed(evt);
             }
         });
-        getContentPane().add(DESPLEGABLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 360, 290, -1));
+        getContentPane().add(DESCENDIENTES_TITULONB, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,7 +255,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 ANCESTROSActionPerformed(evt);
             }
         });
-        getContentPane().add(ANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, 30));
+        getContentPane().add(ANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, 20));
+
+        MOSTRAR_ARBOL.setBackground(new java.awt.Color(0, 0, 0));
+        MOSTRAR_ARBOL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MOSTRAR_ARBOL.setForeground(new java.awt.Color(255, 255, 255));
+        MOSTRAR_ARBOL.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPCIÓN 1", "OPCIÓN 2", "OPCIÓN 3", "OPCIÓN 4" }));
+        MOSTRAR_ARBOL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MOSTRAR_ARBOLActionPerformed(evt);
+            }
+        });
+        getContentPane().add(MOSTRAR_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 290, -1));
 
         FONDO.setBackground(new java.awt.Color(0, 0, 0));
         FONDO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -302,12 +320,12 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_VER_ARBOLActionPerformed
    
-    private void DESPLEGABLEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESPLEGABLEActionPerformed
-        String seleccionado = (String) DESPLEGABLE.getSelectedItem();
+    private void DESCENDIENTES_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESCENDIENTES_TITULONBActionPerformed
+        String seleccionado = (String) DESCENDIENTES_TITULONB.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado)) {
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
         }
-    }//GEN-LAST:event_DESPLEGABLEActionPerformed
+    }//GEN-LAST:event_DESCENDIENTES_TITULONBActionPerformed
 
     private void INPUT_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_TITULONBActionPerformed
         // TODO add your handling code here:
@@ -327,7 +345,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                     while(aux!= null){
                         num+=1;
                         persona += num+". " +aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name"+"\n";
-                        DESPLEGABLE.addItem(aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name");
+                        DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name");
                         aux = aux.getpNext();
                 }
                     INFO.setText(persona);
@@ -357,6 +375,13 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BUSCAR_GENERACIÓNActionPerformed
+
+    private void MOSTRAR_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MOSTRAR_ARBOLActionPerformed
+        String seleccionado = (String) MOSTRAR_ARBOL.getSelectedItem();
+        if (!"Selecciona un familiar".equals(seleccionado)) {
+            JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
+        }
+    }//GEN-LAST:event_MOSTRAR_ARBOLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,7 +427,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private javax.swing.JButton BUSCAR_NOMBRE_APODO;
     private javax.swing.JButton BUSCAR_TITULO;
     private javax.swing.JButton CERRAR;
-    private javax.swing.JComboBox<String> DESPLEGABLE;
+    private javax.swing.JComboBox<String> DESCENDIENTES_TITULONB;
     private javax.swing.JLabel FONDO;
     private javax.swing.JLabel ICONO;
     private javax.swing.JTextArea INFO;
@@ -411,6 +436,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private javax.swing.JTextField INPUT_NAME;
     private javax.swing.JTextField INPUT_TITULONB;
     private javax.swing.JButton INSTRUCCIONES;
+    private javax.swing.JComboBox<String> MOSTRAR_ARBOL;
     private javax.swing.JButton REGRESAR;
     private javax.swing.JButton VER_ARBOL;
     private javax.swing.JLabel jLabel1;
