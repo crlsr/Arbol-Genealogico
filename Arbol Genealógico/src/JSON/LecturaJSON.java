@@ -31,6 +31,7 @@ public class LecturaJSON {
     int counter = 0;
     int counter2 = 0;
     List<Persona> monarchy;
+    String title;
 
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
@@ -59,8 +60,8 @@ public class LecturaJSON {
 
     public Tree dataConstructor(Tree newTree) {
         monarchy = new List<>();
-        String keyWord = this.getData().keys().next();
-        JSONArray innerData = this.getData().getJSONArray(keyWord);
+        this.title = this.getData().keys().next();
+        JSONArray innerData = this.getData().getJSONArray(this.title);
         for (int i = 0; i < innerData.length(); i++) {
             JSONObject personJSON = innerData.getJSONObject(i);
             String personKey = personJSON.keys().next();
