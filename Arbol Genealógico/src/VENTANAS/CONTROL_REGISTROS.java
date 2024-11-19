@@ -45,6 +45,8 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         TreeNode personaBuscada = arbol.getNombres().searchPersona(aux, false);
         JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());*/
         }
+    
+    
 
 
     /**
@@ -77,7 +79,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         BUSCAR_GENERACIÓN = new javax.swing.JButton();
         INPUT_ANCESTROS = new javax.swing.JTextField();
         ANCESTROS = new javax.swing.JButton();
-        MOSTRAR_ARBOL = new javax.swing.JComboBox<>();
+        NOMBRE_APODO = new javax.swing.JComboBox<>();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -255,18 +257,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 ANCESTROSActionPerformed(evt);
             }
         });
-        getContentPane().add(ANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, 20));
+        getContentPane().add(ANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, 30));
 
-        MOSTRAR_ARBOL.setBackground(new java.awt.Color(0, 0, 0));
-        MOSTRAR_ARBOL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        MOSTRAR_ARBOL.setForeground(new java.awt.Color(255, 255, 255));
-        MOSTRAR_ARBOL.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPCIÓN 1", "OPCIÓN 2", "OPCIÓN 3", "OPCIÓN 4" }));
-        MOSTRAR_ARBOL.addActionListener(new java.awt.event.ActionListener() {
+        NOMBRE_APODO.setBackground(new java.awt.Color(0, 0, 0));
+        NOMBRE_APODO.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        NOMBRE_APODO.setForeground(new java.awt.Color(255, 255, 255));
+        NOMBRE_APODO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPCIÓN 1", "OPCIÓN 2", "OPCIÓN 3", "OPCIÓN 4" }));
+        NOMBRE_APODO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MOSTRAR_ARBOLActionPerformed(evt);
+                NOMBRE_APODOActionPerformed(evt);
             }
         });
-        getContentPane().add(MOSTRAR_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 290, -1));
+        getContentPane().add(NOMBRE_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 290, -1));
 
         FONDO.setBackground(new java.awt.Color(0, 0, 0));
         FONDO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -322,6 +324,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
    
     private void DESCENDIENTES_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESCENDIENTES_TITULONBActionPerformed
         String seleccionado = (String) DESCENDIENTES_TITULONB.getSelectedItem();
+        //aca aparece el has seleccionado null
         if (!"Selecciona un familiar".equals(seleccionado)) {
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
         }
@@ -333,6 +336,8 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
 
     private void BUSCAR_TITULOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_TITULOActionPerformed
         try {
+            DESCENDIENTES_TITULONB.removeAllItems();
+            NOMBRE_APODO.removeAllItems();
             String titulinb = INPUT_TITULONB.getText();
             if (!titulinb.isBlank()) {
                 List<Persona> listPersonas =func.constructListHeldTitle(newTree, titulinb);
@@ -365,7 +370,27 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     }//GEN-LAST:event_INPUT_ANCESTROSActionPerformed
 
     private void ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ANCESTROSActionPerformed
-        // TODO add your handling code here:
+        try {
+            DESCENDIENTES_TITULONB.removeAllItems();
+            NOMBRE_APODO.removeAllItems();
+            String nombre= INPUT_ANCESTROS.getText();
+            Persona fatherPersona;
+            if(nombre.contains(",")){
+                String[] partesNombre = nombre.split(", ");
+                String numeral = partesNombre[1].split(" ")[0].trim();
+                fatherPersona = new Persona(partesNombre[0], numeral, "");
+            }else{
+                fatherPersona = new Persona("", "", nombre.trim());
+            }
+            TreeNode persona = newTree.searchPersonaTree(fatherPersona);
+            if (persona!=null){
+                INFO.setText(func.constructAncestors(persona.getTinfo(), newTree));
+            }else{
+                JOptionPane.showMessageDialog(this,nombre + " no ha sido encontrado");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+        }
     }//GEN-LAST:event_ANCESTROSActionPerformed
 
     private void INPUT_GENERACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_GENERACIONActionPerformed
@@ -373,15 +398,49 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     }//GEN-LAST:event_INPUT_GENERACIONActionPerformed
 
     private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
-        // TODO add your handling code here:
+         try {
+            DESCENDIENTES_TITULONB.removeAllItems();
+            NOMBRE_APODO.removeAllItems();
+            String generacion = INPUT_GENERACION.getText();
+            int gen = Integer.parseInt(generacion);
+            if (!generacion.isBlank()) {
+                List<Persona> Generacion = func.constructListGeneration(newTree, gen);
+                if (Generacion.isEmpty()){
+                    JOptionPane.showMessageDialog(this, "No hay personas en esta generación 👤❌️");
+                }
+                else{
+                    Node<Persona> aux = Generacion.getpFirst();
+                    int num = 0;
+                    String persona = "Generación: "+INPUT_GENERACION.getText()+ "\n";
+                    while(aux!= null){
+                        num+=1;
+                        if (aux.getData().getNumeral().equals("")||aux.getData().getNumeral()== null){
+                            persona += num+". " +aux.getData().getFullName()+"\n";
+                        }else{
+                        persona += num+". " +aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name"+"\n";
+                        }
+                        DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name");
+                        aux = aux.getpNext();
+                }
+                    INFO.setText(persona);
+                }
+                }
+            else {
+                JOptionPane.showMessageDialog(this, "Asegúrese de ingresar un valor numérico 👤️");
+            }
+            INPUT_TITULONB.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+        }
     }//GEN-LAST:event_BUSCAR_GENERACIÓNActionPerformed
 
-    private void MOSTRAR_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MOSTRAR_ARBOLActionPerformed
-        String seleccionado = (String) MOSTRAR_ARBOL.getSelectedItem();
+    private void NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOMBRE_APODOActionPerformed
+        String seleccionado = (String) NOMBRE_APODO.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado)) {
+            //aca aparece el has seleccionado null
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
         }
-    }//GEN-LAST:event_MOSTRAR_ARBOLActionPerformed
+    }//GEN-LAST:event_NOMBRE_APODOActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,7 +495,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private javax.swing.JTextField INPUT_NAME;
     private javax.swing.JTextField INPUT_TITULONB;
     private javax.swing.JButton INSTRUCCIONES;
-    private javax.swing.JComboBox<String> MOSTRAR_ARBOL;
+    private javax.swing.JComboBox<String> NOMBRE_APODO;
     private javax.swing.JButton REGRESAR;
     private javax.swing.JButton VER_ARBOL;
     private javax.swing.JLabel jLabel1;
