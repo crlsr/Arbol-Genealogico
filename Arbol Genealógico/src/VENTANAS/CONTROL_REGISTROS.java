@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package VENTANAS;
+
 import EDD.List;
 import EDD.Node;
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     static LecturaJSON json;
     static Tree newTree;
     static Funciones func = new Funciones();
+
     /**
      * Creates new form AÑADIR_MIEMBRO
      */
@@ -31,23 +33,15 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     public CONTROL_REGISTROS(Tree newTree, LecturaJSON json) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.newTree=newTree;
-        this.json=json;
+        this.newTree = newTree;
+        this.json = json;
         llenarDesplegable(); // Llamar al método para poblar el JComboBox
     }
-    
+
     private void llenarDesplegable() {
         DESCENDIENTES_TITULONB.removeAllItems(); // LIMPIA EL DESPLEGABLE
         DESCENDIENTES_TITULONB.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
-        /*String[] idString = id.split("/");
-        Persona aux = new Persona(idString[0], idString[2]);
-        aux.setNumeral(idString[1]);
-        TreeNode personaBuscada = arbol.getNombres().searchPersona(aux, false);
-        JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());*/
-        }
-    
-    
-
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,6 +112,11 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         INPUT_NAME.setBackground(new java.awt.Color(0, 0, 0));
         INPUT_NAME.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         INPUT_NAME.setForeground(new java.awt.Color(255, 255, 255));
+        INPUT_NAME.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INPUT_NAMEActionPerformed(evt);
+            }
+        });
         getContentPane().add(INPUT_NAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 350, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -297,8 +296,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         try {
             String nombrePersona = INPUT_NAME.getText();
             if (!nombrePersona.isBlank()) {
-                }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona que desea buscar 👤️");
             }
             INPUT_NAME.setText("");
@@ -309,24 +307,39 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
 
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
         JOptionPane.showMessageDialog(this, "👤\n️"
-                                        +"👤\n️");
+                + "👤\n️");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
     private void VER_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_ARBOLActionPerformed
         try {
+            DESCENDIENTES_TITULONB.removeAllItems();
+            NOMBRE_APODO.removeAllItems();
+            DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
+            NOMBRE_APODO.addItem("Selecciona un familiar");
             newTree.setGraph(new MultiGraph("Árbol Genealógico"));
             newTree.mostrarArbol(newTree);
             func.appendGraph(newTree, newTree.getpRoot(), null);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
-       }
+        }
     }//GEN-LAST:event_VER_ARBOLActionPerformed
-   
+
     private void DESCENDIENTES_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESCENDIENTES_TITULONBActionPerformed
         String seleccionado = (String) DESCENDIENTES_TITULONB.getSelectedItem();
         //aca aparece el has seleccionado null
-        if (!"Selecciona un familiar".equals(seleccionado)) {
-            JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
+        if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
+            if (seleccionado.contains(",")) {
+                String[] Selected = seleccionado.split(", ");
+                String[] Numeral = Selected[1].split(" ");
+                Persona aux = new Persona(Selected[0], Numeral[0], "");
+                TreeNode personaBuscada = newTree.getNombres().searchPersona(aux, false);
+                JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());
+            }else{
+                String[] Selected = seleccionado.split(", ");
+                Persona aux = new Persona(Selected[0], "", "");
+                TreeNode personaBuscada = newTree.getNombres().searchPersona(aux, false);
+                JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());
+            }
         }
     }//GEN-LAST:event_DESCENDIENTES_TITULONBActionPerformed
 
@@ -338,25 +351,26 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
+            DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
+            NOMBRE_APODO.addItem("Selecciona un familiar");
             String titulinb = INPUT_TITULONB.getText();
             if (!titulinb.isBlank()) {
-                List<Persona> listPersonas =func.constructListHeldTitle(newTree, titulinb);
-                if (listPersonas.isEmpty()){
+                List<Persona> listPersonas = func.constructListHeldTitle(newTree, titulinb);
+                if (listPersonas.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay personas con este titulo nobiliario 👤❌️");
-                }else{
-                    Node<Persona> aux =listPersonas.getpFirst();
+                } else {
+                    Node<Persona> aux = listPersonas.getpFirst();
                     int num = 0;
-                    String persona = "Titulo Nobiliario: "+INPUT_TITULONB.getText()+ "\n";
-                    while(aux!= null){
-                        num+=1;
-                        persona += num+". " +aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name"+"\n";
-                        DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name");
+                    String persona = "Titulo Nobiliario: " + INPUT_TITULONB.getText() + "\n";
+                    while (aux != null) {
+                        num += 1;
+                        persona += num + ". " + aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name" + "\n";
+                        DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name");
                         aux = aux.getpNext();
-                }
+                    }
                     INFO.setText(persona);
                 }
-                }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el titulo nobilario de la persona que desea buscar 👤️");
             }
             INPUT_TITULONB.setText("");
@@ -373,20 +387,22 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
-            String nombre= INPUT_ANCESTROS.getText();
+            DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
+            NOMBRE_APODO.addItem("Selecciona un familiar");
+            String nombre = INPUT_ANCESTROS.getText();
             Persona fatherPersona;
-            if(nombre.contains(",")){
+            if (nombre.contains(",")) {
                 String[] partesNombre = nombre.split(", ");
                 String numeral = partesNombre[1].split(" ")[0].trim();
-                fatherPersona = new Persona(partesNombre[0], numeral, "");
-            }else{
+                fatherPersona = new Persona(partesNombre[0].trim(), numeral.trim(), "");
+            } else {
                 fatherPersona = new Persona("", "", nombre.trim());
             }
             TreeNode persona = newTree.searchPersonaTree(fatherPersona);
-            if (persona!=null){
+            if (persona != null) {
                 INFO.setText(func.constructAncestors(persona.getTinfo(), newTree));
-            }else{
-                JOptionPane.showMessageDialog(this,nombre + " no ha sido encontrado");
+            } else {
+                JOptionPane.showMessageDialog(this, nombre + " no ha sido encontrado");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
@@ -398,34 +414,36 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     }//GEN-LAST:event_INPUT_GENERACIONActionPerformed
 
     private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
-         try {
+        try {
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
+            DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
+            NOMBRE_APODO.addItem("Selecciona un familiar");
             String generacion = INPUT_GENERACION.getText();
             int gen = Integer.parseInt(generacion);
             if (!generacion.isBlank()) {
                 List<Persona> Generacion = func.constructListGeneration(newTree, gen);
-                if (Generacion.isEmpty()){
+                if (Generacion.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay personas en esta generación 👤❌️");
-                }
-                else{
+                } else {
                     Node<Persona> aux = Generacion.getpFirst();
                     int num = 0;
-                    String persona = "Generación: "+INPUT_GENERACION.getText()+ "\n";
-                    while(aux!= null){
-                        num+=1;
-                        if (aux.getData().getNumeral().equals("")||aux.getData().getNumeral()== null){
-                            persona += num+". " +aux.getData().getFullName()+"\n";
-                        }else{
-                        persona += num+". " +aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name"+"\n";
+                    String persona = "Generación: " + INPUT_GENERACION.getText() + "\n";
+                    while (aux != null) {
+                        num += 1;
+                        if (aux.getData().getNumeral().equals("") || aux.getData().getNumeral() == null) {
+                            persona += num + ". " + aux.getData().getFullName() + "\n";
+                            DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName());
+
+                        } else {
+                            persona += num + ". " + aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name" + "\n";
+                            DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name");
                         }
-                        DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName()+", "+ aux.getData().getNumeral()+" of his name");
                         aux = aux.getpNext();
-                }
+                    }
                     INFO.setText(persona);
                 }
-                }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Asegúrese de ingresar un valor numérico 👤️");
             }
             INPUT_TITULONB.setText("");
@@ -436,11 +454,15 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
 
     private void NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOMBRE_APODOActionPerformed
         String seleccionado = (String) NOMBRE_APODO.getSelectedItem();
-        if (!"Selecciona un familiar".equals(seleccionado)) {
-            //aca aparece el has seleccionado null
+        if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
             JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
+
         }
     }//GEN-LAST:event_NOMBRE_APODOActionPerformed
+
+    private void INPUT_NAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_NAMEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_INPUT_NAMEActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,7 +497,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CONTROL_REGISTROS(newTree,json).setVisible(true);
+                new CONTROL_REGISTROS(newTree, json).setVisible(true);
             }
         });
     }
