@@ -41,6 +41,8 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private void llenarDesplegable() {
         DESCENDIENTES_TITULONB.removeAllItems(); // LIMPIA EL DESPLEGABLE
         DESCENDIENTES_TITULONB.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
+        NOMBRE_APODO.removeAllItems(); // LIMPIA EL DESPLEGABLE
+        NOMBRE_APODO.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
     }
 
     /**
@@ -299,9 +301,29 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
             NOMBRE_APODO.addItem("Selecciona un familiar");
             String nombrePersona = INPUT_NAME.getText();
-            List<Persona> Generacion = func.constructListGeneration(newTree, 7);            
             if (!nombrePersona.isBlank()) {
-            } else {
+                List<Persona> nombresymotes= func.searchByNameandMote(newTree, nombrePersona);
+                if (nombresymotes.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "No hay personas con este Nombre/Apodo 👤❌️");
+                } else {
+                    Node<Persona> aux = nombresymotes.getpFirst();
+                    int num = 0;
+                    String persona = "Nombre/Apodo: " + INPUT_NAME.getText() + "\n";
+                    while (aux != null) {
+                        num += 1;
+                        if (aux.getData().getNumeral().equals("") || aux.getData().getNumeral() == null) {
+                            persona += num + ". " + aux.getData().getFullName() + "\n";
+                            NOMBRE_APODO.addItem(aux.getData().getFullName());
+                        } else {
+                            persona += num + ". " + aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name" + "\n";
+                            NOMBRE_APODO.addItem(aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name");
+                        }
+                        aux = aux.getpNext();
+                    }
+                    INFO.setText(persona);
+                }
+            } 
+            else {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona que desea buscar 👤️");
             }
             INPUT_NAME.setText("");
@@ -407,6 +429,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, nombre + " no ha sido encontrado");
             }
+            INPUT_ANCESTROS.setText("");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
         }
@@ -449,7 +472,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Asegúrese de ingresar un valor numérico 👤️");
             }
-            INPUT_TITULONB.setText("");
+            INPUT_GENERACION.setText("");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
         }
@@ -458,8 +481,17 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private void NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOMBRE_APODOActionPerformed
         String seleccionado = (String) NOMBRE_APODO.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
-            JOptionPane.showMessageDialog(this, "Has seleccionado: " + seleccionado);
-
+            TreeNode personaBuscada;
+            if (seleccionado.contains(",")) {
+                String[] Selected = seleccionado.split(", ");
+                String[] Numeral = Selected[1].split(" ");
+                Persona aux = new Persona(Selected[0], Numeral[0], "");
+                personaBuscada = newTree.getNombres().searchPersona(aux, false);
+            }else{
+                Persona aux = new Persona(seleccionado, "", "");
+                personaBuscada = newTree.getNombres().searchPersona(aux, false);
+            }
+        func.mostrarDescendencia(personaBuscada,newTree);
         }
     }//GEN-LAST:event_NOMBRE_APODOActionPerformed
 

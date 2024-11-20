@@ -61,12 +61,16 @@ public class ArbolGenealógico {
                 System.out.println(func.constructAncestors(persona.getTinfo(), newTree));
             }else{
                 System.out.println(nombre + " no ha sido encontrado");
-            }
+            }++++++++++++++++
             
             //Aqui comienza la busqueda por titulo nobiliario
             List<Persona> listPersonas =func.constructListHeldTitle(newTree, "King of the Andals and the First Men, Lord of the Seven Kingdoms");
             listPersonas.show();
             System.out.println("+++++++++");
+            
+            ++++++++++++++++++++++++
+            
+            
             //Aqui comienza la creacion de la lista con la generacion seleccionada
             List<Persona> Generacion = func.constructListGeneration(newTree, 7);
             Generacion.show();

@@ -158,8 +158,8 @@ public class CARGAR_JSON extends javax.swing.JFrame {
     }//GEN-LAST:event_REGRESARActionPerformed
 
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
-        JOptionPane.showMessageDialog(this, "👤\n️"
-                                        +"👤\n️");
+        JOptionPane.showMessageDialog(this, "Instrucciones Cargar JSON\n"
+                                          + "Haga click en el botón CARGAR JSON y seleccione un archivo .JSON con el arbol genealogico que desee\n");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
     
