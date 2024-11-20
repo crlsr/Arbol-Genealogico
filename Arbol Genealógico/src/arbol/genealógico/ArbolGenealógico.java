@@ -27,7 +27,11 @@ public class ArbolGenealógico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        MENU main = new MENU();
+        main.setVisible(true); 
         
+        
+        /*
         LecturaJSON object;
         Tree newTree = null;
         JFileChooser finder = new JFileChooser();
@@ -45,7 +49,7 @@ public class ArbolGenealógico {
             
             List<Persona> nombresymotes= func.searchByNameandMote(newTree, "Viserys");
             System.out.println(nombresymotes.getSize());
-            /*
+            
             //Aqui comienza lo de crear arbol con ancestros
             String nombre= "Aegon Targaryen, Fourth of his name";
             Persona fatherPersona;
@@ -90,9 +94,5 @@ public class ArbolGenealógico {
                 System.out.println(nombre1 + " no ha sido encontrado");
             }
 */
-        }
-        
-        MENU main = new MENU();
-        main.setVisible(true);
-    } 
+        }     
 }
