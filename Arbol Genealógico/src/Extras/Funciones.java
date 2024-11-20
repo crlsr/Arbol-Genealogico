@@ -184,10 +184,14 @@ public class Funciones {
     public void mostrarDescendencia(TreeNode pRoot, Tree originalTree) {
         Tree subArbol = new Tree(pRoot);
         if (pRoot != null) {
-            subArbol.mostrarArbol(originalTree);
-            subArbol.addNode(pRoot.getTinfo());
-            subArbol.getGraph().getNode(pRoot.getTinfo().getFullName() + "/" + pRoot.getTinfo().getNumeral() + "/" + pRoot.getTinfo().getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
-            crearDescendencia(pRoot.getHijos(), pRoot, subArbol);
+            if (pRoot.getHijos().getpFirst() != null) {
+                subArbol.mostrarArbol(originalTree);
+                subArbol.addNode(pRoot.getTinfo());
+                subArbol.getGraph().getNode(pRoot.getTinfo().getFullName() + "/" + pRoot.getTinfo().getNumeral() + "/" + pRoot.getTinfo().getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+                crearDescendencia(pRoot.getHijos(), pRoot, subArbol);
+            } else {
+                JOptionPane.showMessageDialog(null, pRoot.getTinfo().getFullName() + ", no posee descendencia");
+            }
         }
     }
 
@@ -216,25 +220,48 @@ public class Funciones {
      * 
      * @param persona Persona cuyas ancestros serán construidos.
      * @param originalTree Árbol original.
+     * @return srting con los ancesstros de la persona desde el mayor hasta el menor
      * @author Pedro Sebastiano
      */
     public String constructAncestors(Persona persona, Tree originalTree) {
         List<Persona> listPersona = new List<>();
         this.viewAncestors(originalTree, listPersona, persona);
+        if(listPersona.getSize() == 1){
+            JOptionPane.showMessageDialog(null, "La persona " + persona.getFullName()+", "+ persona.getNumeral()+" of his name no tiene ancestros");
+            return "La persona " + persona.getFullName()+", "+ persona.getNumeral()+" of his name no tiene ancestros";
+        }else{
         Tree ancestorTree = new Tree(0, 0);
-        Node<Persona> aux = listPersona.getpFirst();
-        ancestorTree.mostrarArbol(originalTree);
-        ancestorTree.addNode(aux.getData());
-        ancestorTree.setpRoot(originalTree.getpRoot());
-        TreeNode padre = originalTree.getNombres().searchPersona(aux.getData(), false);
-        if (aux.getData() != persona) {
-            insertSonsAncestors(ancestorTree, padre, persona);
-        } else {
-            ancestorTree.getGraph().getNode(persona.getFullName() + "/" + persona.getNumeral() + "/" + persona.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+        Node<Persona> aux1 = listPersona.getpFirst();
+        Node<Persona> aux2 = null;
+        String contenido = "Ancestros de " + persona.getFullName();
+        if(!persona.getNumeral().equals("")&& persona.getNumeral()!= null){
+            contenido += ", "+ persona.getNumeral()+" of his name";
         }
-        auxiliar = ancestorTree.getpRoot().getTinfo().getFullName() + ", " + ancestorTree.getpRoot().getTinfo().getNumeral()+ " of his name"+"\n";
-        this.stringAncestros(ancestorTree.getpRoot(), persona);
-        return auxiliar;
+        contenido += "\n";
+        ancestorTree.mostrarArbol(originalTree);
+        while(aux1!=null){
+            for (int i = 1; i < aux1.getData().getNivel(); i++) {
+                contenido += "-";
+            }
+            contenido += ">";
+            if(aux1.getData().getNumeral().equals("")){
+                 contenido += aux1.getData().getFullName()+ "\n";
+            }else{
+                contenido += aux1.getData().getFullName() + ", " + aux1.getData().getNumeral() + " of his name" + "\n";
+            }
+            ancestorTree.addNode(aux1.getData());
+            if (aux1.getData() == persona) {
+                ancestorTree.getGraph().getNode(aux1.getData().getFullName() + "/" + aux1.getData().getNumeral() + "/" + aux1.getData().getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
+            }
+            if(aux2!=null){
+                ancestorTree.connectNodes(aux1.getData(), aux2.getData());
+            }
+            aux2 = aux1;
+            aux1 = aux1.getpNext();
+
+        }
+        return contenido;
+        }
         
     }
     
@@ -261,6 +288,7 @@ public class Funciones {
         }
     }
 
+    
     /**
      * Inserta los hijos de un ancestro en el árbol de ancestros.
      * 
@@ -269,6 +297,7 @@ public class Funciones {
      * @param buscada Persona buscada.
      * @author Pedro Sebastiano
      */
+    /*
     public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada) {
         Node<TreeNode> aux2 = padre.getHijos().getpFirst();
         while (aux2 != null) {
@@ -283,6 +312,8 @@ public class Funciones {
             aux2 = aux2.getpNext();
         }
     }
+    */
+    
 
     /**
      * Muestra los ancestros de una persona en el árbol original.

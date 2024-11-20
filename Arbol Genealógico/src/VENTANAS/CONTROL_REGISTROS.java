@@ -380,7 +380,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             NOMBRE_APODO.addItem("Selecciona un familiar");
             String titulinb = INPUT_TITULONB.getText();
             if (!titulinb.isBlank()) {
-                List<Persona> listPersonas = func.constructListHeldTitle(newTree, titulinb);
+                List<Persona> listPersonas = func.constructListHeldTitle(newTree, titulinb.trim());
                 if (listPersonas.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay personas con este titulo nobiliario 👤❌️");
                 } else {
@@ -418,10 +418,10 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             Persona fatherPersona;
             if (nombre.contains(",")) {
                 String[] partesNombre = nombre.split(", ");
-                String numeral = partesNombre[1].split(" ")[0].trim();
+                String numeral = partesNombre[1].trim().split(" ")[0];
                 fatherPersona = new Persona(partesNombre[0].trim(), numeral.trim(), "");
             } else {
-                fatherPersona = new Persona("", "", nombre.trim());
+                fatherPersona = new Persona(nombre.trim(), "", "");
             }
             TreeNode persona = newTree.searchPersonaTree(fatherPersona);
             if (persona != null) {
@@ -474,7 +474,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             }
             INPUT_GENERACION.setText("");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!! Asegúrese de ingresar un valor numérico");
         }
     }//GEN-LAST:event_BUSCAR_GENERACIÓNActionPerformed
 
