@@ -294,7 +294,12 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
 
     private void BUSCAR_NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_NOMBRE_APODOActionPerformed
         try {
+            DESCENDIENTES_TITULONB.removeAllItems();
+            NOMBRE_APODO.removeAllItems();
+            DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
+            NOMBRE_APODO.addItem("Selecciona un familiar");
             String nombrePersona = INPUT_NAME.getText();
+            List<Persona> Generacion = func.constructListGeneration(newTree, 7);            
             if (!nombrePersona.isBlank()) {
             } else {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona que desea buscar 👤️");
@@ -326,7 +331,6 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
 
     private void DESCENDIENTES_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESCENDIENTES_TITULONBActionPerformed
         String seleccionado = (String) DESCENDIENTES_TITULONB.getSelectedItem();
-        //aca aparece el has seleccionado null
         if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
             if (seleccionado.contains(",")) {
                 String[] Selected = seleccionado.split(", ");
@@ -335,8 +339,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 TreeNode personaBuscada = newTree.getNombres().searchPersona(aux, false);
                 JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());
             }else{
-                String[] Selected = seleccionado.split(", ");
-                Persona aux = new Persona(Selected[0], "", "");
+                Persona aux = new Persona(seleccionado, "", "");
                 TreeNode personaBuscada = newTree.getNombres().searchPersona(aux, false);
                 JOptionPane.showMessageDialog(null, personaBuscada.getTinfo().generarDescripcion());
             }
