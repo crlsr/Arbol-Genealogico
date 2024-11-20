@@ -265,58 +265,10 @@ public class Funciones {
         
     }
     
-    public void stringAncestros(TreeNode persona,Persona buscada){ 
-        Node<TreeNode> aux = persona.getHijos().getpFirst();
-        while (aux != null) {
-            for (int i = 1; i < aux.getData().getTinfo().getNivel(); i++) {
-                auxiliar += "-";
-            }
-            auxiliar += ">";
-            if(aux.getData().getTinfo().getNumeral().equals("")){
-                 auxiliar += aux.getData().getTinfo().getFullName()+ "\n";
-            }else{
-                auxiliar += aux.getData().getTinfo().getFullName() + ", " + aux.getData().getTinfo().getNumeral() + " of his name" + "\n";
-            }
-            aux = aux.getpNext();
-        }
-        aux = persona.getHijos().getpFirst();
-        while(aux!=null){
-            if (aux.getData().getHijos().getpFirst() != null && aux.getData().getTinfo() != buscada) {
-                this.stringAncestros(aux.getData(), buscada);
-            }
-            aux = aux.getpNext();
-        }
-    }
-
-    
-    /**
-     * Inserta los hijos de un ancestro en el árbol de ancestros.
-     * 
-     * @param ancestorTree Árbol de ancestros.
-     * @param padre Nodo padre.
-     * @param buscada Persona buscada.
-     * @author Pedro Sebastiano
-     */
-    /*
-    public void insertSonsAncestors(Tree ancestorTree, TreeNode padre, Persona buscada) {
-        Node<TreeNode> aux2 = padre.getHijos().getpFirst();
-        while (aux2 != null) {
-            ancestorTree.addNode(aux2.getData().getTinfo());
-            ancestorTree.connectNodes(aux2.getData().getTinfo(), padre.getTinfo());
-            if (aux2.getData().getTinfo() == buscada) {
-                ancestorTree.getGraph().getNode(buscada.getFullName() + "/" + buscada.getNumeral() + "/" + buscada.getFather()).setAttribute("ui.style", "fill-color: yellow; shape: circle; size: 30px;");
-            }
-            if (aux2.getData().getHijos().getpFirst() != null && aux2.getData().getTinfo() != buscada) {
-                this.insertSonsAncestors(ancestorTree, aux2.getData(), buscada);
-            }
-            aux2 = aux2.getpNext();
-        }
-    }
-    */
     
 
     /**
-     * Muestra los ancestros de una persona en el árbol original.
+     * Crea una lista de los ancestros de una persona en el árbol original.
      * 
      * @param originalTree Árbol original.
      * @param ancestros Lista de ancestros.
