@@ -35,6 +35,14 @@ public class MENU extends javax.swing.JFrame {
         this.jsoncargado = true;
     }
     
+    
+    /**
+     * @return icono 
+     * Se carga una imagen desde el package de imagenes, usando la libreria toolkit 
+     * se obtiene una una representacion de dicha imagen.
+     * Retorna una variable de tipo imagen igualada a la instacia antes mencionada.
+     * @author Marco Betancourt
+     */
     public Image getIconImage() {
         Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
         return icono;
@@ -123,10 +131,21 @@ public class MENU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt 
+     * Termina con la ejecución al oprimir el botón.
+     * Cierra la interfaz.
+     * @author Marco Betancourt
+     */ 
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    /**
+     * @param evt
+     * Abre la ventana "CARGAR_JSON" y cierra esta ventana.
+     * @author Marco Betancourt
+     */
     private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
         CARGAR_JSON CJ = new CARGAR_JSON(newTree, json); 
         this.setVisible(false);
@@ -134,6 +153,13 @@ public class MENU extends javax.swing.JFrame {
         jsoncargado =true;
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
 
+    /**
+     * @param evt 
+     * Verifica si el json esta cargado
+     * Si se cumple la condición abre la ventana "CONTROL_REGISTROS" y cierra esta ventana.
+     * Si no pasa un mensaje de error.
+     * @author Marco Betancourt
+     */
     private void CONTROL_REGISTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CONTROL_REGISTROSActionPerformed
         if(jsoncargado){
             CONTROL_REGISTROS CR = new CONTROL_REGISTROS(newTree, json); 
@@ -144,6 +170,11 @@ public class MENU extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CONTROL_REGISTROSActionPerformed
 
+    /**
+     * @param evt
+     * Crea un JOptionPane el cual devuelve un mensaje con las instrucciones que se encuentran en esa ventana.
+     * @author Marco Betancourt
+     */
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
         JOptionPane.showMessageDialog(this, "Instrucciones Menu Principal\n"
                                           + "Haga click en el botón CARGAR JSON para subir un archivo .JSON\n"

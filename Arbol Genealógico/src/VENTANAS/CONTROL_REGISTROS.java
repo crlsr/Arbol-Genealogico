@@ -49,7 +49,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     
     private void TipoDejson() {
         if (jsoncargado){
-            JSON_CARGADO.setText(json.getData().keys().next().toUpperCase());
+            JSON_CARGADO.setText(json.title.toUpperCase());
         }
         else{
             JOptionPane.showMessageDialog(this, "Asegurate de cargar un archivo json primero");
@@ -308,20 +308,49 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * @param evt 
+     * Termina con la ejecución al oprimir el botón.
+     * Cierra la interfaz.
+     * @author Marco Betancourt
+     */
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    /**
+     * @return icono 
+     * Se carga una imagen desde el package de imagenes, usando la libreria toolkit 
+     * se obtiene una una representacion de dicha imagen.
+     * retorna una variable de tipo imagen igualada a la instacia antes mencionada.
+     * @author Marco Betancourt
+     */
     public Image getIconImage() {
         Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
         return icono;
     }
+    
+    /**
+     * @param evt 
+     * Abre la ventana "MENU" y cierra esta ventana.
+     * @author Marco Betancourt
+     */
     private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
         MENU M = new MENU(newTree, json);
         M.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_REGRESARActionPerformed
 
+    
+    /**
+     * @param evt
+     * Busca una persona por su nombre o apodo.
+     * Busca en el json a todas las personas cuyo nombre o apodo coincida
+     * con el texto ingresado por el usuario. Los resultados de la búsqueda se muestran
+     * en una lista desplegable.
+     * @author Marco Betancourt 
+     */
     private void BUSCAR_NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_NOMBRE_APODOActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -360,11 +389,44 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BUSCAR_NOMBRE_APODOActionPerformed
 
+    
+    /**
+     * @param evt
+     * Crea un JOptionPane el cual devuelve un mensaje con las instrucciones que se encuentran en esa ventana.
+     * @author Marco Betancourt
+     */
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
-        JOptionPane.showMessageDialog(this, "👤\n️"
-                + "👤\n️");
+        JOptionPane.showMessageDialog(this, 
+                        "Para buscar por NOMBRE O APODO:  "+ "Escriba en el text field "
+                        + "Nombre O Apodo una cadena de texto\n" +
+                        "Haga clic en el boton BUSCAR POR NOMBRE/APODO\n" +
+                        "Seleccione en el desplegable de DESCENDENCIA alguna de las personas para ver su descendencia\n️"+"\n️"+
+                        
+                        "Para buscar por el TITULO NOBILIARIO:  "+ "Escriba en el text field "
+                        + "TITULO NOBILIARIO una cadena de texto\n" +
+                        "Haga clic en el boton BUSCAR POR TITULO NOBILIARIO\n" +
+                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su titulo nobiliario\n️"+"\n️"+
+                        
+                        "Para buscar por LA GENERACIÓN:  "+ "Escriba en el text field "
+                        + "GENERACIÓN un numero de generación\n" +
+                        "Haga clic en el boton BUSCAR POR GENERACIÓN\n" +
+                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para toda la generación\n️"+"\n️"+
+        
+                        "Para buscar por ANCESTROS:  "+ "Escriba en el text field "
+                        + "ANCESTROS una cadena de texto\n" +
+                        "Haga clic en el boton BUSCAR ANCESTROS\n");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
+    
+    /**
+     * @param evt 
+     * Visualiza el árbol genealógico.
+     * Este método se ejecuta cuando el usuario hace clic en el botón "VER_ARBOL".
+     * Limpia las listas desplegables y crea una representación gráfica del árbol genealógico.
+     * A continuación, muestra el árbol en una ventana o panel, permitiendo al usuario
+     * explorar la estructura familiar.
+     * @author Marco Betancourt
+     */
     private void VER_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_ARBOLActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -379,6 +441,16 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VER_ARBOLActionPerformed
 
+    
+    /**
+     * @param evt 
+     * Este método se ejecuta cuando se selecciona un nombre de la lista desplegable 
+     * "DESCENDIENTES_TITULONB". Busca a la persona seleccionada en el árbol genealógico
+     * y muestra información como su nombre completo, apodo y otros detalles relevantes.
+     * Si el nombre seleccionado incluye un numeral
+     * se considera este numeral al realizar la búsqueda.
+     * @author Marco Betancourt
+     */
     private void DESCENDIENTES_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESCENDIENTES_TITULONBActionPerformed
         String seleccionado = (String) DESCENDIENTES_TITULONB.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
@@ -396,10 +468,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DESCENDIENTES_TITULONBActionPerformed
 
+    
     private void INPUT_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_TITULONBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_TITULONBActionPerformed
 
+    /**
+     * @param evt 
+     * Busca en el árbol genealógico 
+     * a todas las personas que poseen el título nobiliario ingresado en el campo 
+     * "INPUT_TITULONB". Los resultados se muestran en una lista desplegable.
+     * @author Marco Betancourt
+     */
     private void BUSCAR_TITULOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_TITULOActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -432,10 +512,19 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BUSCAR_TITULOActionPerformed
 
+    
     private void INPUT_ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_ANCESTROSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_ANCESTROSActionPerformed
 
+    /**
+     * @param evt 
+     * Busca un ancestro y muestra sus descendientes.
+     * Este método se ejecuta cuando el usuario busca un ancestro específico.
+     * Busca al ancestro ingresado en el árbol genealógico y muestra una lista de sus descendientes.
+     * Si el ancestro no se encuentra, se muestra un mensaje de error.
+     * @author Marco Betancourt
+     */
     private void ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ANCESTROSActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -463,10 +552,20 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ANCESTROSActionPerformed
 
+    
     private void INPUT_GENERACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_GENERACIONActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_GENERACIONActionPerformed
 
+    /**
+     * @param evt 
+     * Busca personas por generación.
+     * Este método se ejecuta cuando el usuario busca a todas las personas 
+     * que pertenecen a una generación específica.
+     * Busca en el árbol genealógico a todas las personas de la generación ingresada 
+     * y muestra sus nombres en una lista desplegable.
+     * @author Marco Betancourt
+     */
     private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -506,6 +605,14 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BUSCAR_GENERACIÓNActionPerformed
 
+    /**
+     * @param evt 
+     * Muestra la descendencia de una persona seleccionada.
+     * Este método se ejecuta cuando el usuario selecciona un nombre de la lista desplegable 
+     * "NOMBRE_APODO". Busca a la persona seleccionada en el árbol genealógico y, 
+     * si se encuentra, muestra la lista de sus descendientes.
+     * @author Marco Betancourt
+     */
     private void NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOMBRE_APODOActionPerformed
         String seleccionado = (String) NOMBRE_APODO.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
@@ -523,6 +630,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NOMBRE_APODOActionPerformed
 
+    
     private void INPUT_NAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_NAMEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_NAMEActionPerformed
