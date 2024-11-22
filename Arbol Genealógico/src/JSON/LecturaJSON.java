@@ -71,10 +71,7 @@ public class LecturaJSON {
         }
         
         Tree lineageTree = new Tree(this.counter2 + 1, this.counter);
-        
-
         return lineageTree;
-
     }
     
     public void eddInsert(Tree tree){
