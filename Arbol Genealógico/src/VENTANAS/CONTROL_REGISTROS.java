@@ -39,7 +39,14 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         llenarDesplegable();
         TipoDejson();
     }
-
+    /**
+     * Limpia y reinicializa las listas desplegables.
+     * Este método se utiliza para limpiar las listas desplegables 
+     * "DESCENDIENTES_TITULONB" y "NOMBRE_APODO" y agregarles la opción por defecto
+     * "Selecciona un familiar". Se suele llamar antes de llenar estas listas 
+     * con nuevos datos, por ejemplo, después de una búsqueda.
+     * @author Marco Betancourt
+     */
     private void llenarDesplegable() {
         DESCENDIENTES_TITULONB.removeAllItems();
         DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
@@ -47,6 +54,14 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         NOMBRE_APODO.addItem("Selecciona un familiar"); 
     }
     
+    
+    /**
+     * Muestra el título del JSON cargado.
+     * Este método verifica si se ha cargado un archivo JSON previamente. Si es así, 
+     * obtiene el valor del atributo "title" del objeto JSON y lo muestra en mayúsculas 
+     * en el componente `JSON_CARGADO`. Si no se ha cargado ningún JSON, muestra un mensaje de error.
+     * @author Marco Betancourt
+     */
     private void TipoDejson() {
         if (jsoncargado){
             JSON_CARGADO.setText(json.title.toUpperCase());
