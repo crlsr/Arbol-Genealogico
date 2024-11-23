@@ -178,7 +178,7 @@ public class MENU extends javax.swing.JFrame {
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
         JOptionPane.showMessageDialog(this, "Instrucciones Menu Principal\n"
                                           + "Haga click en el botón CARGAR JSON para subir un archivo .JSON\n"
-                                          + "Haga click en el botón CONTROL DE REGISTROS para ,,,,,,,,,,,,,,\n"
+                                          + "Haga click en el botón CONTROL DE REGISTROS para ver los registros del arbol cargado\n"
                                           + "Nota: Inicialmente, se debe cargar un archivo .JSON");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
