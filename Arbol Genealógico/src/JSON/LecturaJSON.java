@@ -189,6 +189,13 @@ public class LecturaJSON {
         }
     }
 
+    /**
+     * Función que contruye las personas a raiz del jsonArray de la persona que le pasamos en dataConstructor().
+     * @param data Se pasa jsonArray que contiene los datos de la persona
+     * @param name Se pasa nombre de la persona
+     * @param counter Se pasa el contador para generar el hashtable.
+     * @return result Retorna el objeto persona creaod
+     */
     public Persona personBuilder(JSONArray data, String name, int counter) {
         String lineagePosition = "";
         String father = "";
@@ -258,6 +265,11 @@ public class LecturaJSON {
         return result;
     }
 
+    /**
+     * Función que conecta los nodos del arbol
+     * 
+     * @param lineageTree Se pasa el arbol a modificar
+     */
     public void setLineage(Tree lineageTree) {
         Node<Persona> aux = this.monarchy.getpFirst();
         String[] innerData;
@@ -301,7 +313,12 @@ public class LecturaJSON {
         }
     }
 
-
+    
+    /**
+     * Función que cambia el JSON
+     * @param newEndpoint se le pasa el nuevo endpoint para el nuevo JSON.
+     * @param newTree se le pasa el arbol a reconstruir.
+     */
     public void changeJSON(File newEndpoint, Tree newTree) {
         String newPath = newEndpoint.getAbsolutePath();
         this.setIneerFilePath(newPath);
