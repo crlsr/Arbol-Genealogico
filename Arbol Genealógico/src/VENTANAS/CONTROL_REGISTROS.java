@@ -6,7 +6,6 @@ package VENTANAS;
 
 import EDD.List;
 import EDD.Node;
-import javax.swing.*;
 import EDD.Tree;
 import EDD.TreeNode;
 import Extras.Funciones;
@@ -39,6 +38,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         llenarDesplegable();
         TipoDejson();
     }
+    
     /**
      * Limpia y reinicializa las listas desplegables.
      * Este método se utiliza para limpiar las listas desplegables 
@@ -420,12 +420,12 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                         "Para buscar por el TITULO NOBILIARIO:  "+ "Escriba en el text field "
                         + "TITULO NOBILIARIO una cadena de texto\n" +
                         "Haga clic en el boton BUSCAR POR TITULO NOBILIARIO\n" +
-                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su titulo nobiliario\n️"+"\n️"+
+                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su registro\n️"+"\n️"+
                         
                         "Para buscar por LA GENERACIÓN:  "+ "Escriba en el text field "
                         + "GENERACIÓN un numero de generación\n" +
                         "Haga clic en el boton BUSCAR POR GENERACIÓN\n" +
-                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para toda la generación\n️"+"\n️"+
+                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su registro\n️"+"\n️"+
         
                         "Para buscar por ANCESTROS:  "+ "Escriba en el text field "
                         + "ANCESTROS una cadena de texto\n" +
