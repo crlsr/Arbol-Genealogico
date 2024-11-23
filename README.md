@@ -20,7 +20,12 @@ Las librerías necesarias se encuentran en Maven Repository. Descárgalas desde 
 - **json-simple**: [https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple/1.1.1](https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple/1.1.1)  
 - **AbsoluteLayout**: [https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout/RELEASE230](https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout/RELEASE230)  
 - **gs-ui-swing-2.0**: [https://mvnrepository.com/artifact/org.graphstream/gs-ui-swing/2.0](https://mvnrepository.com/artifact/org.graphstream/gs-ui-swing/2.0)  
-- **gs-core-2.0**: [https://mvnrepository.com/artifact/org.graphstream/gs-core/2.0](https://mvnrepository.com/artifact/org.graphstream/gs-core/2.0)  
+- **gs-core-2.0**: [https://mvnrepository.com/artifact/org.graphstream/gs-core/2.0](https://mvnrepository.com/artifact/org.graphstream/gs-core/2.0)
+  
+2. Descarga los archivos .jar o .bundle de cada librería y guárdalos en una carpeta llamada Libraries dentro del directorio del proyecto.
+3. Dirígete a la carpeta Libraries y añada las líbrerías antes mencionadas con la opcion ADD JAR/FOLDER
 
 
+   
+   
 
