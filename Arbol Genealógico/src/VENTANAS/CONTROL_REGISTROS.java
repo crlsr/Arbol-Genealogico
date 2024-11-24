@@ -370,6 +370,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
      */
     private void BUSCAR_NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_NOMBRE_APODOActionPerformed
         try {
+            INFO.setText("");
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
             DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
@@ -430,8 +431,12 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                         "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su registro\n️"+"\n️"+
         
                         "Para buscar por ANCESTROS:  "+ "Escriba en el text field "
-                        + "ANCESTROS un el nombre de una persona (Nombre Apellido, Numeral (en caso de tenerlo))\n" +
-                        "Haga clic en el boton BUSCAR ANCESTROS\n");
+                        + "ANCESTROS el nombre de una persona (Nombre Apellido, Numeral (en caso de tenerlo))\n" +
+                        "Haga clic en el boton BUSCAR ANCESTROS\n"+
+        
+                        "Para ver el arbol genealogico de la casa seleccionada:\n"
+                        + "Haga clic en el boton VER ARBOL GENEALOGICO\n" +
+                        "Nota: El nodo de color rojo, sera el nodo raiz de este arbol\n");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
     
@@ -495,6 +500,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
      */
     private void BUSCAR_TITULOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_TITULOActionPerformed
         try {
+            INFO.setText("");
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
             DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
@@ -540,6 +546,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
      */
     private void ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ANCESTROSActionPerformed
         try {
+            INFO.setText("");
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
             DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
@@ -581,11 +588,13 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
      */
     private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
         try {
+            INFO.setText("");
             DESCENDIENTES_TITULONB.removeAllItems();
             NOMBRE_APODO.removeAllItems();
             DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
             NOMBRE_APODO.addItem("Selecciona un familiar");
             String generacion = INPUT_GENERACION.getText();
+            INPUT_GENERACION.setText("");
             int gen = Integer.parseInt(generacion);
             if (!generacion.isBlank()) {
                 List<Persona> Generacion = func.constructListGeneration(newTree, gen);
@@ -594,7 +603,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 } else {
                     Node<Persona> aux = Generacion.getpFirst();
                     int num = 0;
-                    String persona = "Generación: " + INPUT_GENERACION.getText() + "\n";
+                    String persona = "Generación: " + generacion + "\n";
                     while (aux != null) {
                         num += 1;
                         if (aux.getData().getNumeral().equals("") || aux.getData().getNumeral() == null) {

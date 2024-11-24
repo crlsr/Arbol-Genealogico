@@ -155,11 +155,11 @@ public class CARGAR_JSON extends javax.swing.JFrame {
             File selected = finder.getSelectedFile(); 
             if (json ==null){
                 json=new LecturaJSON(selected);
-                newTree = json.dataConstructor(newTree);
+                newTree = json.dataConstructor();
                 json.eddInsert(newTree);
             }else{
                 json=new LecturaJSON(selected);
-                newTree = json.dataConstructor(newTree);
+                newTree = json.dataConstructor();
                 json.eddInsert(newTree);
             }if(json != null){
                 JOptionPane.showMessageDialog(this, "El JSON se ha cargado correctamente");

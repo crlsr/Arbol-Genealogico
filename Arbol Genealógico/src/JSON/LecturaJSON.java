@@ -24,7 +24,7 @@ import Extras.Funciones;
  * @author carlosrodriguez
  */
 public class LecturaJSON {
-
+    
     Funciones funGetter = new Funciones();
     private JSONObject data;
     private String ineerFilePath;
@@ -32,7 +32,12 @@ public class LecturaJSON {
     int counter2 = 0;
     List<Persona> monarchy;
     public String title;
-
+    
+    /**
+     * Este método fue creado con el fin de poder extraer los datos del JSON y almacenarlos dentro del objeto
+     * @param endpoint Endpoint del JSON
+     * 
+     */
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
         try (FileReader reader = new FileReader(endpoint)) {
@@ -41,24 +46,46 @@ public class LecturaJSON {
             JOptionPane.showMessageDialog(null, "Error al intentar abrir: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Retorna el atributo data.
+     * @return data 
+     */
     public JSONObject getData() {
         return data;
     }
-
+    
+    /**
+     * Modifica el atributo data.
+     * @param data 
+     */
     public void setData(JSONObject data) {
         this.data = data;
     }
-
+    
+    /**
+     * Retorna el atributo ruta del JSON
+     * @return innerFilePath 
+     */
     public String getIneerFilePath() {
         return ineerFilePath;
     }
-
+    
+    /**
+     * Modifica el atributo ruta del JSON, esto con el fin de por ejemplo cambiar de JSON
+     * @param ineerFilePath 
+     */
     public void setIneerFilePath(String ineerFilePath) {
         this.ineerFilePath = ineerFilePath;
     }
-
-    public Tree dataConstructor(Tree newTree) {
+    
+    /**
+     * Genera el arbol en base a los datos obtenidos en el JSON.
+     * Este llama a PersonBuilder para contruir a las personas y agregarlas a una lista. Lista que se usara despues para formatear el arbol.
+     * Se retorna el arbol con el tamaño para los hashtables dados.
+     * @return lineageTree Se retorna el arbol ya seteado con sus hashtables inicializadas.
+     */
+    public Tree dataConstructor() {
         monarchy = new List<>();
         this.title = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(this.title);
@@ -74,13 +101,27 @@ public class LecturaJSON {
         return lineageTree;
     }
     
+    /**
+     * Función para insertar valores al arbol y formatearlo, llama a:
+     * - treeConstructor() -> Para construir los datos en el arbol
+     * - setLineage() -> Para concectar adecuadamente los nodos en el arbol
+     * - setNullSons() -> Para concectar los hijos sin nombre
+     * - calculateLevel() -> Asigna un nivel en el arbol a cada persona.
+     * 
+     * @param tree Retorna el arbol formateado.
+     */
     public void eddInsert(Tree tree){
-        treeConstructor(tree, monarchy);
-        setLineage(monarchy, tree);
+        treeConstructor(tree);
+        setLineage(tree);
         setNullSons(tree);
         funGetter.calculateLevel(1, tree.getpRoot());
     }
-
+    
+    /**
+     * Formatea los hijos sin nombre o sin formato de objeto del JSON en el arbol
+     * 
+     * @param lineageTree Se le pasa el arbol a modificas
+     */
     public void setNullSons(Tree lineageTree) {
         String keyWord = this.getData().keys().next();
         JSONArray innerData = this.getData().getJSONArray(keyWord);
@@ -89,30 +130,17 @@ public class LecturaJSON {
             String personKey = personJSON.keys().next();
             JSONArray personData = personJSON.getJSONArray(personKey);
             parseSons(personData, lineageTree, personKey);
-            
-            
-            /*
-            try {
-                JSONArray sonsOf = personJSON.getJSONArray("Father to");
-                for (int j = 0; j < sonsOf.length(); j++) {
-                    father = new Persona(personKey, null, null);
-                    treeFather = lineageTree.searchPersonaTree(father);
-                    currentSon = new Persona(sonsOf.getString(j), personKey);
-                    state = this.funGetter.isInTree(treeFather, currentSon);
 
-                    if (!state) {
-                        lineageTree.getNombres().addPersona(currentSon, false);
-                        lineageTree.addNode(currentSon);
-                        lineageTree.connectNodes(currentSon, treeFather.getTinfo());
-                        treeFather.getHijos().add(lineageTree.searchPersonaTree(currentSon));
-                    }
-                }
-            } catch (Exception e) {
-            }
-*/
         }
     }
     
+    /**
+     * Organiza a los objetos personas al momento de recorrer el JSON.
+     * 
+     * @param person Se le pasa el jsonArray total.
+     * @param lineageTree Se le pasa el arbol a modificar
+     * @param personKey Se le pasa el nombre de la persona para acceder a su jsonArray
+     */
     public void parseSons(JSONArray person, Tree lineageTree, String personKey){
         JSONArray sonsOf;
         Persona father;
@@ -144,8 +172,13 @@ public class LecturaJSON {
         }
     }
 
-    public void treeConstructor(Tree lineageTree, List<Persona> monarchy) {
-        Node<Persona> aux = monarchy.getpFirst();
+    /**
+     * Función en la que se recorre la lista de perosnas y se agrega al arbol 
+     * @param lineageTree se le pasa el arbol a modificar
+
+     */
+    public void treeConstructor(Tree lineageTree) {
+        Node<Persona> aux = this.monarchy.getpFirst();
         while (aux != null) {
 
             lineageTree.getNombres().addPersona(aux.getData(), false);
@@ -156,6 +189,13 @@ public class LecturaJSON {
         }
     }
 
+    /**
+     * Función que contruye las personas a raiz del jsonArray de la persona que le pasamos en dataConstructor().
+     * @param data Se pasa jsonArray que contiene los datos de la persona
+     * @param name Se pasa nombre de la persona
+     * @param counter Se pasa el contador para generar el hashtable.
+     * @return result Retorna el objeto persona creaod
+     */
     public Persona personBuilder(JSONArray data, String name, int counter) {
         String lineagePosition = "";
         String father = "";
@@ -225,15 +265,20 @@ public class LecturaJSON {
         return result;
     }
 
-    public void setLineage(List<Persona> data, Tree lineageTree) {
-        Node<Persona> aux = data.getpFirst();
+    /**
+     * Función que conecta los nodos del arbol
+     * 
+     * @param lineageTree Se pasa el arbol a modificar
+     */
+    public void setLineage(Tree lineageTree) {
+        Node<Persona> aux = this.monarchy.getpFirst();
         String[] innerData;
         TreeNode father;
         TreeNode son;
         Persona fatherPersona;
 
         while (aux != null) {
-            if (aux.getData().getFather() == null) { //fix
+            if (aux.getData().getFather() == null) { 
                 TreeNode node = lineageTree.searchPersonaTree(aux.getData());
                 lineageTree.setpRoot(node);
             } else {
@@ -250,7 +295,7 @@ public class LecturaJSON {
                     father = lineageTree.searchPersonaTree(fatherPersona);
                     son = lineageTree.searchPersonaTree(aux.getData());
                     if(father==null){
-                        Node<Persona> aux2= data.getpFirst();
+                        Node<Persona> aux2= this.monarchy.getpFirst();
                         while(aux2!=null){
                             if(aux2.getData().getFullName().toLowerCase().equals(son.getTinfo().getFather().toLowerCase())){
                                 son.getTinfo().setFather(aux2.getData().getFullName()+", "+ aux2.getData().getNumeral()+" of his name");
@@ -268,14 +313,11 @@ public class LecturaJSON {
         }
     }
 
-    /*
-    public void updateData(){
-        try(FileWriter overwrite = new FileWriter(this.getIneerFilePath())){
-            overwrite.write(this.getData().toString(4));
-        } catch(IOException e){
-            JOptionPane.showMessageDialog(null, "Error al intentar sobre escribir: " + e.getMessage());
-        }
-    }
+    
+    /**
+     * Función que cambia el JSON
+     * @param newEndpoint se le pasa el nuevo endpoint para el nuevo JSON.
+     * @param newTree se le pasa el arbol a reconstruir.
      */
     public void changeJSON(File newEndpoint, Tree newTree) {
         String newPath = newEndpoint.getAbsolutePath();
