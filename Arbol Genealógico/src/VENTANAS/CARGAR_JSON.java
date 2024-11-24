@@ -112,15 +112,39 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * @param evt 
+     * Termina con la ejecución al oprimir el botón.
+     * Cierra la interfaz.
+     * @author Marco Betancourt
+     */ 
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    
+    /**
+     * @return icono 
+     * Se carga una imagen desde el package de imagenes, usando la libreria toolkit 
+     * se obtiene una una representacion de dicha imagen.
+     * retorna una variable de tipo imagen igualada a la instacia antes mencionada.
+     * @author Marco Betancourt
+     */
     public Image getIconImage() {
         Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
         return icono;
     }
     
+    
+    /**
+     * @param evt 
+     * Carga un archivo JSON para actualizar el arbol.
+     * Abre un diálogo para permitir al usuario seleccionar un archivo JSON.
+     * Lee el contenido del archivo y actualiza el arbol en base a la información contenida en el JSON.
+     * Maneja posibles excepciones durante el proceso de carga y actualización.
+     * @author Marco Betancourt
+     */
     private void CARGAR_JSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CARGAR_JSONActionPerformed
         try {
         JFileChooser finder = new JFileChooser();
@@ -146,7 +170,14 @@ public class CARGAR_JSON extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado!!!");
        }
     }//GEN-LAST:event_CARGAR_JSONActionPerformed
-
+    
+    
+    /**
+     * @param evt 
+     * Verifica si el Json se ha cargado "no esta vacio".
+     * Si se cumple la condición abre la ventana "MENU" y cierra la ventana en la que esta ubicado.
+     * @author Marco Betancourt
+     */
     private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
         if(json!=null){
             MENU M = new MENU(newTree, json);
@@ -157,6 +188,12 @@ public class CARGAR_JSON extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_REGRESARActionPerformed
 
+    
+    /**
+     * @param evt
+     * Crea un JOptionPane el cual devuelve un mensaje con las instrucciones que se encuentran en esa ventana.
+     * @author Marco Betancourt
+     */
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
         JOptionPane.showMessageDialog(this, "Instrucciones Cargar JSON\n"
                                           + "Haga click en el botón CARGAR JSON y seleccione un archivo .JSON con el arbol genealogico que desee\n");

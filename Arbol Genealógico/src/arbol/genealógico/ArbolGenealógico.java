@@ -16,8 +16,7 @@ public class ArbolGenealógico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         MENU main = new MENU();
         main.setVisible(true); 
-    }     
+    }
 }

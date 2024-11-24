@@ -31,7 +31,7 @@ public class LecturaJSON {
     int counter = 0;
     int counter2 = 0;
     List<Persona> monarchy;
-    String title;
+    public String title;
 
     public LecturaJSON(File endpoint) {
         this.ineerFilePath = endpoint.getAbsolutePath();
@@ -71,10 +71,7 @@ public class LecturaJSON {
         }
         
         Tree lineageTree = new Tree(this.counter2 + 1, this.counter);
-        
-
         return lineageTree;
-
     }
     
     public void eddInsert(Tree tree){

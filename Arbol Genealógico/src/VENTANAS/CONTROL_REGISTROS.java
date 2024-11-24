@@ -6,12 +6,12 @@ package VENTANAS;
 
 import EDD.List;
 import EDD.Node;
-import javax.swing.*;
 import EDD.Tree;
 import EDD.TreeNode;
 import Extras.Funciones;
 import Extras.Persona;
 import JSON.LecturaJSON;
+import static VENTANAS.MENU.jsoncargado;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -35,14 +35,40 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.newTree = newTree;
         this.json = json;
-        llenarDesplegable(); // Llamar al método para poblar el JComboBox
+        llenarDesplegable();
+        TipoDejson();
     }
-
+    
+    /**
+     * Limpia y reinicializa las listas desplegables.
+     * Este método se utiliza para limpiar las listas desplegables 
+     * "DESCENDIENTES_TITULONB" y "NOMBRE_APODO" y agregarles la opción por defecto
+     * "Selecciona un familiar". Se suele llamar antes de llenar estas listas 
+     * con nuevos datos, por ejemplo, después de una búsqueda.
+     * @author Marco Betancourt
+     */
     private void llenarDesplegable() {
-        DESCENDIENTES_TITULONB.removeAllItems(); // LIMPIA EL DESPLEGABLE
-        DESCENDIENTES_TITULONB.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
-        NOMBRE_APODO.removeAllItems(); // LIMPIA EL DESPLEGABLE
-        NOMBRE_APODO.addItem("Selecciona un familiar"); // MUESTRA UN MENSAJE
+        DESCENDIENTES_TITULONB.removeAllItems();
+        DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
+        NOMBRE_APODO.removeAllItems();
+        NOMBRE_APODO.addItem("Selecciona un familiar"); 
+    }
+    
+    
+    /**
+     * Muestra el título del JSON cargado.
+     * Este método verifica si se ha cargado un archivo JSON previamente. Si es así, 
+     * obtiene el valor del atributo "title" del objeto JSON y lo muestra en mayúsculas 
+     * en el componente `JSON_CARGADO`. Si no se ha cargado ningún JSON, muestra un mensaje de error.
+     * @author Marco Betancourt
+     */
+    private void TipoDejson() {
+        if (jsoncargado){
+            JSON_CARGADO.setText(json.title.toUpperCase());
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Asegurate de cargar un archivo json primero");
+        }    
     }
 
     /**
@@ -54,21 +80,21 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         REGRESAR = new javax.swing.JButton();
         INSTRUCCIONES = new javax.swing.JButton();
         INPUT_NAME = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        LABELNOMBRE_APODO = new javax.swing.JLabel();
         CERRAR = new javax.swing.JButton();
         BUSCAR_NOMBRE_APODO = new javax.swing.JButton();
         VER_ARBOL = new javax.swing.JButton();
         ICONO = new javax.swing.JLabel();
         DESCENDIENTES_TITULONB = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        LABELTITULONB = new javax.swing.JLabel();
         INPUT_TITULONB = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        LABELGENERACION = new javax.swing.JLabel();
         INPUT_GENERACION = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        LABELANCESTROS = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         INFO = new javax.swing.JTextArea();
         BUSCAR_TITULO = new javax.swing.JButton();
@@ -76,6 +102,9 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         INPUT_ANCESTROS = new javax.swing.JTextField();
         ANCESTROS = new javax.swing.JButton();
         NOMBRE_APODO = new javax.swing.JComboBox<>();
+        JSON_CARGADO = new javax.swing.JLabel();
+        LABEL_DESPLEGABLE_TITULONB_DESCENDIENTES = new javax.swing.JLabel();
+        LABEL_DESPLEGABLE_NOMBRE_APODO = new javax.swing.JLabel();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,10 +113,10 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CONTROL DE REGISTROS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
+        TITULO.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TITULO.setForeground(new java.awt.Color(255, 255, 255));
+        TITULO.setText("CONTROL DE REGISTROS");
+        getContentPane().add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
 
         REGRESAR.setBackground(new java.awt.Color(0, 0, 0));
         REGRESAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -98,7 +127,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 REGRESARActionPerformed(evt);
             }
         });
-        getContentPane().add(REGRESAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
+        getContentPane().add(REGRESAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
 
         INSTRUCCIONES.setBackground(new java.awt.Color(0, 0, 0));
         INSTRUCCIONES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -109,7 +138,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 INSTRUCCIONESActionPerformed(evt);
             }
         });
-        getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 500, -1, -1));
+        getContentPane().add(INSTRUCCIONES, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 510, -1, -1));
 
         INPUT_NAME.setBackground(new java.awt.Color(0, 0, 0));
         INPUT_NAME.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -121,10 +150,10 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         });
         getContentPane().add(INPUT_NAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 350, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("INGRESA EL NOMBRE O APODO DEL FAMILIAR:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 340, -1));
+        LABELNOMBRE_APODO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LABELNOMBRE_APODO.setForeground(new java.awt.Color(255, 255, 255));
+        LABELNOMBRE_APODO.setText("INGRESA EL NOMBRE O APODO DEL FAMILIAR:");
+        getContentPane().add(LABELNOMBRE_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 340, -1));
 
         CERRAR.setBackground(new java.awt.Color(255, 0, 0));
         CERRAR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -157,10 +186,10 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 VER_ARBOLActionPerformed(evt);
             }
         });
-        getContentPane().add(VER_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+        getContentPane().add(VER_ARBOL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
 
         ICONO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/PERSONA.png"))); // NOI18N
-        getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, -1, -1));
+        getContentPane().add(ICONO, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 440, -1, 110));
 
         DESCENDIENTES_TITULONB.setBackground(new java.awt.Color(0, 0, 0));
         DESCENDIENTES_TITULONB.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -171,12 +200,12 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 DESCENDIENTES_TITULONBActionPerformed(evt);
             }
         });
-        getContentPane().add(DESCENDIENTES_TITULONB, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 290, -1));
+        getContentPane().add(DESCENDIENTES_TITULONB, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 290, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("INGRESA EL TITULO NOBILIARIO:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        LABELTITULONB.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LABELTITULONB.setForeground(new java.awt.Color(255, 255, 255));
+        LABELTITULONB.setText("INGRESA EL TITULO NOBILIARIO:");
+        getContentPane().add(LABELTITULONB, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         INPUT_TITULONB.setBackground(new java.awt.Color(0, 0, 0));
         INPUT_TITULONB.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -188,10 +217,10 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         });
         getContentPane().add(INPUT_TITULONB, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 350, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("INGRESA LA GENERACIÓN:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        LABELGENERACION.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LABELGENERACION.setForeground(new java.awt.Color(255, 255, 255));
+        LABELGENERACION.setText("INGRESA LA GENERACIÓN:");
+        getContentPane().add(LABELGENERACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         INPUT_GENERACION.setBackground(new java.awt.Color(0, 0, 0));
         INPUT_GENERACION.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -203,16 +232,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         });
         getContentPane().add(INPUT_GENERACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 350, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("ANCESTROS:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        LABELANCESTROS.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LABELANCESTROS.setForeground(new java.awt.Color(255, 255, 255));
+        LABELANCESTROS.setText("ANCESTROS:");
+        getContentPane().add(LABELANCESTROS, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
+        INFO.setEditable(false);
         INFO.setBackground(new java.awt.Color(0, 0, 0));
         INFO.setColumns(20);
         INFO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         INFO.setForeground(new java.awt.Color(255, 255, 255));
         INFO.setRows(5);
+        INFO.setFocusable(false);
         jScrollPane1.setViewportView(INFO);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 350, -1));
@@ -269,31 +300,74 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                 NOMBRE_APODOActionPerformed(evt);
             }
         });
-        getContentPane().add(NOMBRE_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 290, -1));
+        getContentPane().add(NOMBRE_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 290, -1));
+
+        JSON_CARGADO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        JSON_CARGADO.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(JSON_CARGADO, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 150, -1));
+
+        LABEL_DESPLEGABLE_TITULONB_DESCENDIENTES.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LABEL_DESPLEGABLE_TITULONB_DESCENDIENTES.setForeground(new java.awt.Color(255, 255, 255));
+        LABEL_DESPLEGABLE_TITULONB_DESCENDIENTES.setText("GENERACIÓN / TITULO NOBILIARIO:");
+        getContentPane().add(LABEL_DESPLEGABLE_TITULONB_DESCENDIENTES, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, -1, 20));
+
+        LABEL_DESPLEGABLE_NOMBRE_APODO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LABEL_DESPLEGABLE_NOMBRE_APODO.setForeground(new java.awt.Color(255, 255, 255));
+        LABEL_DESPLEGABLE_NOMBRE_APODO.setText("DESCENDENCIA:");
+        getContentPane().add(LABEL_DESPLEGABLE_NOMBRE_APODO, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
 
         FONDO.setBackground(new java.awt.Color(0, 0, 0));
         FONDO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         FONDO.setForeground(new java.awt.Color(255, 255, 255));
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/FONDO.png"))); // NOI18N
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 550));
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * @param evt 
+     * Termina con la ejecución al oprimir el botón.
+     * Cierra la interfaz.
+     * @author Marco Betancourt
+     */
     private void CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CERRARActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CERRARActionPerformed
 
+    /**
+     * @return icono 
+     * Se carga una imagen desde el package de imagenes, usando la libreria toolkit 
+     * se obtiene una una representacion de dicha imagen.
+     * retorna una variable de tipo imagen igualada a la instacia antes mencionada.
+     * @author Marco Betancourt
+     */
     public Image getIconImage() {
         Image icono = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/ICONO_TRONO.png"));
         return icono;
     }
+    
+    /**
+     * @param evt 
+     * Abre la ventana "MENU" y cierra esta ventana.
+     * @author Marco Betancourt
+     */
     private void REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REGRESARActionPerformed
         MENU M = new MENU(newTree, json);
         M.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_REGRESARActionPerformed
 
+    
+    /**
+     * @param evt
+     * Busca una persona por su nombre o apodo.
+     * Busca en el json a todas las personas cuyo nombre o apodo coincida
+     * con el texto ingresado por el usuario. Los resultados de la búsqueda se muestran
+     * en una lista desplegable.
+     * @author Marco Betancourt 
+     */
     private void BUSCAR_NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_NOMBRE_APODOActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -320,7 +394,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                         }
                         aux = aux.getpNext();
                     }
-                    INFO.setText(persona);
+                    INFO.setText("Seleccione una persona en el desplegable de " + "\n" + "(DESCENDENCIA) para ver " + "\n" + "la descendencia de esa persona." + "\n" +persona);
                 }
             } 
             else {
@@ -332,17 +406,46 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BUSCAR_NOMBRE_APODOActionPerformed
 
+    
+    /**
+     * @param evt
+     * Crea un JOptionPane el cual devuelve un mensaje con las instrucciones que se encuentran en esa ventana.
+     * @author Marco Betancourt
+     */
     private void INSTRUCCIONESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSTRUCCIONESActionPerformed
-        JOptionPane.showMessageDialog(this, "👤\n️"
-                + "👤\n️");
+        JOptionPane.showMessageDialog(this, 
+                        "Para buscar por NOMBRE O APODO:  "+ "Escriba en el text field "
+                        + "Nombre O Apodo una cadena de texto\n" +
+                        "Haga clic en el boton BUSCAR POR NOMBRE/APODO\n" +
+                        "Seleccione en el desplegable de DESCENDENCIA alguna de las personas para ver su descendencia\n️"+"\n️"+
+                        
+                        "Para buscar por el TITULO NOBILIARIO:  "+ "Escriba en el text field "
+                        + "TITULO NOBILIARIO un Título Nobiliario\n" +
+                        "Haga clic en el boton BUSCAR POR TITULO NOBILIARIO\n" +
+                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su registro\n️"+"\n️"+
+                        
+                        "Para buscar por LA GENERACIÓN:  "+ "Escriba en el text field "
+                        + "GENERACIÓN un numero de generación\n" +
+                        "Haga clic en el boton BUSCAR POR GENERACIÓN\n" +
+                        "Seleccione en el desplegable de GENERACIÓN / TITULO NOBILIARIO alguna de las personas para ver su registro\n️"+"\n️"+
+        
+                        "Para buscar por ANCESTROS:  "+ "Escriba en el text field "
+                        + "ANCESTROS un el nombre de una persona (Nombre Apellido, Numeral (en caso de tenerlo))\n" +
+                        "Haga clic en el boton BUSCAR ANCESTROS\n");
     }//GEN-LAST:event_INSTRUCCIONESActionPerformed
 
+    
+    /**
+     * @param evt 
+     * Visualiza el árbol genealógico.
+     * Este método se ejecuta cuando el usuario hace clic en el botón "VER_ARBOL".
+     * Limpia las listas desplegables y crea una representación gráfica del árbol genealógico.
+     * A continuación, muestra el árbol en una ventana o panel, permitiendo al usuario
+     * explorar la estructura familiar.
+     * @author Marco Betancourt
+     */
     private void VER_ARBOLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_ARBOLActionPerformed
         try {
-            DESCENDIENTES_TITULONB.removeAllItems();
-            NOMBRE_APODO.removeAllItems();
-            DESCENDIENTES_TITULONB.addItem("Selecciona un familiar");
-            NOMBRE_APODO.addItem("Selecciona un familiar");
             newTree.setGraph(new MultiGraph("Árbol Genealógico"));
             newTree.mostrarArbol(newTree);
             func.appendGraph(newTree, newTree.getpRoot(), null);
@@ -351,6 +454,16 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VER_ARBOLActionPerformed
 
+    
+    /**
+     * @param evt 
+     * Este método se ejecuta cuando se selecciona un nombre de la lista desplegable 
+     * "DESCENDIENTES_TITULONB". Busca a la persona seleccionada en el árbol genealógico
+     * y muestra información como su nombre completo, apodo y otros detalles relevantes.
+     * Si el nombre seleccionado incluye un numeral
+     * se considera este numeral al realizar la búsqueda.
+     * @author Marco Betancourt
+     */
     private void DESCENDIENTES_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESCENDIENTES_TITULONBActionPerformed
         String seleccionado = (String) DESCENDIENTES_TITULONB.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
@@ -368,10 +481,18 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DESCENDIENTES_TITULONBActionPerformed
 
+    
     private void INPUT_TITULONBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_TITULONBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_TITULONBActionPerformed
 
+    /**
+     * @param evt 
+     * Busca en el árbol genealógico 
+     * a todas las personas que poseen el título nobiliario ingresado en el campo 
+     * "INPUT_TITULONB". Los resultados se muestran en una lista desplegable.
+     * @author Marco Betancourt
+     */
     private void BUSCAR_TITULOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_TITULOActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -393,7 +514,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                         DESCENDIENTES_TITULONB.addItem(aux.getData().getFullName() + ", " + aux.getData().getNumeral() + " of his name");
                         aux = aux.getpNext();
                     }
-                    INFO.setText(persona);
+                    INFO.setText("Seleccione una persona en el desplegable de" +"\n"+ "(GENERACIÓN / TITULO NOBILIARIO)" + "\n" + "para ver su registro." + "\n" +persona);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el titulo nobilario de la persona que desea buscar 👤️");
@@ -404,10 +525,19 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BUSCAR_TITULOActionPerformed
 
+    
     private void INPUT_ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_ANCESTROSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_ANCESTROSActionPerformed
 
+    /**
+     * @param evt 
+     * Busca un ancestro y muestra sus descendientes.
+     * Este método se ejecuta cuando el usuario busca un ancestro específico.
+     * Busca al ancestro ingresado en el árbol genealógico y muestra una lista de sus descendientes.
+     * Si el ancestro no se encuentra, se muestra un mensaje de error.
+     * @author Marco Betancourt
+     */
     private void ANCESTROSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ANCESTROSActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -417,7 +547,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             String nombre = INPUT_ANCESTROS.getText();
             Persona fatherPersona;
             if (nombre.contains(",")) {
-                String[] partesNombre = nombre.split(", ");
+                String[] partesNombre = nombre.split(",");
                 String numeral = partesNombre[1].trim().split(" ")[0];
                 fatherPersona = new Persona(partesNombre[0].trim(), numeral.trim(), "");
             } else {
@@ -427,7 +557,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
             if (persona != null) {
                 INFO.setText(func.constructAncestors(persona.getTinfo(), newTree));
             } else {
-                JOptionPane.showMessageDialog(this, nombre + " no ha sido encontrado");
+                JOptionPane.showMessageDialog(this,"El ancestro "+ nombre + " no ha sido encontrado");
             }
             INPUT_ANCESTROS.setText("");
         } catch (Exception e) {
@@ -435,10 +565,20 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ANCESTROSActionPerformed
 
+    
     private void INPUT_GENERACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_GENERACIONActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_GENERACIONActionPerformed
 
+    /**
+     * @param evt 
+     * Busca personas por generación.
+     * Este método se ejecuta cuando el usuario busca a todas las personas 
+     * que pertenecen a una generación específica.
+     * Busca en el árbol genealógico a todas las personas de la generación ingresada 
+     * y muestra sus nombres en una lista desplegable.
+     * @author Marco Betancourt
+     */
     private void BUSCAR_GENERACIÓNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSCAR_GENERACIÓNActionPerformed
         try {
             DESCENDIENTES_TITULONB.removeAllItems();
@@ -467,7 +607,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
                         }
                         aux = aux.getpNext();
                     }
-                    INFO.setText(persona);
+                    INFO.setText("Seleccione una persona en el desplegable de" +"\n"+ "(GENERACIÓN / TITULO NOBILIARIO)" + "\n" + "para ver su registro." + "\n" +persona);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Asegúrese de ingresar un valor numérico 👤️");
@@ -478,6 +618,14 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BUSCAR_GENERACIÓNActionPerformed
 
+    /**
+     * @param evt 
+     * Muestra la descendencia de una persona seleccionada.
+     * Este método se ejecuta cuando el usuario selecciona un nombre de la lista desplegable 
+     * "NOMBRE_APODO". Busca a la persona seleccionada en el árbol genealógico y, 
+     * si se encuentra, muestra la lista de sus descendientes.
+     * @author Marco Betancourt
+     */
     private void NOMBRE_APODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOMBRE_APODOActionPerformed
         String seleccionado = (String) NOMBRE_APODO.getSelectedItem();
         if (!"Selecciona un familiar".equals(seleccionado) && seleccionado != null) {
@@ -495,6 +643,7 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NOMBRE_APODOActionPerformed
 
+    
     private void INPUT_NAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INPUT_NAMEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_INPUT_NAMEActionPerformed
@@ -552,14 +701,17 @@ public class CONTROL_REGISTROS extends javax.swing.JFrame {
     private javax.swing.JTextField INPUT_NAME;
     private javax.swing.JTextField INPUT_TITULONB;
     private javax.swing.JButton INSTRUCCIONES;
+    private javax.swing.JLabel JSON_CARGADO;
+    private javax.swing.JLabel LABELANCESTROS;
+    private javax.swing.JLabel LABELGENERACION;
+    private javax.swing.JLabel LABELNOMBRE_APODO;
+    private javax.swing.JLabel LABELTITULONB;
+    private javax.swing.JLabel LABEL_DESPLEGABLE_NOMBRE_APODO;
+    private javax.swing.JLabel LABEL_DESPLEGABLE_TITULONB_DESCENDIENTES;
     private javax.swing.JComboBox<String> NOMBRE_APODO;
     private javax.swing.JButton REGRESAR;
+    private javax.swing.JLabel TITULO;
     private javax.swing.JButton VER_ARBOL;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

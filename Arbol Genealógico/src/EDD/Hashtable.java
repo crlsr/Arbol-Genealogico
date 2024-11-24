@@ -55,11 +55,11 @@ public class Hashtable {
      */
     public int funHash(Persona persona, boolean mote) {
         if(!mote){
-            int indice = abs(persona.getFullName().hashCode() + persona.getNumeral().hashCode());
+            int indice = abs(persona.getFullName().toLowerCase().hashCode() + persona.getNumeral().toLowerCase().hashCode());
             indice = indice % this.getSize();
             return indice;
         }else{
-            int indice = abs((persona.getKwownAs().hashCode()) % 7);
+            int indice = abs((persona.getKwownAs().toLowerCase().hashCode()) % 7);
             indice = indice % this.getSize();
             return indice;
         }

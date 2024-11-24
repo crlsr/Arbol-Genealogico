@@ -142,9 +142,6 @@ public class Funciones {
     public List<Persona> searchByNameandMote(Tree arbol, String cadenaaBuscar){
        List<Persona> encontrados = new List<>();
        this.addNamesandMote(arbol.getpRoot(), cadenaaBuscar, encontrados);
-       if(encontrados.getSize() == 1){
-           mostrarDescendencia(arbol.getNombres().searchPersona(encontrados.getpFirst().getData(), false), arbol);
-       }
        return encontrados;
         
     }
